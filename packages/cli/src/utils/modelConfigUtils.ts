@@ -46,11 +46,9 @@ export interface ResolvedCliGenerationConfig {
 }
 
 export function getAuthTypeFromEnv(): AuthType | undefined {
-  if (
-    process.env['OPENAI_API_KEY'] &&
-    process.env['OPENAI_MODEL'] &&
-    process.env['OPENAI_BASE_URL']
-  ) {
+  // OpenAI-compatible: require apiKey + baseUrl; model is optional
+  // (model can come from settings, modelProviders, or be auto-detected later)
+  if (process.env['OPENAI_API_KEY'] && process.env['OPENAI_BASE_URL']) {
     return AuthType.USE_OPENAI;
   }
 
@@ -62,11 +60,7 @@ export function getAuthTypeFromEnv(): AuthType | undefined {
     return AuthType.USE_VERTEX_AI;
   }
 
-  if (
-    process.env['ANTHROPIC_API_KEY'] &&
-    process.env['ANTHROPIC_MODEL'] &&
-    process.env['ANTHROPIC_BASE_URL']
-  ) {
+  if (process.env['ANTHROPIC_API_KEY'] && process.env['ANTHROPIC_MODEL']) {
     return AuthType.USE_ANTHROPIC;
   }
 

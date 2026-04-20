@@ -91,12 +91,13 @@ describe('modelConfigUtils', () => {
       expect(getAuthTypeFromEnv()).toBe(AuthType.USE_ANTHROPIC);
     });
 
-    it('should return undefined when Anthropic env vars are incomplete', () => {
+    it('should return USE_ANTHROPIC when only ANTHROPIC_API_KEY and ANTHROPIC_MODEL are set', () => {
+      // ANTHROPIC_BASE_URL is optional — the model can supply it or the API defaults
       process.env['ANTHROPIC_API_KEY'] = 'test-key';
       process.env['ANTHROPIC_MODEL'] = 'claude-3';
-      // Missing ANTHROPIC_BASE_URL
+      delete process.env['ANTHROPIC_BASE_URL'];
 
-      expect(getAuthTypeFromEnv()).toBeUndefined();
+      expect(getAuthTypeFromEnv()).toBe(AuthType.USE_ANTHROPIC);
     });
 
     it('should prioritize OPENAI when all OpenAI env vars are set alongside others', () => {
