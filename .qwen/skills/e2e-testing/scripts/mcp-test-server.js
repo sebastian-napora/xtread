@@ -12,6 +12,7 @@
  *   printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}\n' | node mcp-test-server.js
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports, no-undef */
 const readline = require('readline');
 const rl = readline.createInterface({ input: process.stdin, terminal: false });
 

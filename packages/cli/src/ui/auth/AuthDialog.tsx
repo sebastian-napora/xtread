@@ -104,8 +104,9 @@ export function AuthDialog(): React.JSX.Element {
     null,
   );
   const [customBaseUrl, setCustomBaseUrl] = useState('');
-  const [customBaseUrlError, setCustomBaseUrlError] =
-    useState<string | null>(null);
+  const [customBaseUrlError, setCustomBaseUrlError] = useState<string | null>(
+    null,
+  );
   const [customSaveIndex, setCustomSaveIndex] = useState(0);
 
   // Main authentication entries (flat three-option layout)
@@ -130,9 +131,7 @@ export function AuthDialog(): React.JSX.Element {
       key: 'CUSTOM_API_KEY',
       title: t('Custom API Key'),
       label: t('Custom API Key'),
-      description: t(
-        'For OpenAI / Anthropic / Gemini-compatible providers',
-      ),
+      description: t('For OpenAI / Anthropic / Gemini-compatible providers'),
       value: 'CUSTOM_API_KEY' as MainOption,
     },
   ];
@@ -298,7 +297,7 @@ export function AuthDialog(): React.JSX.Element {
     setViewLevel('api-key-type-select');
   };
 
-  const handleApiKeyTypeSelect = async (value: ApiKeyOption) => {
+  const handleApiKeyTypeSelect = async (_value: ApiKeyOption) => {
     setErrorMessage(null);
     onAuthError(null);
 
@@ -418,9 +417,7 @@ export function AuthDialog(): React.JSX.Element {
           fs.writeFile(keysPath, keysContent, 'utf8'),
         );
       } catch (err) {
-        setErrorMessage(
-          `Failed to save to ${keysPath}: ${String(err)}`,
-        );
+        setErrorMessage(`Failed to save to ${keysPath}: ${String(err)}`);
         return;
       }
     }
@@ -686,9 +683,7 @@ export function AuthDialog(): React.JSX.Element {
   const renderCustomApiKeyInputView = () => (
     <Box marginTop={1} flexDirection="column">
       <Box marginTop={1}>
-        <Text color={theme.text.primary}>
-          {t('Enter your API key')}
-        </Text>
+        <Text color={theme.text.primary}>{t('Enter your API key')}</Text>
       </Box>
       <Box marginTop={1}>
         <TextInput
@@ -720,7 +715,8 @@ export function AuthDialog(): React.JSX.Element {
     <Box marginTop={1} flexDirection="column">
       <Box marginTop={0}>
         <Text color={theme.text.secondary}>
-          API Key: {customApiKey.slice(0, 8)}{customApiKey.length > 8 ? '...' : ''}
+          API Key: {customApiKey.slice(0, 8)}
+          {customApiKey.length > 8 ? '...' : ''}
         </Text>
       </Box>
       <Box marginTop={1}>
@@ -848,10 +844,8 @@ export function AuthDialog(): React.JSX.Element {
         renderAlibabaStandardApiKeyInputView()}
       {viewLevel === 'alibaba-standard-model-id-input' &&
         renderAlibabaStandardModelIdInputView()}
-      {viewLevel === 'custom-api-key-input' &&
-        renderCustomApiKeyInputView()}
-      {viewLevel === 'custom-base-url-input' &&
-        renderCustomBaseUrlInputView()}
+      {viewLevel === 'custom-api-key-input' && renderCustomApiKeyInputView()}
+      {viewLevel === 'custom-base-url-input' && renderCustomBaseUrlInputView()}
       {viewLevel === 'custom-save' && renderCustomSaveView()}
 
       {(authError || errorMessage) && (
