@@ -14,12 +14,12 @@ import type {
   ToolCallConfirmationDetails,
   AnyDeclarativeTool,
   AnyToolInvocation,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import {
   AgentEventType,
   ToolConfirmationOutcome,
   createDebugLogger,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { z } from 'zod';
 import type { SessionContext } from './types.js';
 import { ToolCallEmitter } from './emitters/ToolCallEmitter.js';

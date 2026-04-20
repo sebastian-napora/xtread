@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { useStdin } from 'ink';
-import type { EditorType } from '@qwen-code/qwen-code-core';
+import type { EditorType } from '@xtread-code/xtread-core';
 import {
   editorCommands,
   commandExists as coreCommandExists,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { spawnSync } from 'child_process';
 import { useSettings } from '../contexts/SettingsContext.js';
 

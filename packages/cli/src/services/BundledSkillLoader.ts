@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Config } from '@qwen-code/qwen-code-core';
+import type { Config } from '@xtread-code/xtread-core';
 import {
   createDebugLogger,
   appendToLastTextPart,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import type { ICommandLoader } from './types.js';
 import type {
   SlashCommand,

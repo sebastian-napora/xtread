@@ -15,17 +15,17 @@ import {
 
 type Logger = (message: string) => void;
 
-export const runQwenCodeCommand = 'qwen-code.runQwenCode';
-export const showDiffCommand = 'qwenCode.showDiff';
-export const openChatCommand = 'qwen-code.openChat';
-export const openNewChatTabCommand = 'qwenCode.openNewChatTab';
-export const loginCommand = 'qwen-code.login';
-export const focusChatCommand = 'qwen-code.focusChat';
-export const newConversationCommand = 'qwen-code.newConversation';
-export const showLogsCommand = 'qwen-code.showLogs';
+export const runQwenCodeCommand = 'xtread-code.runQwenCode';
+export const showDiffCommand = 'xtreadCode.showDiff';
+export const openChatCommand = 'xtread-code.openChat';
+export const openNewChatTabCommand = 'xtreadCode.openNewChatTab';
+export const loginCommand = 'xtread-code.login';
+export const focusChatCommand = 'xtread-code.focusChat';
+export const newConversationCommand = 'xtread-code.newConversation';
+export const showLogsCommand = 'xtread-code.showLogs';
 
 /**
- * Register all Qwen Code chat-related commands.
+ * Register all Xtread Code chat-related commands.
  *
  * `openChat` and `newConversation` always open an editor tab, while
  * `focusChat` focuses the secondary sidebar (preferred) or primary sidebar.
@@ -107,7 +107,7 @@ export function registerNewCommands(
         await providers[providers.length - 1].forceReLogin();
       } else {
         vscode.window.showInformationMessage(
-          'Please open Qwen Code chat first before logging in.',
+          'Please open Xtread Code chat first before logging in.',
         );
       }
     }),
@@ -140,7 +140,7 @@ export function registerNewCommands(
         outputChannel.show(true);
       } else {
         vscode.window.showWarningMessage(
-          'Qwen Code Companion log channel is not available.',
+          'Xtread Code Companion log channel is not available.',
         );
       }
     }),

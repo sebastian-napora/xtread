@@ -49,7 +49,7 @@ const MODALITY_PATTERNS: Array<[RegExp, InputModalities]> = [
   [/^qwen-vl-/, { image: true, video: true }],
   [/^qwen3-vl-/, { image: true, video: true }],
 
-  // Qwen coder / text models: text-only
+  // xtread coder / text models: text-only
   [/^qwen3-coder-/, {}],
   [/^qwen/, {}],
 

@@ -5,7 +5,7 @@
  */
 
 /**
- * Converter for Claude Code plugins to Qwen Code format.
+ * Converter for Claude Code plugins to Xtread Code format.
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -155,9 +155,9 @@ function parseStringOrArray(value: unknown): string[] | undefined {
 }
 
 /**
- * Converts a Claude agent config to Qwen Code subagent format.
+ * Converts a Claude agent config to Xtread Code subagent format.
  * @param claudeAgent Claude agent configuration
- * @returns Converted agent config compatible with Qwen Code SubagentConfig
+ * @returns Converted agent config compatible with Xtread Code SubagentConfig
  */
 export function convertClaudeAgentConfig(
   claudeAgent: ClaudeAgentConfig,
@@ -298,7 +298,7 @@ ${systemPrompt}
 }
 
 /**
- * Converts a Claude plugin config to Qwen Code format.
+ * Converts a Claude plugin config to Xtread Code format.
  * @param claudeConfig Claude plugin configuration
  * @returns Qwen ExtensionConfig
  */
@@ -354,7 +354,7 @@ export function convertClaudeToQwenConfig(
 }
 
 /**
- * Converts a complete Claude plugin package to Qwen Code format.
+ * Converts a complete Claude plugin package to Xtread Code format.
  * Creates a new temporary directory with:
  * 1. Converted qwen-extension.json
  * 2. Commands, skills, and agents collected to respective folders
@@ -525,7 +525,7 @@ export async function convertClaudePluginPackage(
     const qwenConfig = convertClaudeToQwenConfig(mergedConfig);
 
     // Step 11: Write qwen-extension.json
-    const qwenConfigPath = path.join(tmpDir, 'qwen-extension.json');
+    const qwenConfigPath = path.join(tmpDir, 'xtread-extension.json');
     fs.writeFileSync(
       qwenConfigPath,
       JSON.stringify(qwenConfig, null, 2),

@@ -1,4 +1,4 @@
-# Qwen Code RoadMap
+# Xtread Code RoadMap
 
 > **Objective**: Catch up with Claude Code's product functionality, continuously refine details, and enhance user experience.
 
@@ -28,7 +28,7 @@
 | Concurrent Runner       | `V0.6.0`  | Batch CLI execution with Git integration                | Coding Workflow                 | 2     |
 | Multimodal Input        | `V0.6.0`  | Image, PDF, audio, video input support                  | User Experience                 | 2     |
 | Skill                   | `V0.6.0`  | Extensible custom AI skills (experimental)              | Coding Workflow                 | 2     |
-| Github Actions          | `V0.5.0`  | qwen-code-action and automation                         | Integrating Community Ecosystem | 1     |
+| Github Actions          | `V0.5.0`  | xtread-code-action and automation                         | Integrating Community Ecosystem | 1     |
 | VSCode Plugin           | `V0.5.0`  | VSCode extension plugin                                 | Integrating Community Ecosystem | 1     |
 | QwenCode SDK            | `V0.4.0`  | Open SDK for third-party integration                    | Building Open Capabilities      | 1     |
 | Session                 | `V0.4.0`  | Enhanced session management                             | User Experience                 | 1     |
@@ -54,7 +54,7 @@
 | Compress                | `V0.0.11` | Chat compression mechanism                              | User Experience                 | 1     |
 | SubAgent                | `V0.0.11` | Dedicated sub-agent system                              | Coding Workflow                 | 1     |
 | TodoWrite               | `V0.0.10` | Task management and progress tracking                   | Coding Workflow                 | 1     |
-| Tool: TextSearch        | `V0.0.8+` | Text search tool (grep, supports .qwenignore)           | Coding Workflow                 | 1     |
+| Tool: TextSearch        | `V0.0.8+` | Text search tool (grep, supports .xtreadignore)           | Coding Workflow                 | 1     |
 | Tool: WebFetch          | `V0.0.7+` | Web content fetching tool                               | Coding Workflow                 | 1     |
 | Tool: WebSearch         | `V0.0.7+` | Web search tool (using Tavily API)                      | Coding Workflow                 | 1     |
 | OAuth                   | `V0.0.5+` | OAuth login authentication (Qwen OAuth)                 | User Experience                 | 1     |

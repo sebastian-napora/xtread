@@ -6,7 +6,7 @@
 
 import { type VariableSchema, VARIABLE_SCHEMA } from './variableSchema.js';
 import path from 'node:path';
-import { QWEN_DIR } from '../config/storage.js';
+import { XTREAD_DIR } from '../config/storage.js';
 import type { HookDefinition } from '../hooks/types.js';
 import type { HookEventName } from '../hooks/types.js';
 import * as fs from 'node:fs';
@@ -18,9 +18,9 @@ const debugLogger = createDebugLogger('Extension:variables');
 // Re-export types for substituteHookVariables
 export type { HookDefinition };
 
-export const EXTENSIONS_DIRECTORY_NAME = path.join(QWEN_DIR, 'extensions');
-export const EXTENSIONS_CONFIG_FILENAME = 'qwen-extension.json';
-export const INSTALL_METADATA_FILENAME = '.qwen-extension-install.json';
+export const EXTENSIONS_DIRECTORY_NAME = path.join(XTREAD_DIR, 'extensions');
+export const EXTENSIONS_CONFIG_FILENAME = 'xtread-extension.json';
+export const INSTALL_METADATA_FILENAME = '.xtread-extension-install.json';
 export const EXTENSION_SETTINGS_FILENAME = '.env';
 
 export type JsonObject = { [key: string]: JsonValue };

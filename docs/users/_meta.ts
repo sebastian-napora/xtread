@@ -14,9 +14,9 @@ export default {
   'integration-zed': 'Zed IDE',
   'integration-jetbrains': 'JetBrains IDEs',
   'integration-github-action': 'Github Actions',
-  'Code with Qwen Code': {
+  'Code with Xtread Code': {
     type: 'separator',
-    title: 'Code with Qwen Code', // Title is optional
+    title: 'Code with Xtread Code', // Title is optional
   },
   features: 'Features',
   configuration: 'Configuration',

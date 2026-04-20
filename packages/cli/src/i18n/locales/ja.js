@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Japanese translations for Qwen Code CLI
+// Japanese translations for Xtread Code CLI
 
 export default {
   // ============================================================================
@@ -55,10 +55,10 @@ export default {
   'For a full list of shortcuts, see {{docPath}}':
     'ショートカットの完全なリストは {{docPath}} を参照',
   'docs/keyboard-shortcuts.md': 'docs/keyboard-shortcuts.md',
-  'for help on Qwen Code': 'Qwen Code のヘルプ',
+  'for help on Xtread Code': 'Xtread Code のヘルプ',
   'show version info': 'バージョン情報を表示',
   'submit a bug report': 'バグレポートを送信',
-  'About Qwen Code': 'Qwen Code について',
+  'About Xtread Code': 'Xtread Code について',
 
   // ============================================================================
   // System Information Fields
@@ -84,10 +84,10 @@ export default {
   // ============================================================================
   'Analyzes the project and creates a tailored QWEN.md file.':
     'プロジェクトを分析し、カスタマイズされた QWEN.md ファイルを作成',
-  'List available Qwen Code tools. Usage: /tools [desc]':
-    '利用可能な Qwen Code ツールを一覧表示。使い方: /tools [desc]',
+  'List available Xtread Code tools. Usage: /tools [desc]':
+    '利用可能な Xtread Code ツールを一覧表示。使い方: /tools [desc]',
   'List available skills.': '利用可能なスキルを一覧表示する。',
-  'Available Qwen Code CLI tools:': '利用可能な Qwen Code CLI ツール:',
+  'Available Xtread Code CLI tools:': '利用可能な Xtread Code CLI ツール:',
   'No tools available': '利用可能なツールはありません',
   'View or change the approval mode for tool usage':
     'ツール使用の承認モードを表示または変更',
@@ -108,8 +108,8 @@ export default {
     '会話履歴をクリアしてコンテキストを解放',
   'Compresses the context by replacing it with a summary.':
     'コンテキストを要約に置き換えて圧縮',
-  'open full Qwen Code documentation in your browser':
-    'ブラウザで Qwen Code のドキュメントを開く',
+  'open full Xtread Code documentation in your browser':
+    'ブラウザで Xtread Code のドキュメントを開く',
   'Configuration not available.': '設定が利用できません',
   'change the auth method': '認証方式を変更',
   'Configure authentication information for login':
@@ -172,8 +172,8 @@ export default {
   '❌ Error:': '❌ エラー:',
   'Are you sure you want to delete agent "{{name}}"?':
     'エージェント "{{name}}" を削除してもよろしいですか?',
-  'Project Level (.qwen/agents/)': 'プロジェクトレベル (.qwen/agents/)',
-  'User Level (~/.qwen/agents/)': 'ユーザーレベル (~/.qwen/agents/)',
+  'Project Level (.xtread/agents/)': 'プロジェクトレベル (.xtread/agents/)',
+  'User Level (~/.xtread/agents/)': 'ユーザーレベル (~/.xtread/agents/)',
   '✅ Subagent Created Successfully!':
     '✅ サブエージェントの作成に成功しました!',
   'Subagent "{{name}}" has been saved to {{level}} level.':
@@ -184,7 +184,7 @@ export default {
   'Warnings:': '警告:',
   'Step {{n}}: Choose Location': 'ステップ {{n}}: 場所を選択',
   'Step {{n}}: Choose Generation Method': 'ステップ {{n}}: 作成方法を選択',
-  'Generate with Qwen Code (Recommended)': 'Qwen Code で生成(推奨)',
+  'Generate with Xtread Code (Recommended)': 'Xtread Code で生成(推奨)',
   'Manual Creation': '手動作成',
   'Generating subagent configuration...': 'サブエージェント設定を生成中...',
   'Failed to generate subagent: {{error}}':
@@ -250,11 +250,11 @@ export default {
   // Commands - General (continued)
   '(Use Enter to select{{tabText}})': '(Enter で選択{{tabText}})',
   ', Tab to change focus': '、Tab でフォーカス変更',
-  'To see changes, Qwen Code must be restarted. Press r to exit and apply changes now.':
-    '変更を確認するには Qwen Code を再起動する必要があります。 r を押して終了し、変更を適用してください',
+  'To see changes, Xtread Code must be restarted. Press r to exit and apply changes now.':
+    '変更を確認するには Xtread Code を再起動する必要があります。 r を押して終了し、変更を適用してください',
   'The command "/{{command}}" is not supported in non-interactive mode.':
     'コマンド "/{{command}}" は非対話モードではサポートされていません',
-  'View and edit Qwen Code settings': 'Qwen Code の設定を表示・編集',
+  'View and edit Xtread Code settings': 'Xtread Code の設定を表示・編集',
   Settings: '設定',
   'Vim Mode': 'Vim モード',
   'Disable Auto Update': '自動更新を無効化',
@@ -302,7 +302,7 @@ export default {
   'Load Memory From Include Directories':
     'インクルードディレクトリからメモリを読み込み',
   'Respect .gitignore': '.gitignore を優先',
-  'Respect .qwenignore': '.qwenignore を優先',
+  'Respect .xtreadignore': '.xtreadignore を優先',
   'Enable Recursive File Search': '再帰的ファイル検索を有効化',
   'Disable Fuzzy Search': 'ファジー検索を無効化',
   'Enable Interactive Shell': '対話型シェルを有効化',
@@ -334,16 +334,16 @@ export default {
   'List active extensions': '有効な拡張機能を一覧表示',
   'Update extensions. Usage: update <extension-names>|--all':
     '拡張機能を更新。使い方: update <拡張機能名>|--all',
-  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Qwen Code.':
-    '{{originSource}} から拡張機能をインストールしています。一部の機能は Qwen Code で完全に動作しない可能性があります。',
+  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Xtread Code.':
+    '{{originSource}} から拡張機能をインストールしています。一部の機能は Xtread Code で完全に動作しない可能性があります。',
   'manage IDE integration': 'IDE連携を管理',
   'check status of IDE integration': 'IDE連携の状態を確認',
   'install required IDE companion for {{ideName}}':
     '{{ideName}} 用の必要なIDEコンパニオンをインストール',
   'enable IDE integration': 'IDE連携を有効化',
   'disable IDE integration': 'IDE連携を無効化',
-  'IDE integration is not supported in your current environment. To use this feature, run Qwen Code in one of these supported IDEs: VS Code or VS Code forks.':
-    '現在の環境ではIDE連携はサポートされていません。この機能を使用するには、VS Code または VS Code 派生エディタで Qwen Code を実行してください',
+  'IDE integration is not supported in your current environment. To use this feature, run Xtread Code in one of these supported IDEs: VS Code or VS Code forks.':
+    '現在の環境ではIDE連携はサポートされていません。この機能を使用するには、VS Code または VS Code 派生エディタで Xtread Code を実行してください',
   'Set up GitHub Actions': 'GitHub Actions を設定',
   'Configure terminal keybindings for multiline input (VS Code, Cursor, Windsurf, Trae)':
     '複数行入力用のターミナルキーバインドを設定(VS Code、Cursor、Windsurf、Trae)',
@@ -377,7 +377,7 @@ export default {
   // ============================================================================
   // Commands - Hooks
   // ============================================================================
-  'Manage Qwen Code hooks': 'Qwen Code のフックを管理する',
+  'Manage Xtread Code hooks': 'Xtread Code のフックを管理する',
   'List all configured hooks': '設定済みのフックをすべて表示する',
   'Enable a disabled hook': '無効なフックを有効にする',
   'Disable an active hook': '有効なフックを無効にする',
@@ -394,8 +394,8 @@ export default {
   'No hook events found.': 'フックイベントが見つかりません。',
   '{{count}} hook configured': '{{count}} 件のフックが設定されています',
   '{{count}} hooks configured': '{{count}} 件のフックが設定されています',
-  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Qwen Code.':
-    'このメニューは読み取り専用です。フックを追加または変更するには、settings.json を直接編集するか、Qwen Code に尋ねてください。',
+  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Xtread Code.':
+    'このメニューは読み取り専用です。フックを追加または変更するには、settings.json を直接編集するか、Xtread Code に尋ねてください。',
   'Enter to select · Esc to cancel': 'Enter で選択 · Esc でキャンセル',
   // Hooks - Detail Step
   'Exit codes:': '終了コード：',
@@ -424,8 +424,8 @@ export default {
   'StatusLine will not be displayed': 'StatusLine は表示されません',
   'Tool operations will proceed without hook validation':
     'ツール操作はフック検証なしで続行されます',
-  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Qwen Code.':
-    'フックを再有効化するには、settings.json から "disableAllHooks" を削除するか、Qwen Code に尋ねてください。',
+  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Xtread Code.':
+    'フックを再有効化するには、settings.json から "disableAllHooks" を削除するか、Xtread Code に尋ねてください。',
   // Hooks - Source
   Project: 'プロジェクト',
   User: 'ユーザー',
@@ -446,8 +446,8 @@ export default {
   'When notifications are sent': '通知送信時',
   'When the user submits a prompt': 'ユーザーがプロンプトを送信した時',
   'When a new session is started': '新しいセッションが開始された時',
-  'Right before Qwen Code concludes its response':
-    'Qwen Code が応答を終了する直前',
+  'Right before Xtread Code concludes its response':
+    'Xtread Code が応答を終了する直前',
   'When a subagent (Agent tool call) is started':
     'サブエージェント（Agent ツール呼び出し）が開始された時',
   'Right before a subagent concludes its response':
@@ -767,8 +767,8 @@ export default {
   'Share the current conversation to a markdown or json file. Usage: /chat share <file>':
     '現在の会話をmarkdownまたはjsonファイルに共有。使い方: /chat share <ファイル>',
   // Summary
-  'Generate a project summary and save it to .qwen/PROJECT_SUMMARY.md':
-    'プロジェクトサマリーを生成し、.qwen/PROJECT_SUMMARY.md に保存',
+  'Generate a project summary and save it to .xtread/PROJECT_SUMMARY.md':
+    'プロジェクトサマリーを生成し、.xtread/PROJECT_SUMMARY.md に保存',
   'No chat client available to generate summary.':
     'サマリーを生成するためのチャットクライアントがありません',
   'Already generating summary, wait for previous request to complete':
@@ -1092,12 +1092,12 @@ export default {
   Ask: '確認',
   Deny: '拒否',
   Workspace: 'ワークスペース',
-  "Qwen Code won't ask before using allowed tools.":
-    'Qwen Code は許可されたツールを使用する前に確認しません。',
-  'Qwen Code will ask before using these tools.':
-    'Qwen Code はこれらのツールを使用する前に確認します。',
-  'Qwen Code is not allowed to use denied tools.':
-    'Qwen Code は拒否されたツールを使用できません。',
+  "Xtread Code won't ask before using allowed tools.":
+    'Xtread Code は許可されたツールを使用する前に確認しません。',
+  'Xtread Code will ask before using these tools.':
+    'Xtread Code はこれらのツールを使用する前に確認します。',
+  'Xtread Code is not allowed to use denied tools.':
+    'Xtread Code は拒否されたツールを使用できません。',
   'Manage trusted directories for this workspace.':
     'このワークスペースの信頼済みディレクトリを管理します。',
   'Any use of the {{tool}} tool': '{{tool}} ツールのすべての使用',
@@ -1107,11 +1107,11 @@ export default {
   'From project settings': 'プロジェクト設定から',
   'From session': 'セッションから',
   'Project settings (local)': 'プロジェクト設定（ローカル）',
-  'Saved in .qwen/settings.local.json': '.qwen/settings.local.json に保存',
+  'Saved in .xtread/settings.local.json': '.xtread/settings.local.json に保存',
   'Project settings': 'プロジェクト設定',
-  'Checked in at .qwen/settings.json': '.qwen/settings.json にチェックイン',
+  'Checked in at .xtread/settings.json': '.xtread/settings.json にチェックイン',
   'User settings': 'ユーザー設定',
-  'Saved in at ~/.qwen/settings.json': '~/.qwen/settings.json に保存',
+  'Saved in at ~/.xtread/settings.json': '~/.xtread/settings.json に保存',
   'Add a new rule…': '新しいルールを追加…',
   'Add {{type}} permission rule': '{{type}}権限ルールを追加',
   'Permission rules are a tool name, optionally followed by a specifier in parentheses.':
@@ -1135,10 +1135,10 @@ export default {
   // Workspace directory management
   'Add directory…': 'ディレクトリを追加…',
   'Add directory to workspace': 'ワークスペースにディレクトリを追加',
-  'Qwen Code can read files in the workspace, and make edits when auto-accept edits is on.':
-    'Qwen Code はワークスペース内のファイルを読み取り、自動編集承認が有効な場合は編集を行えます。',
-  'Qwen Code will be able to read files in this directory and make edits when auto-accept edits is on.':
-    'Qwen Code はこのディレクトリ内のファイルを読み取り、自動編集承認が有効な場合は編集を行えます。',
+  'Xtread Code can read files in the workspace, and make edits when auto-accept edits is on.':
+    'Xtread Code はワークスペース内のファイルを読み取り、自動編集承認が有効な場合は編集を行えます。',
+  'Xtread Code will be able to read files in this directory and make edits when auto-accept edits is on.':
+    'Xtread Code はこのディレクトリ内のファイルを読み取り、自動編集承認が有効な場合は編集を行えます。',
   'Enter the path to the directory:': 'ディレクトリのパスを入力してください:',
   'Enter directory path…': 'ディレクトリパスを入力…',
   'Tab to complete · Enter to add · Esc to cancel':
@@ -1210,8 +1210,8 @@ export default {
     '問題が発生したら /bug でメンテナーに報告できます。',
   'Switch auth type quickly with /auth.':
     '/auth で認証タイプをすばやく切り替えられます。',
-  'You can run any shell commands from Qwen Code using ! (e.g. !ls).':
-    'Qwen Code から ! を使って任意のシェルコマンドを実行できます（例: !ls）。',
+  'You can run any shell commands from Xtread Code using ! (e.g. !ls).':
+    'Xtread Code から ! を使って任意のシェルコマンドを実行できます（例: !ls）。',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     '/ を入力してコマンドポップアップを開きます。Tab でスラッシュコマンドと保存済みプロンプトを補完できます。',
   'You can resume a previous conversation by running qwen --continue or qwen --resume.':
@@ -1224,8 +1224,8 @@ export default {
     '/insight でチャット履歴からパーソナライズされたインサイトを生成できます。',
   'Press Ctrl+O to toggle compact mode — hide tool output and thinking for a cleaner view.':
     'Ctrl+O でコンパクトモードを切り替え — ツール出力と思考を非表示にしてすっきり表示。',
-  'Add a QWEN.md file to give Qwen Code persistent project context.':
-    'QWEN.md ファイルを追加すると、Qwen Code に永続的なプロジェクトコンテキストを与えられます。',
+  'Add a QWEN.md file to give Xtread Code persistent project context.':
+    'QWEN.md ファイルを追加すると、Xtread Code に永続的なプロジェクトコンテキストを与えられます。',
   'Use /btw to ask a quick side question without disrupting the conversation.':
     '会話を中断せずに /btw でちょっとした横道の質問ができます。',
   'Context is almost full! Run /compress now or start /new to continue.':
@@ -1239,8 +1239,8 @@ export default {
     '1. 質問したり、ファイルを編集したり、コマンドを実行したりできます',
   '2. Be specific for the best results.':
     '2. 具体的に指示すると最良の結果が得られます',
-  'files to customize your interactions with Qwen Code.':
-    'Qwen Code との対話をカスタマイズするためのファイル',
+  'files to customize your interactions with Xtread Code.':
+    'Xtread Code との対話をカスタマイズするためのファイル',
   'for more information.': '詳細情報を確認できます',
   // Exit Screen / Stats
   'Agent powering down. Goodbye!': 'エージェントを終了します。さようなら!',
@@ -1543,5 +1543,5 @@ export default {
   'Not in plan mode. Use "/plan" to enter plan mode first.':
     'Not in plan mode. Use "/plan" to enter plan mode first.',
 
-  "Set up Qwen Code's status line UI": "Set up Qwen Code's status line UI",
+  "Set up Xtread Code's status line UI": "Set up Xtread Code's status line UI",
 };

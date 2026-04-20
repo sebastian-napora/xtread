@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { WebSearchProviderConfig } from '@qwen-code/qwen-code-core';
+import type { WebSearchProviderConfig } from '@xtread-code/xtread-core';
 import type { Settings } from './settings.js';
 
 /**
@@ -33,7 +33,7 @@ export interface WebSearchConfig {
  *
  * @param argv - Command line arguments
  * @param settings - User settings from settings.json
- * @param authType - Authentication type (e.g., 'qwen-oauth')
+ * @param authType - Authentication type (e.g., 'xtread-oauth')
  * @returns WebSearch configuration or undefined if no providers available
  */
 export function buildWebSearchConfig(
@@ -46,8 +46,11 @@ export function buildWebSearchConfig(
   let userDefault: string | undefined;
 
   if (settings.webSearch) {
-    // Use providers from settings.json
-    providers = [...settings.webSearch.provider];
+    // Use providers from settings.json (filter out dashscope - no longer supported)
+    const filteredProviders = settings.webSearch.provider.filter(
+      (p) => p.type !== 'dashscope',
+    );
+    providers = filteredProviders as WebSearchProviderConfig[];
     userDefault = settings.webSearch.default;
   } else {
     // Build providers from command line args and environment variables
@@ -74,7 +77,7 @@ export function buildWebSearchConfig(
     }
   }
 
-  // Step 2: DashScope auto-injection for qwen-oauth was removed when the
+  // Step 2: DashScope auto-injection for xtread-oauth was removed when the
   // free tier was discontinued on 2026-04-15.  Users who explicitly configure
   // a dashscope provider in settings.json still get it (handled in Step 1).
 
@@ -84,11 +87,10 @@ export function buildWebSearchConfig(
   }
 
   // Step 4: Determine default provider
-  // Priority: user explicit config > CLI arg > first available provider (tavily > google > dashscope)
-  const providerPriority: Array<'tavily' | 'google' | 'dashscope'> = [
+  // Priority: user explicit config > CLI arg > first available provider (tavily > google)
+  const providerPriority: Array<'tavily' | 'google'> = [
     'tavily',
     'google',
-    'dashscope',
   ];
 
   // Determine default provider based on availability
@@ -103,7 +105,7 @@ export function buildWebSearchConfig(
     }
     // Fallback to first available provider if none found in priority list
     if (!defaultProvider) {
-      defaultProvider = providers[0]?.type || 'dashscope';
+      defaultProvider = providers[0]?.type || 'tavily';
     }
   }
 

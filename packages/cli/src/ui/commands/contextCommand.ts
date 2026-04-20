@@ -25,7 +25,7 @@ import {
   ToolNames,
   SkillTool,
   buildSkillLlmContent,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { t } from '../../i18n/index.js';
 
 /**
@@ -88,7 +88,7 @@ function parseMemoryFiles(memoryContent: string): ContextMemoryDetail[] {
 }
 
 export async function collectContextData(
-  config: import('@qwen-code/qwen-code-core').Config,
+  config: import('@xtread-code/xtread-core').Config,
   showDetails: boolean,
 ): Promise<HistoryItemContextUsage> {
   const modelName = config.getModel() || 'unknown';

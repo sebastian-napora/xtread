@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 describe('imageSupport browser bundling', () => {
-  it('does not leave qwen-code-core runtime imports in the webview bundle', async () => {
+  it('does not leave xtread-code-core runtime imports in the webview bundle', async () => {
     const result = await esbuild.build({
       entryPoints: [
         fileURLToPath(new URL('./imageSupport.ts', import.meta.url)),
@@ -19,16 +19,16 @@ describe('imageSupport browser bundling', () => {
       platform: 'browser',
       write: false,
       logLevel: 'silent',
-      external: ['@qwen-code/qwen-code-core'],
+      external: ['@xtread-code/xtread-core'],
     });
 
     const output = result.outputFiles[0]?.text ?? '';
 
-    expect(output).not.toContain('@qwen-code/qwen-code-core');
+    expect(output).not.toContain('@xtread-code/xtread-core');
     expect(output).not.toContain('supportedImageFormats.js');
   });
 
-  it('does not leave qwen-code-core runtime imports in the App webview bundle', async () => {
+  it('does not leave xtread-code-core runtime imports in the App webview bundle', async () => {
     const result = await esbuild.build({
       entryPoints: [
         fileURLToPath(new URL('../webview/App.tsx', import.meta.url)),
@@ -38,12 +38,12 @@ describe('imageSupport browser bundling', () => {
       platform: 'browser',
       write: false,
       logLevel: 'silent',
-      external: ['@qwen-code/qwen-code-core'],
+      external: ['@xtread-code/xtread-core'],
     });
 
     const output = result.outputFiles[0]?.text ?? '';
 
-    expect(output).not.toContain('@qwen-code/qwen-code-core');
+    expect(output).not.toContain('@xtread-code/xtread-core');
     expect(output).not.toContain('tokenLimits.js');
   });
 });

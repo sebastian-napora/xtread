@@ -60,7 +60,7 @@ vi.mock('node:stream', async (importOriginal) => {
 });
 
 // Mock core dependencies
-vi.mock('@qwen-code/qwen-code-core', () => ({
+vi.mock('@xtread-code/xtread-core', () => ({
   createDebugLogger: () => ({
     debug: vi.fn(),
     error: vi.fn(),
@@ -71,7 +71,7 @@ vi.mock('@qwen-code/qwen-code-core', () => ({
   APPROVAL_MODES: [],
   AuthType: {},
   clearCachedCredentialFile: vi.fn(),
-  QwenOAuth2Event: {},
+  XtreadOAuth2Event: {},
   qwenOAuth2Events: { on: vi.fn(), off: vi.fn() },
   MCPServerConfig: {},
   SessionService: vi.fn(),
@@ -98,10 +98,10 @@ vi.mock('../utils/acpModelUtils.js', () => ({
 }));
 
 import { runAcpAgent } from './acpAgent.js';
-import type { Config } from '@qwen-code/qwen-code-core';
+import type { Config } from '@xtread-code/xtread-core';
 import type { LoadedSettings } from '../config/settings.js';
 import type { CliArgs } from '../config/config.js';
-import { SessionEndReason } from '@qwen-code/qwen-code-core';
+import { SessionEndReason } from '@xtread-code/xtread-core';
 
 describe('runAcpAgent shutdown cleanup', () => {
   let processExitSpy: MockInstance<typeof process.exit>;

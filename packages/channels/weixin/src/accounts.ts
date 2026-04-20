@@ -1,6 +1,6 @@
 /**
  * Credential storage for WeChat account.
- * Stores account data in ~/.qwen/channels/weixin/
+ * Stores account data in ~/.xtread/channels/weixin/
  */
 
 import {

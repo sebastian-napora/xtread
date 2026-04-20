@@ -1,7 +1,7 @@
 {
-  "name": "@qwen-code/channel-base",
+  "name": "@xtread-code/channel-base",
   "version": "0.14.5",
-  "description": "Base channel infrastructure for Qwen Code",
+  "description": "Base channel infrastructure for Xtread Code",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

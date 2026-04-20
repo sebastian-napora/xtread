@@ -1,8 +1,8 @@
-# Qwen Code Extensions
+# Xtread Code Extensions
 
-Qwen Code extensions package prompts, MCP servers, subagents, skills and custom commands into a familiar and user-friendly format. With extensions, you can expand the capabilities of Qwen Code and share those capabilities with others. They are designed to be easily installable and shareable.
+Xtread Code extensions package prompts, MCP servers, subagents, skills and custom commands into a familiar and user-friendly format. With extensions, you can expand the capabilities of Xtread Code and share those capabilities with others. They are designed to be easily installable and shareable.
 
-Extensions and plugins from [Gemini CLI Extensions Gallery](https://geminicli.com/extensions/) and [Claude Code Marketplace](https://claudemarketplaces.com/) can be directly installed into Qwen Code. This cross-platform compatibility gives you access to a rich ecosystem of extensions and plugins, dramatically expanding Qwen Code's capabilities without requiring extension authors to maintain separate versions.
+Extensions and plugins from [Gemini CLI Extensions Gallery](https://geminicli.com/extensions/) and [Claude Code Marketplace](https://claudemarketplaces.com/) can be directly installed into Xtread Code. This cross-platform compatibility gives you access to a rich ecosystem of extensions and plugins, dramatically expanding Xtread Code's capabilities without requiring extension authors to maintain separate versions.
 
 ## Extension management
 
@@ -28,7 +28,7 @@ You can install an extension using `qwen extensions install` from multiple sourc
 
 #### From Claude Code Marketplace
 
-Qwen Code also supports plugins from the [Claude Code Marketplace](https://claudemarketplaces.com/). Install from a marketplace and choose a plugin:
+Xtread Code also supports plugins from the [Claude Code Marketplace](https://claudemarketplaces.com/). Install from a marketplace and choose a plugin:
 
 ```bash
 qwen extensions install <marketplace-name>
@@ -52,7 +52,7 @@ qwen extensions install f/awesome-chatgpt-prompts:prompts.chat
 qwen extensions install https://github.com/f/awesome-chatgpt-prompts:prompts.chat
 ```
 
-Claude plugins are automatically converted to Qwen Code format during installation:
+Claude plugins are automatically converted to Xtread Code format during installation:
 
 - `claude-plugin.json` is converted to `qwen-extension.json`
 - Agent configurations are converted to Qwen subagent format
@@ -69,13 +69,13 @@ You can quickly browse available extensions from different marketplaces using th
 /extensions explore ClaudeCode
 ```
 
-This command opens the respective marketplace in your default browser, allowing you to discover new extensions to enhance your Qwen Code experience.
+This command opens the respective marketplace in your default browser, allowing you to discover new extensions to enhance your Xtread Code experience.
 
-> **Cross-Platform Compatibility**: This allows you to leverage the rich extension ecosystems from both Gemini CLI and Claude Code, dramatically expanding the available functionality for Qwen Code users.
+> **Cross-Platform Compatibility**: This allows you to leverage the rich extension ecosystems from both Gemini CLI and Claude Code, dramatically expanding the available functionality for Xtread Code users.
 
 #### From Gemini CLI Extensions
 
-Qwen Code fully supports extensions from the [Gemini CLI Extensions Gallery](https://geminicli.com/extensions/). Simply install them using the git URL:
+Xtread Code fully supports extensions from the [Gemini CLI Extensions Gallery](https://geminicli.com/extensions/). Simply install them using the git URL:
 
 ```bash
 qwen extensions install <gemini-cli-extension-github-url>
@@ -83,7 +83,7 @@ qwen extensions install <gemini-cli-extension-github-url>
 qwen extensions install <owner>/<repo>
 ```
 
-Gemini extensions are automatically converted to Qwen Code format during installation:
+Gemini extensions are automatically converted to Xtread Code format during installation:
 
 - `gemini-extension.json` is converted to `qwen-extension.json`
 - TOML command files are automatically migrated to Markdown format
@@ -91,7 +91,7 @@ Gemini extensions are automatically converted to Qwen Code format during install
 
 #### From npm Registry
 
-Qwen Code supports installing extensions from npm registries using scoped package names. This is ideal for teams with private registries that already have auth, versioning, and publishing infrastructure in place.
+Xtread Code supports installing extensions from npm registries using scoped package names. This is ideal for teams with private registries that already have auth, versioning, and publishing infrastructure in place.
 
 ```bash
 # Install the latest version
@@ -115,7 +115,7 @@ Only scoped packages (`@scope/package-name`) are supported to avoid ambiguity wi
 
 **Authentication** is handled automatically via the `NPM_TOKEN` environment variable or registry-specific `_authToken` entries in your `.npmrc` file.
 
-> **Note:** npm extensions must include a `qwen-extension.json` file at the package root, following the same format as any other Qwen Code extension. See [Extension Releasing](./extension-releasing.md#releasing-through-npm-registry) for packaging details.
+> **Note:** npm extensions must include a `qwen-extension.json` file at the package root, following the same format as any other Xtread Code extension. See [Extension Releasing](./extension-releasing.md#releasing-through-npm-registry) for packaging details.
 
 #### From Git Repository
 
@@ -165,11 +165,11 @@ qwen extensions update --all
 
 ## How it works
 
-On startup, Qwen Code looks for extensions in `<home>/.qwen/extensions`
+On startup, Xtread Code looks for extensions in `<home>/.xtread/extensions`
 
 Extensions exist as a directory that contains a `qwen-extension.json` file. For example:
 
-`<home>/.qwen/extensions/my-extension/qwen-extension.json`
+`<home>/.xtread/extensions/my-extension/qwen-extension.json`
 
 ### `qwen-extension.json`
 
@@ -251,12 +251,12 @@ qwen extensions settings unset <extension-name> <setting-name> [--scope user|wor
 
 Settings can be configured at two levels:
 
-- **User level** (default): Settings apply across all projects (`~/.qwen/.env`)
-- **Workspace level**: Settings apply only to the current project (`.qwen/.env`)
+- **User level** (default): Settings apply across all projects (`~/.xtread/.env`)
+- **Workspace level**: Settings apply only to the current project (`.xtread/.env`)
 
 Workspace settings take precedence over user settings. Sensitive settings are stored securely and never displayed in plain text.
 
-When Qwen Code starts, it loads all the extensions and merges their configurations. If there are any conflicts, the workspace configuration takes precedence.
+When Xtread Code starts, it loads all the extensions and merges their configurations. If there are any conflicts, the workspace configuration takes precedence.
 
 ### Custom commands
 
@@ -269,7 +269,7 @@ Extensions can provide [custom commands](./cli/commands.md#custom-commands) by p
 An extension named `gcp` with the following structure:
 
 ```
-.qwen/extensions/gcp/
+.xtread/extensions/gcp/
 ├── qwen-extension.json
 └── commands/
     ├── deploy.md
@@ -289,7 +289,7 @@ Extensions can provide custom skills by placing skill files in a `skills/` subdi
 **Example**
 
 ```
-.qwen/extensions/my-extension/
+.xtread/extensions/my-extension/
 ├── qwen-extension.json
 └── skills/
     └── pdf-processor/
@@ -305,7 +305,7 @@ Extensions can provide custom subagents by placing agent configuration files in 
 **Example**
 
 ```
-.qwen/extensions/my-extension/
+.xtread/extensions/my-extension/
 ├── qwen-extension.json
 └── agents/
     └── testing-expert.yaml
@@ -327,12 +327,12 @@ For example, if both a user and the `gcp` extension define a `deploy` command:
 
 ## Variables
 
-Qwen Code extensions allow variable substitution in `qwen-extension.json`. This can be useful if e.g., you need the current directory to run an MCP server using `"cwd": "${extensionPath}${/}run.ts"`.
+Xtread Code extensions allow variable substitution in `qwen-extension.json`. This can be useful if e.g., you need the current directory to run an MCP server using `"cwd": "${extensionPath}${/}run.ts"`.
 
 **Supported variables:**
 
 | variable                   | description                                                                                                                                                   |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `${extensionPath}`         | The fully-qualified path of the extension in the user's filesystem e.g., '/Users/username/.qwen/extensions/example-extension'. This will not unwrap symlinks. |
+| `${extensionPath}`         | The fully-qualified path of the extension in the user's filesystem e.g., '/Users/username/.xtread/extensions/example-extension'. This will not unwrap symlinks. |
 | `${workspacePath}`         | The fully-qualified path of the current workspace.                                                                                                            |
 | `${/} or ${pathSeparator}` | The path separator (differs per OS).                                                                                                                          |

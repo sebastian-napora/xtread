@@ -32,7 +32,7 @@ const argv = yargs(hideBin(process.argv)).option('q', {
   default: false,
 }).argv;
 
-let qwenSandbox = process.env.QWEN_SANDBOX;
+let qwenSandbox = process.env.XTREAD_SANDBOX;
 
 if (!qwenSandbox) {
   const userSettingsFile = join(os.homedir(), '.qwen', 'settings.json');
@@ -64,7 +64,7 @@ if (!qwenSandbox) {
     }
     currentDir = parentDir;
   }
-  qwenSandbox = process.env.QWEN_SANDBOX;
+  qwenSandbox = process.env.XTREAD_SANDBOX;
 }
 
 qwenSandbox = (qwenSandbox || '').toLowerCase();
@@ -97,7 +97,7 @@ if (['1', 'true'].includes(qwenSandbox)) {
     command = 'podman';
   } else {
     console.error(
-      'ERROR: install docker or podman or specify command in QWEN_SANDBOX',
+      'ERROR: install docker or podman or specify command in XTREAD_SANDBOX',
     );
     process.exit(1);
   }
@@ -106,7 +106,7 @@ if (['1', 'true'].includes(qwenSandbox)) {
     command = qwenSandbox;
   } else {
     console.error(
-      `ERROR: missing sandbox command '${qwenSandbox}' (from QWEN_SANDBOX)`,
+      `ERROR: missing sandbox command '${qwenSandbox}' (from XTREAD_SANDBOX)`,
     );
     process.exit(1);
   }

@@ -9,23 +9,16 @@ import type {
   ContentGeneratorConfig,
   ModelProvidersConfig,
   ProviderModelConfig,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import {
   AuthEvent,
   AuthType,
   getErrorMessage,
   logAuth,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { useCallback, useEffect, useState } from 'react';
 import type { LoadedSettings } from '../../config/settings.js';
 import { getPersistScopeForModelSelection } from '../../config/modelProvidersScope.js';
-// OpenAICredentials type (previously imported from OpenAIKeyPrompt)
-export interface OpenAICredentials {
-  apiKey: string;
-  baseUrl?: string;
-  model?: string;
-}
-import { useQwenAuth } from '../hooks/useQwenAuth.js';
 import { AuthState, MessageType } from '../types.js';
 import type { HistoryItem } from '../types.js';
 import { t } from '../../i18n/index.js';
@@ -42,7 +35,12 @@ import {
   type AlibabaStandardRegion,
 } from '../../constants/alibabaStandardApiKey.js';
 
-export type { QwenAuthState } from '../hooks/useQwenAuth.js';
+// OpenAICredentials type (previously imported from OpenAIKeyPrompt)
+export interface OpenAICredentials {
+  apiKey: string;
+  baseUrl?: string;
+  model?: string;
+}
 
 export const useAuthCommand = (
   settings: LoadedSettings,
@@ -62,11 +60,6 @@ export const useAuthCommand = (
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(unAuthenticated);
   const [pendingAuthType, setPendingAuthType] = useState<AuthType | undefined>(
     undefined,
-  );
-
-  const { qwenAuthState, cancelQwenAuth } = useQwenAuth(
-    pendingAuthType,
-    isAuthenticating,
   );
 
   const onAuthError = useCallback(
@@ -126,23 +119,19 @@ export const useAuthCommand = (
           );
         }
 
-        // Only update credentials if not switching to QWEN_OAUTH,
-        // so that OpenAI credentials are preserved when switching to QWEN_OAUTH.
-        if (authType !== AuthType.QWEN_OAUTH && credentials) {
-          if (credentials?.apiKey != null) {
-            settings.setValue(
-              authTypeScope,
-              'security.auth.apiKey',
-              credentials.apiKey,
-            );
-          }
-          if (credentials?.baseUrl != null) {
-            settings.setValue(
-              authTypeScope,
-              'security.auth.baseUrl',
-              credentials.baseUrl,
-            );
-          }
+        if (credentials?.apiKey != null) {
+          settings.setValue(
+            authTypeScope,
+            'security.auth.apiKey',
+            credentials.apiKey,
+          );
+        }
+        if (credentials?.baseUrl != null) {
+          settings.setValue(
+            authTypeScope,
+            'security.auth.baseUrl',
+            credentials.baseUrl,
+          );
         }
       } catch (error) {
         handleAuthFailure(error);
@@ -274,10 +263,6 @@ export const useAuthCommand = (
   }, []);
 
   const cancelAuthentication = useCallback(() => {
-    if (isAuthenticating && pendingAuthType === AuthType.QWEN_OAUTH) {
-      cancelQwenAuth();
-    }
-
     // Log authentication cancellation
     if (isAuthenticating && pendingAuthType) {
       const authEvent = new AuthEvent(pendingAuthType, 'manual', 'cancelled');
@@ -288,7 +273,7 @@ export const useAuthCommand = (
     setIsAuthenticating(false);
     setIsAuthDialogOpen(true);
     setAuthError(null);
-  }, [isAuthenticating, pendingAuthType, cancelQwenAuth, config]);
+  }, [isAuthenticating, pendingAuthType, config]);
 
   /**
    * Handle coding plan submission - generates configs from template and stores api-key
@@ -569,7 +554,6 @@ export const useAuthCommand = (
     if (
       defaultAuthType &&
       ![
-        AuthType.QWEN_OAUTH,
         AuthType.USE_OPENAI,
         AuthType.USE_ANTHROPIC,
         AuthType.USE_GEMINI,
@@ -582,7 +566,6 @@ export const useAuthCommand = (
           {
             value: defaultAuthType,
             validValues: [
-              AuthType.QWEN_OAUTH,
               AuthType.USE_OPENAI,
               AuthType.USE_ANTHROPIC,
               AuthType.USE_GEMINI,
@@ -602,7 +585,6 @@ export const useAuthCommand = (
     isAuthDialogOpen,
     isAuthenticating,
     pendingAuthType,
-    qwenAuthState,
     handleAuthSelect,
     handleCodingPlanSubmit,
     handleAlibabaStandardSubmit,

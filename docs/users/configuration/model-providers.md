@@ -1,6 +1,6 @@
 # Model Providers
 
-Qwen Code allows you to configure multiple model providers through the `modelProviders` setting in your `settings.json`. This enables you to switch between different AI models and providers using the `/model` command.
+Xtread Code allows you to configure multiple model providers through the `modelProviders` setting in your `settings.json`. This enables you to switch between different AI models and providers using the `/model` command.
 
 ## Overview
 
@@ -34,7 +34,7 @@ The `modelProviders` object keys must be valid `authType` values. Currently supp
 
 ### SDKs Used for API Requests
 
-Qwen Code uses the following official SDKs to send requests to each provider:
+Xtread Code uses the following official SDKs to send requests to each provider:
 
 | Auth Type    | SDK Package                                                                                     |
 | ------------ | ----------------------------------------------------------------------------------------------- |
@@ -276,7 +276,7 @@ export VLLM_API_KEY="not-needed"
 >
 > - **Option 1: Using a `.env` file** (recommended for security):
 >   ```bash
->   # ~/.qwen/.env (or project root)
+>   # ~/.xtread/.env (or project root)
 >   OPENAI_API_KEY=sk-your-actual-key-here
 >   ```
 >   Be sure to add `.env` to your `.gitignore` to prevent accidentally committing secrets.
@@ -297,7 +297,7 @@ Alibaba Cloud Coding Plan provides a pre-configured set of Qwen models optimized
 
 ### Overview
 
-When you authenticate with an Alibaba Cloud Coding Plan API key using the `/auth` command, Qwen Code automatically configures the following models:
+When you authenticate with an Alibaba Cloud Coding Plan API key using the `/auth` command, Xtread Code automatically configures the following models:
 
 | Model ID               | Name                 | Description                            |
 | ---------------------- | -------------------- | -------------------------------------- |
@@ -310,7 +310,7 @@ When you authenticate with an Alibaba Cloud Coding Plan API key using the `/auth
 1. Obtain an Alibaba Cloud Coding Plan API key:
    - **China**: <https://bailian.console.aliyun.com/?tab=model#/efm/coding_plan>
    - **International**: <https://modelstudio.console.alibabacloud.com/?tab=dashboard#/efm/coding_plan>
-2. Run the `/auth` command in Qwen Code
+2. Run the `/auth` command in Xtread Code
 3. Select **Alibaba Cloud Coding Plan**
 4. Select your region
 5. Enter your API key when prompted
@@ -337,7 +337,7 @@ When you configure Coding Plan through the `/auth` command, the API key is store
 > **Security Recommendation**: For better security, it is recommended to move the API key from `settings.json` to a separate `.env` file and load it as an environment variable. For example:
 >
 > ```bash
-> # ~/.qwen/.env
+> # ~/.xtread/.env
 > BAILIAN_CODING_PLAN_API_KEY=your-api-key-here
 > ```
 >
@@ -345,7 +345,7 @@ When you configure Coding Plan through the `/auth` command, the API key is store
 
 ### Automatic Updates
 
-Coding Plan model configurations are versioned. When Qwen Code detects a newer version of the model template, you will be prompted to update. Accepting the update will:
+Coding Plan model configurations are versioned. When Xtread Code detects a newer version of the model template, you will be prompted to update. Accepting the update will:
 
 - Replace the existing Coding Plan model configurations with the latest versions
 - Preserve any custom model configurations you've added manually
@@ -442,7 +442,7 @@ The following fields are treated as atomic objects - provider values completely 
 ### Example
 
 ```json
-// User settings (~/.qwen/settings.json)
+// User settings (~/.xtread/settings.json)
 {
   "model": {
     "generationConfig": {
@@ -483,7 +483,7 @@ The merge strategy for `modelProviders` itself is REPLACE: the entire `modelProv
 
 ## Provider Models vs Runtime Models
 
-Qwen Code distinguishes between two types of model configurations:
+Xtread Code distinguishes between two types of model configurations:
 
 ### Provider Model
 
@@ -503,7 +503,7 @@ Qwen Code distinguishes between two types of model configurations:
 
 ### RuntimeModelSnapshot lifecycle
 
-When you configure a model without using `modelProviders`, Qwen Code automatically creates a RuntimeModelSnapshot to preserve your configuration:
+When you configure a model without using `modelProviders`, Xtread Code automatically creates a RuntimeModelSnapshot to preserve your configuration:
 
 ```bash
 # This creates a RuntimeModelSnapshot with ID: $runtime|openai|my-custom-model
@@ -536,7 +536,7 @@ The snapshot:
 
 > [!important]
 >
-> Define `modelProviders` in the user-scope `~/.qwen/settings.json` whenever possible and avoid persisting credential overrides in any scope. Keeping the provider catalog in user settings prevents merge/override conflicts between project and user scopes and ensures `/auth` and `/model` updates always write back to a consistent scope.
+> Define `modelProviders` in the user-scope `~/.xtread/settings.json` whenever possible and avoid persisting credential overrides in any scope. Keeping the provider catalog in user settings prevents merge/override conflicts between project and user scopes and ensures `/auth` and `/model` updates always write back to a consistent scope.
 
 - `/model` and `/auth` persist `model.name` (where applicable) and `security.auth.selectedType` to the closest writable scope that already defines `modelProviders`; otherwise they fall back to the user scope. This keeps workspace/user files in sync with the active provider catalog.
 - Without `modelProviders`, the resolver mixes CLI/env/settings layers, creating Runtime Models. This is fine for single-provider setups but cumbersome when frequently switching. Define provider catalogs whenever multi-model workflows are common so that switches stay atomic, source-attributed, and debuggable.

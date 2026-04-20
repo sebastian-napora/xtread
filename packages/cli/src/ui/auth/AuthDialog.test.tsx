@@ -7,8 +7,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { AuthDialog } from './AuthDialog.js';
 import { LoadedSettings } from '../../config/settings.js';
-import type { Config } from '@qwen-code/qwen-code-core';
-import { AuthType } from '@qwen-code/qwen-code-core';
+import type { Config } from '@xtread-code/xtread-core';
+import { AuthType } from '@xtread-code/xtread-core';
 import { renderWithProviders } from '../../test-utils/render.js';
 import { UIStateContext } from '../contexts/UIStateContext.js';
 import { UIActionsContext } from '../contexts/UIActionsContext.js';
@@ -269,9 +269,8 @@ describe('AuthDialog', () => {
 
   describe('QWEN_DEFAULT_AUTH_TYPE environment variable', () => {
     it('should select the auth type specified by QWEN_DEFAULT_AUTH_TYPE', () => {
-      // QWEN_OAUTH is the only valid AuthType that can be selected via env var
-      // API-KEY is not an AuthType enum value, so it cannot be selected this way
-      process.env['QWEN_DEFAULT_AUTH_TYPE'] = AuthType.QWEN_OAUTH;
+      // USE_OPENAI is a valid AuthType that can be selected via env var
+      process.env['QWEN_DEFAULT_AUTH_TYPE'] = AuthType.USE_OPENAI;
 
       const settings: LoadedSettings = new LoadedSettings(
         {
@@ -308,8 +307,8 @@ describe('AuthDialog', () => {
 
       const { lastFrame } = renderAuthDialog(settings);
 
-      // QWEN_OAUTH is the first option, so it should be selected
-      expect(lastFrame()).toContain('Qwen OAuth');
+      // USE_OPENAI maps to API_KEY option, so it should be selected
+      expect(lastFrame()).toContain('API Key');
     });
 
     it('should fall back to default if QWEN_DEFAULT_AUTH_TYPE is not set', () => {

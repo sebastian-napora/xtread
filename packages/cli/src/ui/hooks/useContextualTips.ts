@@ -10,7 +10,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { type Config, DEFAULT_TOKEN_LIMIT } from '@qwen-code/qwen-code-core';
+import { type Config, DEFAULT_TOKEN_LIMIT } from '@xtread-code/xtread-core';
 import {
   StreamingState,
   MessageType,

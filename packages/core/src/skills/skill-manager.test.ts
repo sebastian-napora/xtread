@@ -135,7 +135,7 @@ describe('SkillManager', () => {
     name: 'test-skill',
     description: 'A test skill',
     level: 'project',
-    filePath: '/test/project/.qwen/skills/test-skill/SKILL.md',
+    filePath: '/test/project/.xtread/skills/test-skill/SKILL.md',
     body: 'You are a helpful assistant with this skill.',
   };
 
@@ -240,8 +240,8 @@ You are a helpful assistant with this skill.
     });
 
     it('should determine level from file path', () => {
-      const projectPath = '/test/project/.qwen/skills/test-skill/SKILL.md';
-      const userPath = '/home/user/.qwen/skills/test-skill/SKILL.md';
+      const projectPath = '/test/project/.xtread/skills/test-skill/SKILL.md';
+      const userPath = '/home/user/.xtread/skills/test-skill/SKILL.md';
 
       const projectConfig = manager.parseSkillContent(
         validMarkdown,

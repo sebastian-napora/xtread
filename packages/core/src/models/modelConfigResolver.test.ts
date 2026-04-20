@@ -5,12 +5,9 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import {
-  resolveModelConfig,
-  validateModelConfig,
-} from './modelConfigResolver.js';
+import { resolveModelConfig, validateModelConfig } from './modelConfigResolver.js';
 import { AuthType } from '../core/contentGenerator.js';
-import { DEFAULT_QWEN_MODEL, MAINLINE_CODER_MODEL } from '../config/models.js';
+import { MAINLINE_CODER_MODEL } from '../config/models.js';
 
 describe('modelConfigResolver', () => {
   describe('resolveModelConfig', () => {
@@ -127,63 +124,19 @@ describe('modelConfigResolver', () => {
         expect(result.sources['apiKey'].via?.kind).toBe('modelProviders');
       });
 
-      it('reads QWEN_MODEL as fallback for OPENAI_MODEL', () => {
+      it('reads XTREAD_MODEL as fallback for OPENAI_MODEL', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
           settings: {},
           env: {
-            QWEN_MODEL: 'qwen-model',
+            XTREAD_MODEL: 'qwen-model',
             OPENAI_API_KEY: 'key',
           },
         });
 
         expect(result.config.model).toBe('qwen-model');
-        expect(result.sources['model'].envKey).toBe('QWEN_MODEL');
-      });
-    });
-
-    describe('Qwen OAuth auth type', () => {
-      it('uses default model for Qwen OAuth', () => {
-        const result = resolveModelConfig({
-          authType: AuthType.QWEN_OAUTH,
-          cli: {},
-          settings: {},
-          env: {},
-        });
-
-        expect(result.config.model).toBe(DEFAULT_QWEN_MODEL);
-        expect(result.config.apiKey).toBe('QWEN_OAUTH_DYNAMIC_TOKEN');
-        expect(result.sources['apiKey'].kind).toBe('computed');
-      });
-
-      it('allows coder-model for Qwen OAuth', () => {
-        const result = resolveModelConfig({
-          authType: AuthType.QWEN_OAUTH,
-          cli: {
-            model: 'coder-model',
-          },
-          settings: {},
-          env: {},
-        });
-
-        expect(result.config.model).toBe('coder-model');
-        expect(result.sources['model'].kind).toBe('cli');
-      });
-
-      it('warns and falls back for unsupported Qwen OAuth models', () => {
-        const result = resolveModelConfig({
-          authType: AuthType.QWEN_OAUTH,
-          cli: {
-            model: 'unsupported-model',
-          },
-          settings: {},
-          env: {},
-        });
-
-        expect(result.config.model).toBe(DEFAULT_QWEN_MODEL);
-        expect(result.warnings).toHaveLength(1);
-        expect(result.warnings[0]).toContain('unsupported-model');
+        expect(result.sources['model'].envKey).toBe('XTREAD_MODEL');
       });
     });
 
@@ -311,11 +264,11 @@ describe('modelConfigResolver', () => {
       expect(result.errors[0].message).toContain('Missing model');
     });
 
-    it('always passes for Qwen OAuth', () => {
+    it('always passes for valid auth types', () => {
       const result = validateModelConfig({
-        authType: AuthType.QWEN_OAUTH,
-        model: DEFAULT_QWEN_MODEL,
-        apiKey: 'QWEN_OAUTH_DYNAMIC_TOKEN',
+        authType: AuthType.USE_OPENAI,
+        model: 'gpt-4',
+        apiKey: 'sk-xxx',
       });
 
       expect(result.valid).toBe(true);

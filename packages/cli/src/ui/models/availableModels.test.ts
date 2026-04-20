@@ -10,7 +10,7 @@ import {
   getFilteredQwenModels,
   getOpenAIAvailableModelFromEnv,
 } from './availableModels.js';
-import { AuthType, type Config } from '@qwen-code/qwen-code-core';
+import { AuthType, type Config } from '@xtread-code/xtread-core';
 
 describe('availableModels', () => {
   describe('Qwen models', () => {
@@ -75,40 +75,6 @@ describe('availableModels', () => {
 
     afterEach(() => {
       process.env = originalEnv;
-    });
-
-    it('should return hard-coded qwen models for qwen-oauth', () => {
-      const models = getAvailableModelsForAuthType(AuthType.QWEN_OAUTH);
-      expect(models.length).toBe(1);
-      expect(models[0].id).toBe('coder-model');
-      expect(models[0].isVision).toBe(true);
-    });
-
-    it('should use config models for qwen-oauth when config is provided', () => {
-      const mockConfig = {
-        getAvailableModelsForAuthType: vi.fn().mockReturnValue([
-          {
-            id: 'custom',
-            label: 'Custom',
-            description: 'Custom model',
-            authType: AuthType.QWEN_OAUTH,
-            isVision: false,
-          },
-        ]),
-      } as unknown as Config;
-
-      const models = getAvailableModelsForAuthType(
-        AuthType.QWEN_OAUTH,
-        mockConfig,
-      );
-      expect(models).toEqual([
-        {
-          id: 'custom',
-          label: 'Custom',
-          description: 'Custom model',
-          isVision: false,
-        },
-      ]);
     });
 
     it('should use config.getAvailableModels for openai authType when available', () => {

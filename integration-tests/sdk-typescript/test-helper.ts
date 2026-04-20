@@ -21,12 +21,12 @@ import type {
   ContentBlock,
   TextBlock,
   ToolUseBlock,
-} from '@qwen-code/sdk';
+} from '@xtread-code/sdk';
 import {
   isSDKAssistantMessage,
   isSDKSystemMessage,
   isSDKResultMessage,
-} from '@qwen-code/sdk';
+} from '@xtread-code/sdk';
 
 // ============================================================================
 // Core Test Helper Class
@@ -34,11 +34,11 @@ import {
 
 export interface SDKTestHelperOptions {
   /**
-   * Optional settings for .qwen/settings.json
+   * Optional settings for .xtread/settings.json
    */
   settings?: Record<string, unknown>;
   /**
-   * Whether to create .qwen/settings.json
+   * Whether to create .xtread/settings.json
    */
   createQwenConfig?: boolean;
   /**
@@ -79,7 +79,7 @@ export class SDKTestHelper {
 
     await mkdir(this.testDir, { recursive: true });
 
-    // Optionally create .qwen/settings.json for CLI configuration
+    // Optionally create .xtread/settings.json for CLI configuration
     if (options.createQwenConfig !== false) {
       const qwenDir = join(this.testDir, '.qwen');
       await mkdir(qwenDir, { recursive: true });

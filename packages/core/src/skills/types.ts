@@ -8,10 +8,10 @@ import type { HookDefinition, HookEventName } from '../hooks/types.js';
 
 /**
  * Represents the storage level for a skill configuration.
- * - 'project': Stored in `.qwen/skills/` within the project directory
- * - 'user': Stored in `~/.qwen/skills/` in the user's home directory
+ * - 'project': Stored in `.xtread/skills/` within the project directory
+ * - 'user': Stored in `~/.xtread/skills/` in the user's home directory
  * - 'extension': Provided by an installed extension
- * - 'bundled': Built-in skills shipped with qwen-code
+ * - 'bundled': Built-in skills shipped with xtread-code
  */
 export type SkillLevel = 'project' | 'user' | 'extension' | 'bundled';
 
@@ -50,7 +50,7 @@ export interface SkillConfig {
   /**
    * Optional model override for this skill's execution.
    * Uses the same selector syntax as subagent model selectors:
-   * bare model ID (e.g., `qwen-coder-plus`), `authType:modelId`
+   * bare model ID (e.g., `xtread-coder-plus`), `authType:modelId`
    * for cross-provider, or omitted/`inherit` to use the session model.
    */
   model?: string;

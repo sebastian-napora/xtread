@@ -13,7 +13,7 @@ import {
   type AuthType,
   type EditorType,
   type ApprovalMode,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { type SettingScope } from '../../config/settings.js';
 import { type CodingPlanRegion } from '../../constants/codingPlan.js';
 import { type AlibabaStandardRegion } from '../../constants/alibabaStandardApiKey.js';
@@ -101,6 +101,10 @@ export interface UIActions {
   openResumeDialog: () => void;
   closeResumeDialog: () => void;
   handleResume: (sessionId: string) => void;
+  // API switch dialog
+  openApiSwitchDialog: () => void;
+  closeApiSwitchDialog: () => void;
+  switchToApi: (config: import('../../utils/systemKeys.js').ApiConfig) => void;
   // Feedback dialog
   openFeedbackDialog: () => void;
   closeFeedbackDialog: () => void;

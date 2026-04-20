@@ -24,7 +24,7 @@ import {
   isTerminalStatus,
   ApprovalMode,
   APPROVAL_MODES,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import {
   useAgentViewState,
   useAgentViewActions,

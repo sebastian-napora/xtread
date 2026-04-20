@@ -14,7 +14,7 @@ import {
   ToolNames,
   SkillTool,
   type PermissionMode,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
 export const clearCommand: SlashCommand = {
   name: 'clear',

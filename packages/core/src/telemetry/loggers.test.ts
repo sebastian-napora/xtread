@@ -58,7 +58,7 @@ import {
   logApiError,
 } from './loggers.js';
 import * as metrics from './metrics.js';
-import { QwenLogger } from './qwen-logger/qwen-logger.js';
+import { QwenLogger } from './xtread-logger/xtread-logger.js';
 import * as sdk from './sdk.js';
 import { ToolCallDecision } from './tool-call-decision.js';
 import {

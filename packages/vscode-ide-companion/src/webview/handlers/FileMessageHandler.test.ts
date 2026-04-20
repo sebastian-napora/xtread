@@ -5,7 +5,7 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { QwenAgentManager } from '../../services/qwenAgentManager.js';
+import type { QwenAgentManager } from '../../services/xtreadAgentManager.js';
 import type { ConversationStore } from '../../services/conversationStore.js';
 import { FileMessageHandler } from './FileMessageHandler.js';
 import * as vscode from 'vscode';
@@ -56,7 +56,7 @@ const vscodeMock = vi.hoisted(() => {
 
 vi.mock('vscode', () => vscodeMock);
 vi.mock(
-  '@qwen-code/qwen-code-core/src/services/fileDiscoveryService.js',
+  '@xtread-code/xtread-core/src/services/fileDiscoveryService.js',
   () => ({
     FileDiscoveryService: class {
       shouldIgnoreFile(filePath: string, options?: unknown) {
@@ -65,12 +65,12 @@ vi.mock(
     },
   }),
 );
-vi.mock('@qwen-code/qwen-code-core/src/utils/filesearch/fileSearch.js', () => ({
+vi.mock('@xtread-code/xtread-core/src/utils/filesearch/fileSearch.js', () => ({
   FileSearchFactory: {
     create: () => fileSearchMock,
   },
 }));
-vi.mock('@qwen-code/qwen-code-core/src/utils/filesearch/crawlCache.js', () => ({
+vi.mock('@xtread-code/xtread-core/src/utils/filesearch/crawlCache.js', () => ({
   clear: vi.fn(),
 }));
 
@@ -166,7 +166,7 @@ describe('FileMessageHandler', () => {
     );
     expect(shouldIgnoreFileMock).toHaveBeenCalledWith(ignoredPath, {
       respectGitIgnore: true,
-      respectQwenIgnore: false,
+      respectXtreadIgnore: false,
     });
 
     const payload = sendToWebView.mock.calls[

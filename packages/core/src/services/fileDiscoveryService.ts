@@ -5,15 +5,15 @@
  */
 
 import type { GitIgnoreFilter } from '../utils/gitIgnoreParser.js';
-import type { QwenIgnoreFilter } from '../utils/qwenIgnoreParser.js';
+import type { XtreadIgnoreFilter } from '../utils/xtreadIgnoreParser.js';
 import { GitIgnoreParser } from '../utils/gitIgnoreParser.js';
-import { QwenIgnoreParser } from '../utils/qwenIgnoreParser.js';
+import { XtreadIgnoreParser } from '../utils/xtreadIgnoreParser.js';
 import { isGitRepository } from '../utils/gitUtils.js';
 import * as path from 'node:path';
 
 export interface FilterFilesOptions {
   respectGitIgnore?: boolean;
-  respectQwenIgnore?: boolean;
+  respectXtreadIgnore?: boolean;
 }
 
 export interface FilterReport {
@@ -24,7 +24,7 @@ export interface FilterReport {
 
 export class FileDiscoveryService {
   private gitIgnoreFilter: GitIgnoreFilter | null = null;
-  private qwenIgnoreFilter: QwenIgnoreFilter | null = null;
+  private qwenIgnoreFilter: XtreadIgnoreFilter | null = null;
   private projectRoot: string;
 
   constructor(projectRoot: string) {
@@ -32,7 +32,7 @@ export class FileDiscoveryService {
     if (isGitRepository(this.projectRoot)) {
       this.gitIgnoreFilter = new GitIgnoreParser(this.projectRoot);
     }
-    this.qwenIgnoreFilter = new QwenIgnoreParser(this.projectRoot);
+    this.qwenIgnoreFilter = new XtreadIgnoreParser(this.projectRoot);
   }
 
   /**
@@ -42,14 +42,14 @@ export class FileDiscoveryService {
     filePaths: string[],
     options: FilterFilesOptions = {
       respectGitIgnore: true,
-      respectQwenIgnore: true,
+      respectXtreadIgnore: true,
     },
   ): string[] {
     return filePaths.filter((filePath) => {
       if (options.respectGitIgnore && this.shouldGitIgnoreFile(filePath)) {
         return false;
       }
-      if (options.respectQwenIgnore && this.shouldQwenIgnoreFile(filePath)) {
+      if (options.respectXtreadIgnore && this.shouldXtreadIgnoreFile(filePath)) {
         return false;
       }
       return true;
@@ -64,7 +64,7 @@ export class FileDiscoveryService {
     filePaths: string[],
     opts: FilterFilesOptions = {
       respectGitIgnore: true,
-      respectQwenIgnore: true,
+      respectXtreadIgnore: true,
     },
   ): FilterReport {
     const filteredPaths: string[] = [];
@@ -77,7 +77,7 @@ export class FileDiscoveryService {
         continue;
       }
 
-      if (opts.respectQwenIgnore && this.shouldQwenIgnoreFile(filePath)) {
+      if (opts.respectXtreadIgnore && this.shouldXtreadIgnoreFile(filePath)) {
         qwenIgnoredCount++;
         continue;
       }
@@ -105,7 +105,7 @@ export class FileDiscoveryService {
   /**
    * Checks if a single file should be qwen-ignored
    */
-  shouldQwenIgnoreFile(filePath: string): boolean {
+  shouldXtreadIgnoreFile(filePath: string): boolean {
     if (this.qwenIgnoreFilter) {
       return this.qwenIgnoreFilter.isIgnored(filePath);
     }
@@ -121,22 +121,22 @@ export class FileDiscoveryService {
   ): boolean {
     const {
       respectGitIgnore = true,
-      respectQwenIgnore: respectQwenIgnore = true,
+      respectXtreadIgnore: respectXtreadIgnore = true,
     } = options;
 
     if (respectGitIgnore && this.shouldGitIgnoreFile(filePath)) {
       return true;
     }
-    if (respectQwenIgnore && this.shouldQwenIgnoreFile(filePath)) {
+    if (respectXtreadIgnore && this.shouldXtreadIgnoreFile(filePath)) {
       return true;
     }
     return false;
   }
 
   /**
-   * Returns loaded patterns from .qwenignore
+   * Returns loaded patterns from .xtreadignore
    */
-  getQwenIgnorePatterns(): string[] {
+  getXtreadIgnorePatterns(): string[] {
     return this.qwenIgnoreFilter?.getPatterns() ?? [];
   }
 }

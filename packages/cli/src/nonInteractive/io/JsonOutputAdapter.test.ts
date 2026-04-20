@@ -8,8 +8,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import type {
   Config,
   ServerGeminiStreamEvent,
-} from '@qwen-code/qwen-code-core';
-import { GeminiEventType, OutputFormat } from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
+import { GeminiEventType, OutputFormat } from '@xtread-code/xtread-core';
 import type { Part } from '@google/genai';
 import { JsonOutputAdapter } from './JsonOutputAdapter.js';
 

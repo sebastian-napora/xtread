@@ -15,7 +15,7 @@ import { t } from '../../i18n/index.js';
 import type {
   HookRegistryEntry,
   SessionHookEntry,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
 /**
  * Format hook source for display
@@ -182,7 +182,7 @@ const listCommand: SlashCommand = {
 export const hooksCommand: SlashCommand = {
   name: 'hooks',
   get description() {
-    return t('Manage Qwen Code hooks');
+    return t('Manage Xtread Code hooks');
   },
   kind: CommandKind.BUILT_IN,
   action: async (

@@ -5,11 +5,11 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { Config } from '@qwen-code/qwen-code-core';
+import type { Config } from '@xtread-code/xtread-core';
 import type { TurnContent, MessageRewriteConfig } from './types.js';
 
 // Mock core to avoid Vite https resolution issue
-vi.mock('@qwen-code/qwen-code-core', () => ({
+vi.mock('@xtread-code/xtread-core', () => ({
   createDebugLogger: () => ({
     info: vi.fn(),
     warn: vi.fn(),

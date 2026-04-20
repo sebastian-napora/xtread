@@ -6,7 +6,7 @@
 
 import type React from 'react';
 import { useState } from 'react';
-import { AuthType } from '@qwen-code/qwen-code-core';
+import { AuthType } from '@xtread-code/xtread-core';
 import { Box, Text } from 'ink';
 import Link from 'ink-link';
 import { theme } from '../semantic-colors.js';
@@ -27,9 +27,6 @@ import {
   type AlibabaStandardRegion,
 } from '../../constants/alibabaStandardApiKey.js';
 
-const MODEL_PROVIDERS_DOCUMENTATION_URL =
-  'https://qwenlm.github.io/qwen-code-docs/en/users/configuration/model-providers/';
-
 function parseDefaultAuthType(
   defaultAuthType: string | undefined,
 ): AuthType | null {
@@ -43,10 +40,9 @@ function parseDefaultAuthType(
 }
 
 // Main menu option type
-type MainOption = typeof AuthType.QWEN_OAUTH | 'CODING_PLAN' | 'API_KEY';
+type MainOption = 'CODING_PLAN' | 'API_KEY' | 'CUSTOM_API_KEY';
 type ApiKeyOption = 'ALIBABA_STANDARD_API_KEY' | 'CUSTOM_API_KEY';
 
-// View level for navigation
 type ViewLevel =
   | 'main'
   | 'region-select'
@@ -55,7 +51,9 @@ type ViewLevel =
   | 'alibaba-standard-region-select'
   | 'alibaba-standard-api-key-input'
   | 'alibaba-standard-model-id-input'
-  | 'custom-info';
+  | 'custom-api-key-input'
+  | 'custom-base-url-input'
+  | 'custom-save';
 
 const ALIBABA_STANDARD_MODEL_IDS_PLACEHOLDER = 'qwen3.5-plus,glm-5,kimi-k2.5';
 const ALIBABA_STANDARD_API_DOCUMENTATION_URLS: Record<
@@ -100,6 +98,16 @@ export function AuthDialog(): React.JSX.Element {
   const [alibabaStandardModelIdError, setAlibabaStandardModelIdError] =
     useState<string | null>(null);
 
+  // Custom API key flow state
+  const [customApiKey, setCustomApiKey] = useState('');
+  const [customApiKeyError, setCustomApiKeyError] = useState<string | null>(
+    null,
+  );
+  const [customBaseUrl, setCustomBaseUrl] = useState('');
+  const [customBaseUrlError, setCustomBaseUrlError] =
+    useState<string | null>(null);
+  const [customSaveIndex, setCustomSaveIndex] = useState(0);
+
   // Main authentication entries (flat three-option layout)
   const mainItems = [
     {
@@ -119,11 +127,13 @@ export function AuthDialog(): React.JSX.Element {
       value: 'API_KEY' as MainOption,
     },
     {
-      key: AuthType.QWEN_OAUTH,
-      title: t('Qwen OAuth'),
-      label: t('Qwen OAuth'),
-      description: t('Discontinued — switch to Coding Plan or API Key'),
-      value: AuthType.QWEN_OAUTH as MainOption,
+      key: 'CUSTOM_API_KEY',
+      title: t('Custom API Key'),
+      label: t('Custom API Key'),
+      description: t(
+        'For OpenAI / Anthropic / Gemini-compatible providers',
+      ),
+      value: 'CUSTOM_API_KEY' as MainOption,
     },
   ];
 
@@ -218,19 +228,10 @@ export function AuthDialog(): React.JSX.Element {
       description: t('Quick setup for Model Studio (China/International)'),
       value: 'ALIBABA_STANDARD_API_KEY' as ApiKeyOption,
     },
-    {
-      key: 'CUSTOM_API_KEY',
-      title: t('Custom API Key'),
-      label: t('Custom API Key'),
-      description: t(
-        'For other OpenAI / Anthropic / Gemini-compatible providers',
-      ),
-      value: 'CUSTOM_API_KEY' as ApiKeyOption,
-    },
   ];
 
   // Map an AuthType to the corresponding main menu option.
-  // QWEN_OAUTH maps directly; USE_OPENAI maps to:
+  // USE_OPENAI maps to:
   // - CODING_PLAN when current config matches coding plan
   // - API_KEY for other OpenAI / Anthropic / Gemini-compatible configs
   const contentGenConfig = config.getContentGeneratorConfig();
@@ -240,7 +241,6 @@ export function AuthDialog(): React.JSX.Element {
       contentGenConfig?.apiKeyEnvKey,
     ) !== false;
   const authTypeToMainOption = (authType: AuthType): MainOption => {
-    if (authType === AuthType.QWEN_OAUTH) return AuthType.QWEN_OAUTH;
     if (authType === AuthType.USE_OPENAI && isCurrentlyCodingPlan) {
       return 'CODING_PLAN';
     }
@@ -269,8 +269,8 @@ export function AuthDialog(): React.JSX.Element {
         return item.value === authTypeToMainOption(defaultAuthType);
       }
 
-      // Priority 4: default to QWEN_OAUTH
-      return item.value === AuthType.QWEN_OAUTH;
+      // Priority 4: default to CODING_PLAN
+      return item.value === 'CODING_PLAN';
     }),
   );
 
@@ -284,36 +284,28 @@ export function AuthDialog(): React.JSX.Element {
       return;
     }
 
-    if (value === 'API_KEY') {
-      setViewLevel('api-key-type-select');
+    if (value === 'CUSTOM_API_KEY') {
+      // Start custom API key flow directly
+      setCustomApiKeyError(null);
+      setCustomBaseUrlError(null);
+      setCustomApiKey('');
+      setCustomBaseUrl('');
+      setViewLevel('custom-api-key-input');
       return;
     }
 
-    // Qwen OAuth free tier discontinued — show warning instead of proceeding
-    if (value === AuthType.QWEN_OAUTH) {
-      setErrorMessage(
-        t(
-          'Qwen OAuth free tier was discontinued on 2026-04-15. Please select Coding Plan or API Key instead.',
-        ),
-      );
-      return;
-    }
-
-    await onAuthSelect(value);
+    // API_KEY → region/type selection
+    setViewLevel('api-key-type-select');
   };
 
   const handleApiKeyTypeSelect = async (value: ApiKeyOption) => {
     setErrorMessage(null);
     onAuthError(null);
 
-    if (value === 'ALIBABA_STANDARD_API_KEY') {
-      setAlibabaStandardModelIdError(null);
-      setAlibabaStandardApiKeyError(null);
-      setViewLevel('alibaba-standard-region-select');
-      return;
-    }
-
-    setViewLevel('custom-info');
+    // Alibaba Standard API key flow
+    setAlibabaStandardModelIdError(null);
+    setAlibabaStandardApiKeyError(null);
+    setViewLevel('alibaba-standard-region-select');
   };
 
   const handleRegionSelect = async (selectedRegion: CodingPlanRegion) => {
@@ -381,6 +373,64 @@ export function AuthDialog(): React.JSX.Element {
     );
   };
 
+  // Custom API key flow: apiKey input → Enter advances to baseUrl
+  const handleCustomApiKeySubmit = () => {
+    const trimmed = customApiKey.trim();
+    if (!trimmed) {
+      setCustomApiKeyError(t('API key cannot be empty.'));
+      return;
+    }
+    setCustomApiKeyError(null);
+    setViewLevel('custom-base-url-input');
+  };
+
+  // Custom API key flow: baseUrl input → Enter shows save-choice
+  const handleCustomBaseUrlSubmit = () => {
+    const trimmedApiKey = customApiKey.trim();
+    if (!trimmedApiKey) {
+      setCustomApiKeyError(t('API key cannot be empty.'));
+      setViewLevel('custom-api-key-input');
+      return;
+    }
+    const trimmedBaseUrl = customBaseUrl.trim();
+    if (!trimmedBaseUrl) {
+      setCustomBaseUrlError(t('Base URL cannot be empty.'));
+      return;
+    }
+    setCustomBaseUrlError(null);
+    setCustomApiKeyError(null);
+    setCustomSaveIndex(0);
+    setViewLevel('custom-save');
+  };
+
+  // Custom API key flow: save choice
+  const handleCustomSaveChoice = async (saveToFile: boolean) => {
+    const trimmedApiKey = customApiKey.trim();
+    const trimmedBaseUrl = customBaseUrl.trim();
+
+    if (saveToFile) {
+      const keysContent =
+        `OPENAI_API_KEY=${trimmedApiKey}\n` +
+        `OPENAI_BASE_URL=${trimmedBaseUrl}\n`;
+      const keysPath = `${process.env['HOME']}/.xtread/keys`;
+      try {
+        await import('node:fs/promises').then((fs) =>
+          fs.writeFile(keysPath, keysContent, 'utf8'),
+        );
+      } catch (err) {
+        setErrorMessage(
+          `Failed to save to ${keysPath}: ${String(err)}`,
+        );
+        return;
+      }
+    }
+
+    void onAuthSelect(AuthType.USE_OPENAI, {
+      apiKey: trimmedApiKey,
+      baseUrl: trimmedBaseUrl,
+    });
+  };
+
   const handleGoBack = () => {
     setErrorMessage(null);
     onAuthError(null);
@@ -389,12 +439,14 @@ export function AuthDialog(): React.JSX.Element {
       setViewLevel('main');
     } else if (viewLevel === 'api-key-input') {
       setViewLevel('region-select');
-    } else if (viewLevel === 'api-key-type-select') {
+    } else if (viewLevel === 'custom-api-key-input') {
       setViewLevel('main');
-    } else if (viewLevel === 'custom-info') {
-      setViewLevel('api-key-type-select');
+    } else if (viewLevel === 'custom-base-url-input') {
+      setViewLevel('custom-api-key-input');
+    } else if (viewLevel === 'custom-save') {
+      setViewLevel('custom-base-url-input');
     } else if (viewLevel === 'alibaba-standard-region-select') {
-      setViewLevel('api-key-type-select');
+      setViewLevel('main');
     } else if (viewLevel === 'alibaba-standard-api-key-input') {
       setViewLevel('alibaba-standard-region-select');
     } else if (viewLevel === 'alibaba-standard-model-id-input') {
@@ -411,7 +463,12 @@ export function AuthDialog(): React.JSX.Element {
           return;
         }
 
-        if (viewLevel === 'api-key-input' || viewLevel === 'custom-info') {
+        if (
+          viewLevel === 'api-key-input' ||
+          viewLevel === 'custom-api-key-input' ||
+          viewLevel === 'custom-base-url-input' ||
+          viewLevel === 'custom-save'
+        ) {
           handleGoBack();
           return;
         }
@@ -625,29 +682,122 @@ export function AuthDialog(): React.JSX.Element {
     </Box>
   );
 
-  // Render custom mode info
-  const renderCustomInfoView = () => (
-    <>
+  // Render custom API key + base URL input
+  const renderCustomApiKeyInputView = () => (
+    <Box marginTop={1} flexDirection="column">
       <Box marginTop={1}>
         <Text color={theme.text.primary}>
-          {t('You can configure your API key and models in settings.json')}
+          {t('Enter your API key')}
         </Text>
       </Box>
       <Box marginTop={1}>
-        <Text>{t('Refer to the documentation for setup instructions')}</Text>
+        <TextInput
+          value={customApiKey}
+          onChange={(value) => {
+            setCustomApiKey(value);
+            if (customApiKeyError) {
+              setCustomApiKeyError(null);
+            }
+          }}
+          onSubmit={handleCustomApiKeySubmit}
+          placeholder="sk-..."
+        />
       </Box>
+      {customApiKeyError && (
+        <Box marginTop={1}>
+          <Text color={theme.status.error}>{customApiKeyError}</Text>
+        </Box>
+      )}
+      <Box marginTop={1}>
+        <Text color={theme.text.secondary}>
+          {t('Enter to continue, Esc to go back')}
+        </Text>
+      </Box>
+    </Box>
+  );
+
+  const renderCustomBaseUrlInputView = () => (
+    <Box marginTop={1} flexDirection="column">
       <Box marginTop={0}>
-        <Link url={MODEL_PROVIDERS_DOCUMENTATION_URL} fallback={false}>
-          <Text color={theme.text.link}>
-            {MODEL_PROVIDERS_DOCUMENTATION_URL}
-          </Text>
-        </Link>
+        <Text color={theme.text.secondary}>
+          API Key: {customApiKey.slice(0, 8)}{customApiKey.length > 8 ? '...' : ''}
+        </Text>
       </Box>
       <Box marginTop={1}>
-        <Text color={theme.text.secondary}>{t('Esc to go back')}</Text>
+        <Text color={theme.text.primary}>
+          {t('Enter the base URL for your API endpoint')}
+        </Text>
       </Box>
-    </>
+      <Box marginTop={1}>
+        <TextInput
+          value={customBaseUrl}
+          onChange={(value) => {
+            setCustomBaseUrl(value);
+            if (customBaseUrlError) {
+              setCustomBaseUrlError(null);
+            }
+          }}
+          onSubmit={handleCustomBaseUrlSubmit}
+          placeholder="https://api.example.com/v1"
+        />
+      </Box>
+      {customBaseUrlError && (
+        <Box marginTop={1}>
+          <Text color={theme.status.error}>{customBaseUrlError}</Text>
+        </Box>
+      )}
+      <Box marginTop={1}>
+        <Text color={theme.text.secondary}>
+          {t('Enter to save, Esc to go back')}
+        </Text>
+      </Box>
+    </Box>
   );
+
+  const renderCustomSaveView = () => {
+    const saveItems = [
+      {
+        key: 'save-file',
+        title: `${t('Save to ~/.xtread/keys')} (${t('user-level')})`,
+        label: `${t('Save to ~/.xtread/keys')} (${t('user-level')})`,
+        description: t(
+          'Credentials will be loaded automatically in every new terminal session',
+        ),
+        value: 'save-file' as const,
+      },
+      {
+        key: 'session-only',
+        title: t('Session only'),
+        label: t('Session only'),
+        description: t('Use credentials for this session only'),
+        value: 'session-only' as const,
+      },
+    ];
+
+    return (
+      <Box marginTop={1} flexDirection="column">
+        <Box marginTop={1}>
+          <DescriptiveRadioButtonSelect
+            items={saveItems}
+            initialIndex={customSaveIndex}
+            onSelect={(value) => {
+              void handleCustomSaveChoice(value === 'save-file');
+            }}
+            onHighlight={(value) => {
+              const idx = saveItems.findIndex((item) => item.value === value);
+              setCustomSaveIndex(idx);
+            }}
+            itemGap={1}
+          />
+        </Box>
+        <Box marginTop={1}>
+          <Text color={theme.text.secondary}>
+            {t('Enter to select, ↑↓ to navigate, Esc to go back')}
+          </Text>
+        </Box>
+      </Box>
+    );
+  };
 
   const getViewTitle = () => {
     switch (viewLevel) {
@@ -659,8 +809,12 @@ export function AuthDialog(): React.JSX.Element {
         return t('Enter Coding Plan API Key');
       case 'api-key-type-select':
         return t('Select API Key Type');
-      case 'custom-info':
-        return t('Custom Configuration');
+      case 'custom-api-key-input':
+        return t('Custom API Key');
+      case 'custom-base-url-input':
+        return t('Custom API Key');
+      case 'custom-save':
+        return t('Save Credentials');
       case 'alibaba-standard-region-select':
         return t(
           'Select Region for Alibaba Cloud ModelStudio Standard API Key',
@@ -694,7 +848,11 @@ export function AuthDialog(): React.JSX.Element {
         renderAlibabaStandardApiKeyInputView()}
       {viewLevel === 'alibaba-standard-model-id-input' &&
         renderAlibabaStandardModelIdInputView()}
-      {viewLevel === 'custom-info' && renderCustomInfoView()}
+      {viewLevel === 'custom-api-key-input' &&
+        renderCustomApiKeyInputView()}
+      {viewLevel === 'custom-base-url-input' &&
+        renderCustomBaseUrlInputView()}
+      {viewLevel === 'custom-save' && renderCustomSaveView()}
 
       {(authError || errorMessage) && (
         <Box marginTop={1}>
@@ -719,11 +877,11 @@ export function AuthDialog(): React.JSX.Element {
           </Box>
           <Box>
             <Link
-              url="https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/"
+              url="https://qwenlm.github.io/xtread-code-docs/en/users/support/tos-privacy/"
               fallback={false}
             >
               <Text color={theme.text.secondary} underline>
-                https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/
+                https://qwenlm.github.io/xtread-code-docs/en/users/support/tos-privacy/
               </Text>
             </Link>
           </Box>

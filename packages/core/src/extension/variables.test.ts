@@ -91,7 +91,7 @@ describe('substituteHookVariables', () => {
   });
 
   it('should handle multiple event types with hooks', () => {
-    const basePath = '/home/user/.qwen/extensions/my-extension';
+    const basePath = '/home/user/.xtread/extensions/my-extension';
 
     const hooks = {
       PreToolUse: [
@@ -128,12 +128,12 @@ describe('substituteHookVariables', () => {
     expect(result!['PreToolUse']).toHaveLength(1);
     expect(
       (result!['PreToolUse']![0].hooks![0] as { command: string }).command,
-    ).toBe('/home/user/.qwen/extensions/my-extension/scripts/pre-start.sh');
+    ).toBe('/home/user/.xtread/extensions/my-extension/scripts/pre-start.sh');
     expect(result!['UserPromptSubmit']).toHaveLength(1);
     expect(
       (result!['UserPromptSubmit']![0].hooks![0] as { command: string })
         .command,
-    ).toBe('/home/user/.qwen/extensions/my-extension/setup/install.py');
+    ).toBe('/home/user/.xtread/extensions/my-extension/setup/install.py');
   });
 
   it('should not modify non-command hooks', () => {
@@ -287,10 +287,10 @@ describe('performVariableReplacement', () => {
     performVariableReplacement(extDir);
 
     const result = fs.readFileSync(path.join(extDir, 'cancel.md'), 'utf-8');
-    expect(result).toContain('.qwen/loop.local.md');
-    expect(result).toContain('rm .qwen/loop.local.md');
-    expect(result).toContain('$HOME/.qwen/cache');
-    expect(result).toContain('./.qwen/local');
+    expect(result).toContain('.xtread/loop.local.md');
+    expect(result).toContain('rm .xtread/loop.local.md');
+    expect(result).toContain('$HOME/.xtread/cache');
+    expect(result).toContain('./.xtread/local');
     expect(result).not.toContain('.claude/');
   });
 
@@ -350,11 +350,11 @@ describe('performVariableReplacement', () => {
 
     const result = fs.readFileSync(path.join(extDir, 'setup.sh'), 'utf-8');
     expect(result).toContain('$HOME/.claude');
-    expect(result).toContain('~/.qwen/cache');
-    expect(result).toContain('./.qwen/local');
-    expect(result).toContain('.qwen/config');
+    expect(result).toContain('~/.xtread/cache');
+    expect(result).toContain('./.xtread/local');
+    expect(result).toContain('.xtread/config');
     // Note: URLs are also being replaced in current implementation
-    expect(result).toContain('https://example.com/.qwen/page');
+    expect(result).toContain('https://example.com/.xtread/page');
   });
 
   it('should handle multiple markdown files', () => {

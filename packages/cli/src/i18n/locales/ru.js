@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Русский перевод для Qwen Code CLI
+// Русский перевод для Xtread Code CLI
 // Ключ служит одновременно ключом перевода и текстом по умолчанию
 
 export default {
@@ -70,10 +70,10 @@ export default {
   'For a full list of shortcuts, see {{docPath}}':
     'Полный список горячих клавиш см. в {{docPath}}',
   'docs/keyboard-shortcuts.md': 'docs/keyboard-shortcuts.md',
-  'for help on Qwen Code': 'Справка по Qwen Code',
+  'for help on Xtread Code': 'Справка по Xtread Code',
   'show version info': 'Просмотр информации о версии',
   'submit a bug report': 'Отправка отчёта об ошибке',
-  'About Qwen Code': 'Об Qwen Code',
+  'About Xtread Code': 'Об Xtread Code',
   Status: 'Статус',
 
   // Keyboard shortcuts panel descriptions
@@ -93,7 +93,7 @@ export default {
   // ============================================================================
   // Поля системной информации
   // ============================================================================
-  'Qwen Code': 'Qwen Code',
+  'Xtread Code': 'Xtread Code',
   Runtime: 'Среда выполнения',
   OS: 'ОС',
   Auth: 'Аутентификация',
@@ -119,10 +119,10 @@ export default {
   // ============================================================================
   'Analyzes the project and creates a tailored QWEN.md file.':
     'Анализ проекта и создание адаптированного файла QWEN.md',
-  'List available Qwen Code tools. Usage: /tools [desc]':
-    'Просмотр доступных инструментов Qwen Code. Использование: /tools [desc]',
+  'List available Xtread Code tools. Usage: /tools [desc]':
+    'Просмотр доступных инструментов Xtread Code. Использование: /tools [desc]',
   'List available skills.': 'Показать доступные навыки.',
-  'Available Qwen Code CLI tools:': 'Доступные инструменты Qwen Code CLI:',
+  'Available Xtread Code CLI tools:': 'Доступные инструменты Xtread Code CLI:',
   'No tools available': 'Нет доступных инструментов',
   'View or change the approval mode for tool usage':
     'Просмотр или изменение режима подтверждения для использования инструментов',
@@ -148,8 +148,8 @@ export default {
     'Очистить историю диалога и освободить контекст',
   'Compresses the context by replacing it with a summary.':
     'Сжатие контекста заменой на краткую сводку',
-  'open full Qwen Code documentation in your browser':
-    'Открытие полной документации Qwen Code в браузере',
+  'open full Xtread Code documentation in your browser':
+    'Открытие полной документации Xtread Code в браузере',
   'Configuration not available.': 'Конфигурация недоступна.',
   'change the auth method': 'Изменение метода авторизации',
   'Configure authentication information for login':
@@ -216,8 +216,8 @@ export default {
   // ============================================================================
   // Агенты - Мастер создания
   // ============================================================================
-  'Project Level (.qwen/agents/)': 'Уровень проекта (.qwen/agents/)',
-  'User Level (~/.qwen/agents/)': 'Уровень пользователя (~/.qwen/agents/)',
+  'Project Level (.xtread/agents/)': 'Уровень проекта (.xtread/agents/)',
+  'User Level (~/.xtread/agents/)': 'Уровень пользователя (~/.xtread/agents/)',
   '✅ Subagent Created Successfully!': '✅ Подагент успешно создан!',
   'Subagent "{{name}}" has been saved to {{level}} level.':
     'Подагент "{{name}}" сохранен на уровне {{level}}.',
@@ -238,8 +238,8 @@ export default {
   // Агенты - Шаги мастера создания
   'Step {{n}}: Choose Location': 'Шаг {{n}}: Выберите расположение',
   'Step {{n}}: Choose Generation Method': 'Шаг {{n}}: Выберите метод генерации',
-  'Generate with Qwen Code (Recommended)':
-    'Сгенерировать с помощью Qwen Code (Рекомендуется)',
+  'Generate with Xtread Code (Recommended)':
+    'Сгенерировать с помощью Xtread Code (Рекомендуется)',
   'Manual Creation': 'Ручное создание',
   'Describe what this subagent should do and when it should be used. (Be comprehensive for best results)':
     'Опишите, что должен делать этот подагент и когда его следует использовать. (Будьте подробны для лучших результатов)',
@@ -299,10 +299,10 @@ export default {
   // ============================================================================
   // Команды - Общие (продолжение)
   // ============================================================================
-  'View and edit Qwen Code settings': 'Просмотр и изменение настроек Qwen Code',
+  'View and edit Xtread Code settings': 'Просмотр и изменение настроек Xtread Code',
   Settings: 'Настройки',
-  'To see changes, Qwen Code must be restarted. Press r to exit and apply changes now.':
-    'Для применения изменений необходимо перезапустить Qwen Code. Нажмите r для выхода и применения изменений.',
+  'To see changes, Xtread Code must be restarted. Press r to exit and apply changes now.':
+    'Для применения изменений необходимо перезапустить Xtread Code. Нажмите r для выхода и применения изменений.',
   'The command "/{{command}}" is not supported in non-interactive mode.':
     'Команда "/{{command}}" не поддерживается в неинтерактивном режиме.',
   // ============================================================================
@@ -353,7 +353,7 @@ export default {
   'Load Memory From Include Directories':
     'Загружать память из включенных директорий',
   'Respect .gitignore': 'Учитывать .gitignore',
-  'Respect .qwenignore': 'Учитывать .qwenignore',
+  'Respect .xtreadignore': 'Учитывать .xtreadignore',
   'Enable Recursive File Search': 'Включить рекурсивный поиск файлов',
   'Disable Fuzzy Search': 'Отключить нечеткий поиск',
   'Interactive Shell (PTY)': 'Интерактивный терминал (PTY)',
@@ -458,8 +458,8 @@ export default {
   'This extension will install the following subagents:':
     'Это расширение установит следующие подагенты:',
   'Installation cancelled for "{{name}}".': 'Установка "{{name}}" отменена.',
-  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Qwen Code.':
-    'Вы устанавливаете расширение от {{originSource}}. Некоторые функции могут работать не идеально с Qwen Code.',
+  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Xtread Code.':
+    'Вы устанавливаете расширение от {{originSource}}. Некоторые функции могут работать не идеально с Xtread Code.',
   '--ref and --auto-update are not applicable for marketplace extensions.':
     '--ref и --auto-update неприменимы для расширений из маркетплейса.',
   'Extension "{{name}}" installed successfully and enabled.':
@@ -568,8 +568,8 @@ export default {
     'Установить необходимый компаньон IDE для {{ideName}}',
   'enable IDE integration': 'Включение интеграции с IDE',
   'disable IDE integration': 'Отключение интеграции с IDE',
-  'IDE integration is not supported in your current environment. To use this feature, run Qwen Code in one of these supported IDEs: VS Code or VS Code forks.':
-    'Интеграция с IDE не поддерживается в вашем окружении. Для использования этой функции запустите Qwen Code в одной из поддерживаемых IDE: VS Code или форках VS Code.',
+  'IDE integration is not supported in your current environment. To use this feature, run Xtread Code in one of these supported IDEs: VS Code or VS Code forks.':
+    'Интеграция с IDE не поддерживается в вашем окружении. Для использования этой функции запустите Xtread Code в одной из поддерживаемых IDE: VS Code или форках VS Code.',
   'Set up GitHub Actions': 'Настройка GitHub Actions',
   'Configure terminal keybindings for multiline input (VS Code, Cursor, Windsurf, Trae)':
     'Настройка привязки клавиш терминала для многострочного ввода (VS Code, Cursor, Windsurf, Trae)',
@@ -603,7 +603,7 @@ export default {
   // ============================================================================
   // Commands - Hooks
   // ============================================================================
-  'Manage Qwen Code hooks': 'Управлять хуками Qwen Code',
+  'Manage Xtread Code hooks': 'Управлять хуками Xtread Code',
   'List all configured hooks': 'Показать все настроенные хуки',
   'Enable a disabled hook': 'Включить отключенный хук',
   'Disable an active hook': 'Отключить активный хук',
@@ -621,8 +621,8 @@ export default {
   'No hook events found.': 'События хуков не найдены.',
   '{{count}} hook configured': '{{count}} хук настроен',
   '{{count}} hooks configured': '{{count}} хуков настроено',
-  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Qwen Code.':
-    'Это меню только для чтения. Чтобы добавить или изменить хуки, отредактируйте settings.json напрямую или спросите Qwen Code.',
+  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Xtread Code.':
+    'Это меню только для чтения. Чтобы добавить или изменить хуки, отредактируйте settings.json напрямую или спросите Xtread Code.',
   'Enter to select · Esc to cancel': 'Enter для выбора · Esc для отмены',
   // Hooks - Detail Step
   'Exit codes:': 'Коды выхода:',
@@ -651,8 +651,8 @@ export default {
   'StatusLine will not be displayed': 'StatusLine не будет отображаться',
   'Tool operations will proceed without hook validation':
     'Операции инструментов будут выполняться без проверки хуков',
-  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Qwen Code.':
-    'Чтобы снова включить хуки, удалите "disableAllHooks" из settings.json или спросите Qwen Code.',
+  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Xtread Code.':
+    'Чтобы снова включить хуки, удалите "disableAllHooks" из settings.json или спросите Xtread Code.',
   // Hooks - Source
   Project: 'Проект',
   User: 'Пользователь',
@@ -673,8 +673,8 @@ export default {
   'When notifications are sent': 'При отправке уведомлений',
   'When the user submits a prompt': 'Когда пользователь отправляет промпт',
   'When a new session is started': 'При запуске новой сессии',
-  'Right before Qwen Code concludes its response':
-    'Непосредственно перед завершением ответа Qwen Code',
+  'Right before Xtread Code concludes its response':
+    'Непосредственно перед завершением ответа Xtread Code',
   'When a subagent (Agent tool call) is started':
     'При запуске субагента (вызов инструмента Agent)',
   'Right before a subagent concludes its response':
@@ -1017,8 +1017,8 @@ export default {
   // ============================================================================
   // Команды - Резюме
   // ============================================================================
-  'Generate a project summary and save it to .qwen/PROJECT_SUMMARY.md':
-    'Сгенерировать сводку проекта и сохранить её в .qwen/PROJECT_SUMMARY.md',
+  'Generate a project summary and save it to .xtread/PROJECT_SUMMARY.md':
+    'Сгенерировать сводку проекта и сохранить её в .xtread/PROJECT_SUMMARY.md',
   'No chat client available to generate summary.':
     'Нет доступного чат-клиента для генерации сводки.',
   'Already generating summary, wait for previous request to complete':
@@ -1332,12 +1332,12 @@ export default {
   Ask: 'Спросить',
   Deny: 'Запретить',
   Workspace: 'Рабочая область',
-  "Qwen Code won't ask before using allowed tools.":
-    'Qwen Code не будет спрашивать перед использованием разрешённых инструментов.',
-  'Qwen Code will ask before using these tools.':
-    'Qwen Code спросит перед использованием этих инструментов.',
-  'Qwen Code is not allowed to use denied tools.':
-    'Qwen Code не может использовать запрещённые инструменты.',
+  "Xtread Code won't ask before using allowed tools.":
+    'Xtread Code не будет спрашивать перед использованием разрешённых инструментов.',
+  'Xtread Code will ask before using these tools.':
+    'Xtread Code спросит перед использованием этих инструментов.',
+  'Xtread Code is not allowed to use denied tools.':
+    'Xtread Code не может использовать запрещённые инструменты.',
   'Manage trusted directories for this workspace.':
     'Управление доверенными каталогами для этой рабочей области.',
   'Any use of the {{tool}} tool': 'Любое использование инструмента {{tool}}',
@@ -1347,11 +1347,11 @@ export default {
   'From project settings': 'Из настроек проекта',
   'From session': 'Из сессии',
   'Project settings (local)': 'Настройки проекта (локальные)',
-  'Saved in .qwen/settings.local.json': 'Сохранено в .qwen/settings.local.json',
+  'Saved in .xtread/settings.local.json': 'Сохранено в .xtread/settings.local.json',
   'Project settings': 'Настройки проекта',
-  'Checked in at .qwen/settings.json': 'Зафиксировано в .qwen/settings.json',
+  'Checked in at .xtread/settings.json': 'Зафиксировано в .xtread/settings.json',
   'User settings': 'Пользовательские настройки',
-  'Saved in at ~/.qwen/settings.json': 'Сохранено в ~/.qwen/settings.json',
+  'Saved in at ~/.xtread/settings.json': 'Сохранено в ~/.xtread/settings.json',
   'Add a new rule…': 'Добавить новое правило…',
   'Add {{type}} permission rule': 'Добавить правило разрешения {{type}}',
   'Permission rules are a tool name, optionally followed by a specifier in parentheses.':
@@ -1376,10 +1376,10 @@ export default {
   // Workspace directory management
   'Add directory…': 'Добавить каталог…',
   'Add directory to workspace': 'Добавить каталог в рабочую область',
-  'Qwen Code can read files in the workspace, and make edits when auto-accept edits is on.':
-    'Qwen Code может читать файлы в рабочей области и вносить правки, когда автоприём правок включён.',
-  'Qwen Code will be able to read files in this directory and make edits when auto-accept edits is on.':
-    'Qwen Code сможет читать файлы в этом каталоге и вносить правки, когда автоприём правок включён.',
+  'Xtread Code can read files in the workspace, and make edits when auto-accept edits is on.':
+    'Xtread Code может читать файлы в рабочей области и вносить правки, когда автоприём правок включён.',
+  'Xtread Code will be able to read files in this directory and make edits when auto-accept edits is on.':
+    'Xtread Code сможет читать файлы в этом каталоге и вносить правки, когда автоприём правок включён.',
   'Enter the path to the directory:': 'Введите путь к каталогу:',
   'Enter directory path…': 'Введите путь к каталогу…',
   'Tab to complete · Enter to add · Esc to cancel':
@@ -1467,8 +1467,8 @@ export default {
     '1. Задавайте вопросы, редактируйте файлы или выполняйте команды.',
   '2. Be specific for the best results.':
     '2. Будьте конкретны для лучших результатов.',
-  'files to customize your interactions with Qwen Code.':
-    'файлы для настройки взаимодействия с Qwen Code.',
+  'files to customize your interactions with Xtread Code.':
+    'файлы для настройки взаимодействия с Xtread Code.',
   'for more information.': 'для получения дополнительной информации.',
 
   // ============================================================================
@@ -1742,8 +1742,8 @@ export default {
     'Используйте /bug, чтобы сообщить о проблемах разработчикам.',
   'Switch auth type quickly with /auth.':
     'Быстро переключите тип аутентификации с помощью /auth.',
-  'You can run any shell commands from Qwen Code using ! (e.g. !ls).':
-    'Вы можете выполнять любые shell-команды в Qwen Code с помощью ! (например, !ls).',
+  'You can run any shell commands from Xtread Code using ! (e.g. !ls).':
+    'Вы можете выполнять любые shell-команды в Xtread Code с помощью ! (например, !ls).',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     'Введите /, чтобы открыть меню команд; Tab автодополняет слэш-команды и сохранённые промпты.',
   'You can resume a previous conversation by running qwen --continue or qwen --resume.':
@@ -1756,8 +1756,8 @@ export default {
     'Попробуйте /insight, чтобы получить персонализированные выводы из истории чатов.',
   'Press Ctrl+O to toggle compact mode — hide tool output and thinking for a cleaner view.':
     'Нажмите Ctrl+O для переключения компактного режима — скрыть вывод инструментов и рассуждения.',
-  'Add a QWEN.md file to give Qwen Code persistent project context.':
-    'Добавьте файл QWEN.md, чтобы предоставить Qwen Code постоянный контекст проекта.',
+  'Add a QWEN.md file to give Xtread Code persistent project context.':
+    'Добавьте файл QWEN.md, чтобы предоставить Xtread Code постоянный контекст проекта.',
   'Use /btw to ask a quick side question without disrupting the conversation.':
     'Используйте /btw, чтобы задать короткий побочный вопрос, не прерывая основной разговор.',
   'Context is almost full! Run /compress now or start /new to continue.':
@@ -2049,5 +2049,5 @@ export default {
   'Not in plan mode. Use "/plan" to enter plan mode first.':
     'Not in plan mode. Use "/plan" to enter plan mode first.',
 
-  "Set up Qwen Code's status line UI": "Set up Qwen Code's status line UI",
+  "Set up Xtread Code's status line UI": "Set up Xtread Code's status line UI",
 };

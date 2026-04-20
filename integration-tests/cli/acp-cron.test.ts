@@ -27,8 +27,8 @@ import { TestRig } from '../test-helper.js';
 const REQUEST_TIMEOUT_MS = 60_000;
 
 const IS_SANDBOX =
-  process.env['QWEN_SANDBOX'] &&
-  process.env['QWEN_SANDBOX']!.toLowerCase() !== 'false';
+  process.env['XTREAD_SANDBOX'] &&
+  process.env['XTREAD_SANDBOX']!.toLowerCase() !== 'false';
 
 type PendingRequest = {
   resolve: (value: unknown) => void;
@@ -87,7 +87,7 @@ function setupAcpCronTest(rig: TestRig) {
       stdio: ['pipe', 'pipe', 'pipe'],
       env: {
         ...process.env,
-        QWEN_CODE_ENABLE_CRON: '1',
+        XTREAD_CODE_ENABLE_CRON: '1',
       },
     },
   );

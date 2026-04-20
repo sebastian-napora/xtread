@@ -5,7 +5,7 @@
  */
 
 import type { ModelInfo } from '@agentclientprotocol/sdk';
-import { knownTokenLimit } from '@qwen-code/qwen-code-core/src/core/tokenLimits.js';
+import { knownTokenLimit } from '@xtread-code/xtread-core/src/core/tokenLimits.js';
 import type { ApprovalModeValue } from '../types/approvalModeValueTypes.js';
 
 type AcpMeta = Record<string, unknown>;

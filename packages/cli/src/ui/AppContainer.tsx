@@ -54,7 +54,7 @@ import {
   ApprovalMode,
   ConditionalRulesRegistry,
   type PermissionMode,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { buildResumedHistoryItems } from './utils/resumeHistoryUtils.js';
 import { validateAuthMethod } from '../config/auth.js';
 import { loadHierarchicalGeminiMemory } from '../config/config.js';
@@ -69,6 +69,7 @@ import { useSettingsCommand } from './hooks/useSettingsCommand.js';
 import { useModelCommand } from './hooks/useModelCommand.js';
 import { useArenaCommand } from './hooks/useArenaCommand.js';
 import { useApprovalModeCommand } from './hooks/useApprovalModeCommand.js';
+import { useApiSwitch } from './hooks/useApiSwitch.js';
 import { useResumeCommand } from './hooks/useResumeCommand.js';
 import { useSlashCommandProcessor } from './hooks/slashCommandProcessor.js';
 import { useVimMode } from './contexts/VimModeContext.js';
@@ -478,13 +479,19 @@ export const AppContainer = (props: AppContainerProps) => {
   } = useApprovalModeCommand(settings, config);
 
   const {
+    isApiSwitchDialogOpen,
+    openApiSwitchDialog,
+    closeApiSwitchDialog,
+    switchToApi,
+  } = useApiSwitch(config);
+
+  const {
     setAuthState,
     authError,
     onAuthError,
     isAuthDialogOpen,
     isAuthenticating,
     pendingAuthType,
-    qwenAuthState,
     handleAuthSelect,
     handleCodingPlanSubmit,
     handleAlibabaStandardSubmit,
@@ -621,6 +628,7 @@ export const AppContainer = (props: AppContainerProps) => {
       openMcpDialog,
       openHooksDialog,
       openResumeDialog,
+      openApiSwitchDialog,
     }),
     [
       openAuthDialog,
@@ -642,6 +650,7 @@ export const AppContainer = (props: AppContainerProps) => {
       openMcpDialog,
       openHooksDialog,
       openResumeDialog,
+      openApiSwitchDialog,
     ],
   );
 
@@ -1779,7 +1788,7 @@ export const AppContainer = (props: AppContainerProps) => {
 
   useKeypress(handleGlobalKeypress, { isActive: true });
 
-  // Update terminal title with Qwen Code status and thoughts
+  // Update terminal title with Xtread Code status and thoughts
   useEffect(() => {
     // Respect both showStatusInTitle and hideWindowTitle settings
     if (
@@ -1806,7 +1815,7 @@ export const AppContainer = (props: AppContainerProps) => {
       lastTitleRef.current = paddedTitle;
       stdout.write(`\x1b]2;${paddedTitle}\x07`);
     }
-    // Note: We don't need to reset the window title on exit because Qwen Code is already doing that elsewhere
+    // Note: We don't need to reset the window title on exit because Xtread Code is already doing that elsewhere
   }, [
     streamingState,
     thought,
@@ -1846,6 +1855,7 @@ export const AppContainer = (props: AppContainerProps) => {
     isHooksDialogOpen ||
     isApprovalModeDialogOpen ||
     isResumeDialogOpen ||
+    isApiSwitchDialogOpen ||
     isExtensionsManagerDialogOpen;
   dialogsVisibleRef.current = dialogsVisible;
 
@@ -1874,8 +1884,6 @@ export const AppContainer = (props: AppContainerProps) => {
       authError,
       isAuthDialogOpen,
       pendingAuthType,
-      // Qwen OAuth state
-      qwenAuthState,
       editorError,
       isEditorDialogOpen,
       debugMessage,
@@ -1889,6 +1897,7 @@ export const AppContainer = (props: AppContainerProps) => {
       isPermissionsDialogOpen,
       isApprovalModeDialogOpen,
       isResumeDialogOpen,
+      isApiSwitchDialogOpen,
       slashCommands,
       pendingSlashCommandHistoryItems,
       commandContext,
@@ -1981,8 +1990,6 @@ export const AppContainer = (props: AppContainerProps) => {
       authError,
       isAuthDialogOpen,
       pendingAuthType,
-      // Qwen OAuth state
-      qwenAuthState,
       editorError,
       isEditorDialogOpen,
       debugMessage,
@@ -1996,6 +2003,7 @@ export const AppContainer = (props: AppContainerProps) => {
       isPermissionsDialogOpen,
       isApprovalModeDialogOpen,
       isResumeDialogOpen,
+      isApiSwitchDialogOpen,
       slashCommands,
       pendingSlashCommandHistoryItems,
       commandContext,
@@ -2140,6 +2148,10 @@ export const AppContainer = (props: AppContainerProps) => {
       openResumeDialog,
       closeResumeDialog,
       handleResume,
+      // API switch dialog
+      openApiSwitchDialog,
+      closeApiSwitchDialog,
+      switchToApi,
       // Feedback dialog
       openFeedbackDialog,
       closeFeedbackDialog,
@@ -2205,6 +2217,10 @@ export const AppContainer = (props: AppContainerProps) => {
       closeFeedbackDialog,
       temporaryCloseFeedbackDialog,
       submitFeedback,
+      // API switch dialog
+      openApiSwitchDialog,
+      closeApiSwitchDialog,
+      switchToApi,
     ],
   );
 

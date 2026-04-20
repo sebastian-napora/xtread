@@ -7,7 +7,7 @@
 import type {
   MCPServerConfig,
   MCPServerStatus,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
 /**
  * MCP管理步骤定义

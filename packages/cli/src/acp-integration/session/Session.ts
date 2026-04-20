@@ -21,9 +21,8 @@ import type {
   HookExecutionRequest,
   HookExecutionResponse,
   MessageBus,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import {
-  AuthType,
   ApprovalMode,
   convertToFunctionResponse,
   createDebugLogger,
@@ -53,7 +52,7 @@ import {
   createHookOutput,
   generateToolUseId,
   MessageBusType,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
 import { RequestError } from '@agentclientprotocol/sdk';
 import type {
@@ -1043,14 +1042,7 @@ export class Session implements SessionContext {
       );
     }
 
-    await this.config.switchModel(
-      selectedAuthType,
-      parsed.modelId,
-      selectedAuthType !== previousAuthType &&
-        selectedAuthType === AuthType.QWEN_OAUTH
-        ? { requireCachedCredentials: true }
-        : undefined,
-    );
+    await this.config.switchModel(selectedAuthType, parsed.modelId, undefined);
   }
 
   /**
@@ -1161,7 +1153,7 @@ export class Session implements SessionContext {
     if (pm && !(await pm.isToolEnabled(fc.name as string))) {
       return earlyErrorResponse(
         new Error(
-          `Qwen Code requires permission to use "${fc.name}", but that permission was declined.`,
+          `Xtread Code requires permission to use "${fc.name}", but that permission was declined.`,
         ),
         fc.name,
       );
@@ -1342,7 +1334,7 @@ export class Session implements SessionContext {
           if (hooksEnabled && messageBus) {
             void fireNotificationHook(
               messageBus,
-              `Qwen Code needs your permission to use ${fc.name}`,
+              `Xtread Code needs your permission to use ${fc.name}`,
               NotificationType.PermissionPrompt,
               'Permission needed',
             );
@@ -1693,7 +1685,7 @@ export class Session implements SessionContext {
         return normalizePartList(result.content);
 
       case 'message': {
-        await this.client.extNotification('_qwencode/slash_command', {
+        await this.client.extNotification('_xtreadcode/slash_command', {
           sessionId: this.sessionId,
           command: originalPrompt
             .filter((block) => block.type === 'text')
@@ -1720,7 +1712,7 @@ export class Session implements SessionContext {
 
         // Stream all messages to the client
         for await (const msg of result.messages) {
-          await this.client.extNotification('_qwencode/slash_command', {
+          await this.client.extNotification('_xtreadcode/slash_command', {
             sessionId: this.sessionId,
             command,
             messageType: msg.messageType,

@@ -22,7 +22,7 @@ const {
   mockOnDidChangeTextEditorSelection: vi.fn(() => ({ dispose: vi.fn() })),
 }));
 
-vi.mock('@qwen-code/qwen-code-core', () => ({
+vi.mock('@xtread-code/xtread-core', () => ({
   Storage: {
     getGlobalTempDir: mockGetGlobalTempDir,
   },
@@ -48,7 +48,7 @@ vi.mock('vscode', () => ({
   },
 }));
 
-vi.mock('../../services/qwenAgentManager.js', () => ({
+vi.mock('../../services/xtreadAgentManager.js', () => ({
   QwenAgentManager: class {
     isConnected = false;
     currentSessionId = null;
@@ -196,7 +196,7 @@ describe('WebViewProvider.attachToView', () => {
         onDidChangeVisibility: vi.fn(() => ({ dispose: vi.fn() })),
         onDidDispose: vi.fn(() => ({ dispose: vi.fn() })),
       } as never,
-      'qwen-code.chatView.sidebar',
+      'xtread-code.chatView.sidebar',
     );
 
     const roots = (
@@ -280,7 +280,7 @@ describe('WebViewProvider.attachToView', () => {
         onDidChangeVisibility: vi.fn(() => ({ dispose: vi.fn() })),
         onDidDispose: vi.fn(() => ({ dispose: vi.fn() })),
       } as never,
-      'qwen-code.chatView.sidebar',
+      'xtread-code.chatView.sidebar',
     );
 
     await messageHandler?.({

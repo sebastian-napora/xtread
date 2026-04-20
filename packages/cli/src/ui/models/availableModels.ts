@@ -8,8 +8,7 @@ import {
   AuthType,
   type Config,
   type AvailableModel as CoreAvailableModel,
-  QWEN_OAUTH_MODELS,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { t } from '../../i18n/index.js';
 
 export type AvailableModel = {
@@ -18,27 +17,6 @@ export type AvailableModel = {
   description?: string;
   isVision?: boolean;
 };
-
-const CACHED_QWEN_OAUTH_MODELS: AvailableModel[] = QWEN_OAUTH_MODELS.map(
-  (model) => ({
-    id: model.id,
-    label: model.name ?? model.id,
-    description: model.description,
-    isVision: model.capabilities?.vision ?? false,
-  }),
-);
-
-function getQwenOAuthModels(): readonly AvailableModel[] {
-  return CACHED_QWEN_OAUTH_MODELS;
-}
-
-/**
- * Get available Qwen models
- * coder-model now has vision capabilities by default.
- */
-export function getFilteredQwenModels(): AvailableModel[] {
-  return [...getQwenOAuthModels()];
-}
 
 /**
  * Currently we use the single model of `OPENAI_MODEL` in the env.
@@ -112,9 +90,6 @@ export function getAvailableModelsForAuthType(
 
   // Fall back to environment variables for specific auth types (no config provided)
   switch (authType) {
-    case AuthType.QWEN_OAUTH: {
-      return [...getQwenOAuthModels()];
-    }
     case AuthType.USE_OPENAI: {
       const openAIModel = getOpenAIAvailableModelFromEnv();
       return openAIModel ? [openAIModel] : [];
@@ -127,3 +102,21 @@ export function getAvailableModelsForAuthType(
       return [];
   }
 }
+
+/**
+ * Get filtered QWEN models for testing purposes.
+ * Returns mock models with USE_OPENAI authType.
+ * Note: This function is used by tests only.
+ */
+export function getFilteredQwenModels(): AvailableModel[] {
+  return [
+    {
+      id: DEFAULT_XTREAD_MODEL,
+      label: 'xtread coder Plus',
+      description: 'Default QWEN model for coding',
+    },
+  ];
+}
+
+// Default model constant
+export const DEFAULT_XTREAD_MODEL = 'coder-model';

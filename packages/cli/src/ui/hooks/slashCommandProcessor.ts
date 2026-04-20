@@ -18,7 +18,7 @@ import {
   SlashCommandStatus,
   ToolConfirmationOutcome,
   IdeClient,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { useSessionStats } from '../contexts/SessionContext.js';
 import type {
   Message,
@@ -80,6 +80,7 @@ interface SlashCommandProcessorActions {
   openPermissionsDialog: () => void;
   openApprovalModeDialog: () => void;
   openResumeDialog: () => void;
+  openApiSwitchDialog: () => void;
   quit: (messages: HistoryItem[]) => void;
   setDebugMessage: (message: string) => void;
   dispatchExtensionStateUpdate: (action: ExtensionUpdateAction) => void;
@@ -547,6 +548,9 @@ export const useSlashCommandProcessor = (
                       return { type: 'handled' };
                     case 'resume':
                       actions.openResumeDialog();
+                      return { type: 'handled' };
+                    case 'api-switch':
+                      actions.openApiSwitchDialog();
                       return { type: 'handled' };
                     case 'extensions_manage':
                       actions.openExtensionsManagerDialog();

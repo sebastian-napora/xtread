@@ -11,8 +11,8 @@ import { useKeypress } from '../hooks/useKeypress.js';
 import { DescriptiveRadioButtonSelect } from './shared/DescriptiveRadioButtonSelect.js';
 import { ConfigContext } from '../contexts/ConfigContext.js';
 import { SettingsContext } from '../contexts/SettingsContext.js';
-import type { Config } from '@qwen-code/qwen-code-core';
-import { AuthType, DEFAULT_QWEN_MODEL } from '@qwen-code/qwen-code-core';
+import type { Config } from '@xtread-code/xtread-core';
+import { AuthType, DEFAULT_XTREAD_MODEL } from '@xtread-code/xtread-core';
 import type { LoadedSettings } from '../../config/settings.js';
 import { SettingScope } from '../../config/settings.js';
 import { getFilteredQwenModels } from '../models/availableModels.js';
@@ -29,11 +29,11 @@ vi.mock('./shared/DescriptiveRadioButtonSelect.js', () => ({
 // Helper to create getAvailableModelsForAuthType mock
 const createMockGetAvailableModelsForAuthType = () =>
   vi.fn((t: AuthType) => {
-    if (t === AuthType.QWEN_OAUTH) {
+    if (t === AuthType.USE_OPENAI) {
       return getFilteredQwenModels().map((m) => ({
         id: m.id,
         label: m.label,
-        authType: AuthType.QWEN_OAUTH,
+        authType: AuthType.USE_OPENAI,
       }));
     }
     return [];
@@ -58,16 +58,16 @@ const renderComponent = (
 
   const mockConfig = {
     // --- Functions used by ModelDialog ---
-    getModel: vi.fn(() => DEFAULT_QWEN_MODEL),
+    getModel: vi.fn(() => DEFAULT_XTREAD_MODEL),
     setModel: vi.fn().mockResolvedValue(undefined),
     switchModel: vi.fn().mockResolvedValue(undefined),
-    getAuthType: vi.fn(() => 'qwen-oauth'),
+    getAuthType: vi.fn(() => 'use-openai'),
     getAllConfiguredModels: vi.fn(() =>
       getFilteredQwenModels().map((m) => ({
         id: m.id,
         label: m.label,
         description: m.description || '',
-        authType: AuthType.QWEN_OAUTH,
+        authType: AuthType.USE_OPENAI,
       })),
     ),
 
@@ -76,8 +76,8 @@ const renderComponent = (
     getSessionId: vi.fn(() => 'mock-session-id'),
     getDebugMode: vi.fn(() => false),
     getContentGeneratorConfig: vi.fn(() => ({
-      authType: AuthType.QWEN_OAUTH,
-      model: DEFAULT_QWEN_MODEL,
+      authType: AuthType.USE_OPENAI,
+      model: DEFAULT_XTREAD_MODEL,
     })),
     getUseModelRouter: vi.fn(() => false),
     getProxy: vi.fn(() => undefined),
@@ -127,13 +127,13 @@ describe('<ModelDialog />', () => {
     expect(props.items).toHaveLength(getFilteredQwenModels().length);
     // coder-model is the only model and it has vision capability
     expect(props.items[0].value).toBe(
-      `${AuthType.QWEN_OAUTH}::${DEFAULT_QWEN_MODEL}`,
+      `${AuthType.USE_OPENAI}::${DEFAULT_XTREAD_MODEL}`,
     );
     expect(props.showNumbers).toBe(true);
   });
 
   it('initializes with the model from ConfigContext', () => {
-    const mockGetModel = vi.fn(() => DEFAULT_QWEN_MODEL);
+    const mockGetModel = vi.fn(() => DEFAULT_XTREAD_MODEL);
     renderComponent(
       {},
       {
@@ -147,7 +147,7 @@ describe('<ModelDialog />', () => {
     // Calculate expected index dynamically based on model list
     const qwenModels = getFilteredQwenModels();
     const expectedIndex = qwenModels.findIndex(
-      (m) => m.id === DEFAULT_QWEN_MODEL,
+      (m) => m.id === DEFAULT_XTREAD_MODEL,
     );
     expect(mockedSelect).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -181,7 +181,7 @@ describe('<ModelDialog />', () => {
 
     expect(mockGetModel).toHaveBeenCalled();
 
-    // When getModel returns undefined, preferredModel falls back to DEFAULT_QWEN_MODEL
+    // When getModel returns undefined, preferredModel falls back to DEFAULT_XTREAD_MODEL
     // which has index 0, so initialIndex should be 0
     expect(mockedSelect).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -192,47 +192,12 @@ describe('<ModelDialog />', () => {
     expect(mockedSelect).toHaveBeenCalledTimes(1);
   });
 
-  it('blocks qwen-oauth model selection with an error message (discontinued)', async () => {
-    const { props, mockConfig } = renderComponent(
-      {},
-      {
-        getAvailableModelsForAuthType: vi.fn((t: AuthType) => {
-          if (t === AuthType.QWEN_OAUTH) {
-            return getFilteredQwenModels().map((m) => ({
-              id: m.id,
-              label: m.label,
-              authType: AuthType.QWEN_OAUTH,
-            }));
-          }
-          return [];
-        }),
-      },
-    );
-
-    const childOnSelect = mockedSelect.mock.calls[0][0].onSelect;
-    expect(childOnSelect).toBeDefined();
-
-    await childOnSelect(`${AuthType.QWEN_OAUTH}::${DEFAULT_QWEN_MODEL}`);
-
-    // qwen-oauth is discontinued — switchModel should NOT be called
-    expect(mockConfig?.switchModel).not.toHaveBeenCalled();
-    // Dialog should NOT close (user stays in the dialog to see the error)
-    expect(props.onClose).not.toHaveBeenCalled();
-  });
-
-  it('calls config.switchModel and onClose when selecting a non-OAuth model', async () => {
+  it('calls config.switchModel and onClose when selecting a model', async () => {
     const switchModel = vi.fn().mockResolvedValue(undefined);
     const getAuthType = vi.fn(() => AuthType.USE_OPENAI);
     const getAvailableModelsForAuthType = vi.fn((t: AuthType) => {
       if (t === AuthType.USE_OPENAI) {
         return [{ id: 'gpt-4', label: 'GPT-4', authType: t }];
-      }
-      if (t === AuthType.QWEN_OAUTH) {
-        return getFilteredQwenModels().map((m) => ({
-          id: m.id,
-          label: m.label,
-          authType: AuthType.QWEN_OAUTH,
-        }));
       }
       return [];
     });
@@ -243,12 +208,6 @@ describe('<ModelDialog />', () => {
       switchModel,
       getAvailableModelsForAuthType,
       getAllConfiguredModels: vi.fn(() => [
-        ...getFilteredQwenModels().map((m) => ({
-          id: m.id,
-          label: m.label,
-          description: m.description || '',
-          authType: AuthType.QWEN_OAUTH,
-        })),
         {
           id: 'gpt-4',
           label: 'GPT-4',
@@ -265,7 +224,7 @@ describe('<ModelDialog />', () => {
     const childOnSelect = mockedSelect.mock.calls[0][0].onSelect;
     expect(childOnSelect).toBeDefined();
 
-    // Select a non-OAuth model (USE_OPENAI)
+    // Select a model (USE_OPENAI)
     await childOnSelect(`${AuthType.USE_OPENAI}::gpt-4`);
 
     expect(switchModel).toHaveBeenCalledWith(
@@ -284,48 +243,6 @@ describe('<ModelDialog />', () => {
       AuthType.USE_OPENAI,
     );
     expect(props.onClose).toHaveBeenCalledTimes(1);
-  });
-
-  it('blocks switching to qwen-oauth from another authType (discontinued)', async () => {
-    const switchModel = vi.fn().mockResolvedValue(undefined);
-    const getAuthType = vi.fn(() => AuthType.USE_OPENAI);
-    const getAvailableModelsForAuthType = vi.fn((t: AuthType) => {
-      if (t === AuthType.USE_OPENAI) {
-        return [{ id: 'gpt-4', label: 'GPT-4', authType: t }];
-      }
-      if (t === AuthType.QWEN_OAUTH) {
-        return getFilteredQwenModels().map((m) => ({
-          id: m.id,
-          label: m.label,
-          authType: AuthType.QWEN_OAUTH,
-        }));
-      }
-      return [];
-    });
-
-    const mockConfigWithSwitchAuthType = {
-      getAuthType,
-      getModel: vi.fn(() => 'gpt-4'),
-      getContentGeneratorConfig: vi.fn(() => ({
-        authType: AuthType.USE_OPENAI,
-        model: 'gpt-4',
-      })),
-      switchModel,
-      getAvailableModelsForAuthType,
-    };
-
-    const { props } = renderComponent(
-      {},
-      mockConfigWithSwitchAuthType as unknown as Partial<Config>,
-    );
-
-    const childOnSelect = mockedSelect.mock.calls[0][0].onSelect;
-    await childOnSelect(`${AuthType.QWEN_OAUTH}::${DEFAULT_QWEN_MODEL}`);
-
-    // qwen-oauth is discontinued — switchModel should NOT be called
-    expect(switchModel).not.toHaveBeenCalled();
-    // Dialog should NOT close
-    expect(props.onClose).not.toHaveBeenCalled();
   });
 
   it('passes onHighlight to DescriptiveRadioButtonSelect', () => {
@@ -368,8 +285,8 @@ describe('<ModelDialog />', () => {
   });
 
   it('updates initialIndex when config context changes', () => {
-    const mockGetModel = vi.fn(() => DEFAULT_QWEN_MODEL);
-    const mockGetAuthType = vi.fn(() => 'qwen-oauth');
+    const mockGetModel = vi.fn(() => DEFAULT_XTREAD_MODEL);
+    const mockGetAuthType = vi.fn(() => 'use-openai');
     const mockSettings = {
       isTrusted: true,
       user: { settings: {} },
@@ -390,7 +307,7 @@ describe('<ModelDialog />', () => {
                   id: m.id,
                   label: m.label,
                   description: m.description || '',
-                  authType: AuthType.QWEN_OAUTH,
+                  authType: AuthType.USE_OPENAI,
                 })),
               ),
             } as unknown as Config
@@ -401,10 +318,10 @@ describe('<ModelDialog />', () => {
       </SettingsContext.Provider>,
     );
 
-    // DEFAULT_QWEN_MODEL (coder-model) is at index 0
+    // DEFAULT_XTREAD_MODEL (coder-model) is at index 0
     expect(mockedSelect.mock.calls[0][0].initialIndex).toBe(0);
 
-    mockGetModel.mockReturnValue(DEFAULT_QWEN_MODEL);
+    mockGetModel.mockReturnValue(DEFAULT_XTREAD_MODEL);
     const newMockConfig = {
       getModel: mockGetModel,
       getAuthType: mockGetAuthType,
@@ -414,7 +331,7 @@ describe('<ModelDialog />', () => {
           id: m.id,
           label: m.label,
           description: m.description || '',
-          authType: AuthType.QWEN_OAUTH,
+          authType: AuthType.USE_OPENAI,
         })),
       ),
     } as unknown as Config;
@@ -429,10 +346,10 @@ describe('<ModelDialog />', () => {
 
     // Should be called at least twice: initial render + re-render after context change
     expect(mockedSelect).toHaveBeenCalledTimes(2);
-    // Calculate expected index for DEFAULT_QWEN_MODEL dynamically
+    // Calculate expected index for DEFAULT_XTREAD_MODEL dynamically
     const qwenModels = getFilteredQwenModels();
     const expectedCoderIndex = qwenModels.findIndex(
-      (m) => m.id === DEFAULT_QWEN_MODEL,
+      (m) => m.id === DEFAULT_XTREAD_MODEL,
     );
     expect(mockedSelect.mock.calls[1][0].initialIndex).toBe(expectedCoderIndex);
   });

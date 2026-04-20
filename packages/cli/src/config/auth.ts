@@ -9,7 +9,7 @@ import {
   type Config,
   type ModelProvidersConfig,
   type ProviderModelConfig,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { loadEnvironment, loadSettings, type Settings } from './settings.js';
 import { t } from '../i18n/index.js';
 
@@ -186,14 +186,6 @@ export function validateAuthMethod(
       );
     }
     return null;
-  }
-
-  if (authMethod === AuthType.QWEN_OAUTH) {
-    // Qwen OAuth free tier was discontinued on 2026-04-15.
-    // Block new OAuth setups; existing cached tokens still work until server rejects them.
-    return t(
-      'Qwen OAuth free tier was discontinued on 2026-04-15. Run /auth to switch to Coding Plan, OpenRouter, Fireworks AI, or another provider.',
-    );
   }
 
   if (authMethod === AuthType.USE_ANTHROPIC) {

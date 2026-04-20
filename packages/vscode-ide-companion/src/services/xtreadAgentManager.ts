@@ -16,8 +16,8 @@ import type {
   AskUserQuestionRequest,
 } from '../types/acpTypes.js';
 import type { ApprovalModeValue } from '../types/approvalModeValueTypes.js';
-import { QwenSessionReader, type QwenSession } from './qwenSessionReader.js';
-import { QwenSessionManager } from './qwenSessionManager.js';
+import { QwenSessionReader, type QwenSession } from './xtreadSessionReader.js';
+import { QwenSessionManager } from './xtreadSessionManager.js';
 import type {
   ChatMessage,
   PlanEntry,
@@ -28,8 +28,8 @@ import type {
 import {
   QwenConnectionHandler,
   type QwenConnectionResult,
-} from '../services/qwenConnectionHandler.js';
-import { QwenSessionUpdateHandler } from './qwenSessionUpdateHandler.js';
+} from '../services/xtreadConnectionHandler.js';
+import { QwenSessionUpdateHandler } from './xtreadSessionUpdateHandler.js';
 import { authMethod } from '../types/acpTypes.js';
 import {
   extractModelInfoFromNewSessionResult,

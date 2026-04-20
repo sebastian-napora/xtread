@@ -947,7 +947,7 @@ describe('SettingsDialog', () => {
 
       // Should not show restart prompt initially
       expect(lastFrame()).not.toContain(
-        'To see changes, Qwen Code must be restarted',
+        'To see changes, XtreaD must be restarted',
       );
 
       unmount();
@@ -971,7 +971,7 @@ describe('SettingsDialog', () => {
 
       await waitFor(() => {
         expect(lastFrame()).toContain(
-          'To see changes, Qwen Code must be restarted',
+          'To see changes, XtreaD must be restarted',
         );
       });
 
@@ -983,7 +983,7 @@ describe('SettingsDialog', () => {
 
       await waitFor(() => {
         expect(lastFrame()).toContain(
-          'To see changes, Qwen Code must be restarted',
+          'To see changes, XtreaD must be restarted',
         );
       });
 
@@ -1450,7 +1450,7 @@ describe('SettingsDialog', () => {
           loadFromIncludeDirectories: true,
           fileFiltering: {
             respectGitIgnore: true,
-            respectQwenIgnore: true,
+            respectXtreadIgnore: true,
             enableRecursiveFileSearch: true,
             disableFuzzySearch: false,
           },
@@ -1615,7 +1615,7 @@ describe('SettingsDialog', () => {
         context: {
           fileFiltering: {
             respectGitIgnore: false,
-            respectQwenIgnore: true,
+            respectXtreadIgnore: true,
             enableRecursiveFileSearch: false,
             disableFuzzySearch: true,
           },
@@ -1687,7 +1687,7 @@ describe('SettingsDialog', () => {
           loadFromIncludeDirectories: false,
           fileFiltering: {
             respectGitIgnore: false,
-            respectQwenIgnore: false,
+            respectXtreadIgnore: false,
             enableRecursiveFileSearch: false,
             disableFuzzySearch: false,
           },

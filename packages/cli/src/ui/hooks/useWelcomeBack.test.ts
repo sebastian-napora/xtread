@@ -15,9 +15,9 @@ const coreMocks = vi.hoisted(() => ({
   clearWelcomeBackState: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock('@qwen-code/qwen-code-core', async (importOriginal) => {
+vi.mock('@xtread-code/xtread-core', async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import('@qwen-code/qwen-code-core')>();
+    await importOriginal<typeof import('@xtread-code/xtread-core')>();
 
   return {
     ...actual,
@@ -122,7 +122,7 @@ describe('useWelcomeBack', () => {
 
     await waitFor(() => {
       expect(buffer.setText).toHaveBeenCalledWith(
-        "@.qwen/PROJECT_SUMMARY.md, Based on our previous conversation,Let's continue?",
+        "@.xtread/PROJECT_SUMMARY.md, Based on our previous conversation,Let's continue?",
       );
     });
 

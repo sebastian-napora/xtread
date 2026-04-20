@@ -1,13 +1,13 @@
 /**
  * @license
- * Copyright 2025 Qwen Code
+ * Copyright 2025 Xtread Code
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
-import { Storage, type Config } from '@qwen-code/qwen-code-core';
+import { Storage, type Config } from '@xtread-code/xtread-core';
 import { StaticInsightGenerator } from './StaticInsightGenerator.js';
 
 vi.mock('fs/promises', () => ({

@@ -11,7 +11,7 @@ import {
   getScopedEnvContents,
   promptForSetting,
   updateSetting,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { t } from '../../i18n/index.js';
 import { writeStdoutLine } from '../../utils/stdioHelpers.js';
 

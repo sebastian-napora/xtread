@@ -20,7 +20,7 @@ describe('ChatWebviewViewProvider', () => {
 
     const mockWebviewView = {
       webview: {},
-      viewType: 'qwen-code.chatView.sidebar',
+      viewType: 'xtread-code.chatView.sidebar',
     };
 
     await viewProvider.resolveWebviewView(mockWebviewView as never);
@@ -28,7 +28,7 @@ describe('ChatWebviewViewProvider', () => {
     expect(factory).toHaveBeenCalledTimes(1);
     expect(mockProvider.attachToView).toHaveBeenCalledWith(
       mockWebviewView,
-      'qwen-code.chatView.sidebar',
+      'xtread-code.chatView.sidebar',
     );
   });
 

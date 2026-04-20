@@ -8,7 +8,6 @@ import type React from 'react';
 import { useMemo, useState } from 'react';
 import { Box, Text } from 'ink';
 import Link from 'ink-link';
-import { AuthType } from '@qwen-code/qwen-code-core';
 import { useConfig } from '../../contexts/ConfigContext.js';
 import { theme } from '../../semantic-colors.js';
 import { useKeypress } from '../../hooks/useKeypress.js';
@@ -21,7 +20,7 @@ interface ArenaStartDialogProps {
 }
 
 const MODEL_PROVIDERS_DOCUMENTATION_URL =
-  'https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/#modelproviders';
+  'https://qwenlm.github.io/xtread-code-docs/en/users/configuration/settings/#modelproviders';
 
 export function ArenaStartDialog({
   onClose,
@@ -36,19 +35,15 @@ export function ArenaStartDialog({
 
     return selectableModels.map((model) => {
       const token = `${model.authType}:${model.id}`;
-      const isQwenOauth = model.authType === AuthType.QWEN_OAUTH;
       return {
         key: token,
         value: token,
         label: `[${model.authType}] ${model.label}`,
-        disabled: isQwenOauth,
+        disabled: false,
       };
     });
   }, [config]);
-  const hasDisabledQwenOauth = modelItems.some((item) => item.disabled);
-  const selectableModelCount = modelItems.filter(
-    (item) => !item.disabled,
-  ).length;
+  const selectableModelCount = modelItems.length;
   const needsMoreModels = selectableModelCount < 2;
   const shouldShowMoreModelsHint =
     selectableModelCount >= 2 && selectableModelCount < 3;
@@ -109,14 +104,7 @@ export function ArenaStartDialog({
         </Box>
       )}
 
-      {(hasDisabledQwenOauth || needsMoreModels) && (
-        <Box marginTop={1} flexDirection="column">
-          {hasDisabledQwenOauth && (
-            <Text color={theme.status.warning}>
-              {t('Note: qwen-oauth models are not supported in Arena.')}
-            </Text>
-          )}
-          {needsMoreModels && (
+      {(needsMoreModels) && (
             <>
               <Text color={theme.status.warning}>
                 {t('Arena requires at least 2 models. To add more:')}
@@ -131,8 +119,6 @@ export function ArenaStartDialog({
               </Text>
             </>
           )}
-        </Box>
-      )}
 
       {shouldShowMoreModelsHint && (
         <>

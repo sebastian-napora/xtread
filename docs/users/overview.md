@@ -1,31 +1,31 @@
-# Qwen Code overview
+# Xtread Code overview
 
-[![@qwen-code/qwen-code downloads](https://img.shields.io/npm/dw/@qwen-code/qwen-code.svg)](https://npm-compare.com/@qwen-code/qwen-code)
-[![@qwen-code/qwen-code version](https://img.shields.io/npm/v/@qwen-code/qwen-code.svg)](https://www.npmjs.com/package/@qwen-code/qwen-code)
+[![@xtread-code/xtread-code downloads](https://img.shields.io/npm/dw/@xtread-code/xtread-code.svg)](https://npm-compare.com/@xtread-code/xtread-code)
+[![@xtread-code/xtread-code version](https://img.shields.io/npm/v/@xtread-code/xtread-code.svg)](https://www.npmjs.com/package/@xtread-code/xtread-code)
 
-> Learn about Qwen Code, Qwen's agentic coding tool that lives in your terminal and helps you turn ideas into code faster than ever before.
+> Learn about Xtread Code, Qwen's agentic coding tool that lives in your terminal and helps you turn ideas into code faster than ever before.
 
 ## Get started in 30 seconds
 
-### Install Qwen Code:
+### Install Xtread Code:
 
 **Linux / macOS**
 
 ```sh
-curl -fsSL https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.sh | bash
+curl -fsSL https://xtread-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.sh | bash
 ```
 
 **Windows (Run as Administrator)**
 
 ```cmd
-powershell -Command "Invoke-WebRequest 'https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.bat' -OutFile (Join-Path $env:TEMP 'install-qwen.bat'); & (Join-Path $env:TEMP 'install-qwen.bat')"
+powershell -Command "Invoke-WebRequest 'https://xtread-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.bat' -OutFile (Join-Path $env:TEMP 'install-qwen.bat'); & (Join-Path $env:TEMP 'install-qwen.bat')"
 ```
 
 > [!note]
 >
 > It's recommended to restart your terminal after installation to ensure environment variables take effect. If the installation fails, please refer to [Manual Installation](./quickstart#manual-installation) in the Quickstart guide.
 
-### Start using Qwen Code:
+### Start using Xtread Code:
 
 ```bash
 cd your-project
@@ -48,18 +48,18 @@ You'll be prompted to log in on first use. That's it! [Continue with Quickstart 
 
 > [!note]
 >
-> **New VS Code Extension (Beta)**: Prefer a graphical interface? Our new **VS Code extension** provides an easy-to-use native IDE experience without requiring terminal familiarity. Simply install from the marketplace and start coding with Qwen Code directly in your sidebar. Download and install the [Qwen Code Companion](https://marketplace.visualstudio.com/items?itemName=qwenlm.qwen-code-vscode-ide-companion) now.
+> **New VS Code Extension (Beta)**: Prefer a graphical interface? Our new **VS Code extension** provides an easy-to-use native IDE experience without requiring terminal familiarity. Simply install from the marketplace and start coding with Xtread Code directly in your sidebar. Download and install the [Xtread Code Companion](https://marketplace.visualstudio.com/items?itemName=xtreadlm.xtread-code-vscode-ide-companion) now.
 
-## What Qwen Code does for you
+## What Xtread Code does for you
 
-- **Build features from descriptions**: Tell Qwen Code what you want to build in plain language. It will make a plan, write the code, and ensure it works.
-- **Debug and fix issues**: Describe a bug or paste an error message. Qwen Code will analyze your codebase, identify the problem, and implement a fix.
-- **Navigate any codebase**: Ask anything about your team's codebase, and get a thoughtful answer back. Qwen Code maintains awareness of your entire project structure, can find up-to-date information from the web, and with [MCP](./features/mcp) can pull from external datasources like Google Drive, Figma, and Slack.
+- **Build features from descriptions**: Tell Xtread Code what you want to build in plain language. It will make a plan, write the code, and ensure it works.
+- **Debug and fix issues**: Describe a bug or paste an error message. Xtread Code will analyze your codebase, identify the problem, and implement a fix.
+- **Navigate any codebase**: Ask anything about your team's codebase, and get a thoughtful answer back. Xtread Code maintains awareness of your entire project structure, can find up-to-date information from the web, and with [MCP](./features/mcp) can pull from external datasources like Google Drive, Figma, and Slack.
 - **Automate tedious tasks**: Fix fiddly lint issues, resolve merge conflicts, and write release notes. Do all this in a single command from your developer machines, or automatically in CI.
-- **[Followup suggestions](./features/followup-suggestions)**: Qwen Code predicts what you want to type next and shows it as ghost text. Press Tab to accept, or just keep typing to dismiss.
+- **[Followup suggestions](./features/followup-suggestions)**: Xtread Code predicts what you want to type next and shows it as ghost text. Press Tab to accept, or just keep typing to dismiss.
 
-## Why developers love Qwen Code
+## Why developers love Xtread Code
 
-- **Works in your terminal**: Not another chat window. Not another IDE. Qwen Code meets you where you already work, with the tools you already love.
-- **Takes action**: Qwen Code can directly edit files, run commands, and create commits. Need more? [MCP](./features/mcp) lets Qwen Code read your design docs in Google Drive, update your tickets in Jira, or use _your_ custom developer tooling.
-- **Unix philosophy**: Qwen Code is composable and scriptable. `tail -f app.log | qwen -p "Slack me if you see any anomalies appear in this log stream"` _works_. Your CI can run `qwen -p "If there are new text strings, translate them into French and raise a PR for @lang-fr-team to review"`.
+- **Works in your terminal**: Not another chat window. Not another IDE. Xtread Code meets you where you already work, with the tools you already love.
+- **Takes action**: Xtread Code can directly edit files, run commands, and create commits. Need more? [MCP](./features/mcp) lets Xtread Code read your design docs in Google Drive, update your tickets in Jira, or use _your_ custom developer tooling.
+- **Unix philosophy**: Xtread Code is composable and scriptable. `tail -f app.log | qwen -p "Slack me if you see any anomalies appear in this log stream"` _works_. Your CI can run `qwen -p "If there are new text strings, translate them into French and raise a PR for @lang-fr-team to review"`.

@@ -5,22 +5,10 @@
  */
 
 import type { CommandModule, Argv } from 'yargs';
-import {
-  handleQwenAuth,
-  runInteractiveAuth,
-  showAuthStatus,
-} from './auth/handler.js';
+import { handleQwenAuth, showAuthStatus } from './auth/handler.js';
 import { t } from '../i18n/index.js';
 
 // Define subcommands separately
-const qwenOauthCommand = {
-  command: 'qwen-oauth',
-  describe: t('Authenticate using Qwen OAuth'),
-  handler: async () => {
-    await handleQwenAuth('qwen-oauth', {});
-  },
-};
-
 const codePlanCommand = {
   command: 'coding-plan',
   describe: t('Authenticate using Alibaba Cloud Coding Plan'),
@@ -61,17 +49,16 @@ const statusCommand = {
 export const authCommand: CommandModule = {
   command: 'auth',
   describe: t(
-    'Configure Qwen authentication information with Qwen-OAuth or Alibaba Cloud Coding Plan',
+    'Configure Xtread Code authentication information with Alibaba Cloud Coding Plan',
   ),
   builder: (yargs: Argv) =>
     yargs
-      .command(qwenOauthCommand)
       .command(codePlanCommand)
       .command(statusCommand)
       .demandCommand(0) // Don't require a subcommand
       .version(false),
   handler: async () => {
-    // This handler is for when no subcommand is provided - show interactive menu
-    await runInteractiveAuth();
+    // Show help if no subcommand
+    await showAuthStatus();
   },
 };

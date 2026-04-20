@@ -11,9 +11,13 @@ import { initStartupProfiler } from './src/utils/startupProfiler.js';
 // Must run before any other imports to capture the earliest possible T0.
 initStartupProfiler();
 
+// Load /etc/xtread/keys or ~/.xtread/keys into process.env before anything else runs.
+import { loadSystemKeys } from './src/utils/systemKeys.js';
+loadSystemKeys();
+
 import './src/gemini.js';
 import { main } from './src/gemini.js';
-import { FatalError } from '@qwen-code/qwen-code-core';
+import { FatalError } from '@xtread-code/xtread-core';
 import { writeStderrLine } from './src/utils/stdioHelpers.js';
 
 // --- Global Entry Point ---

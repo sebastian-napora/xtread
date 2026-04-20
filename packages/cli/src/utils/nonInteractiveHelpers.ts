@@ -13,13 +13,13 @@ import type {
   ToolCallResponseInfo,
   SessionMetrics,
   McpToolProgressData,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import {
   OutputFormat,
   ToolErrorType,
   createDebugLogger,
   getMCPServerStatus,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import type { Part, PartListUnion } from '@google/genai';
 import type {
   CLIUserMessage,
@@ -288,7 +288,7 @@ export async function buildSystemMessage(
     model: config.getModel(),
     permission_mode: permissionMode,
     slash_commands: slashCommands,
-    qwen_code_version: config.getCliVersion() || 'unknown',
+    xtread_code_version: config.getCliVersion() || 'unknown',
     agents: agentNames,
   };
 

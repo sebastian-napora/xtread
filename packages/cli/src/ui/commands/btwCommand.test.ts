@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2025 Qwen Code
+ * Copyright 2025 Xtread Code
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -34,7 +34,7 @@ const mockGetCacheSafeParams = vi.hoisted(() =>
   }),
 );
 
-vi.mock('@qwen-code/qwen-code-core', () => ({
+vi.mock('@xtread-code/xtread-core', () => ({
   runForkedAgent: mockRunForkedAgent,
   getCacheSafeParams: mockGetCacheSafeParams,
 }));

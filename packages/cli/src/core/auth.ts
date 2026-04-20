@@ -10,7 +10,7 @@ import {
   getErrorMessage,
   logAuth,
   AuthEvent,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
 /**
  * Handles the initial authentication flow.

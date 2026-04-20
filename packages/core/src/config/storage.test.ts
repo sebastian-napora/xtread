@@ -10,7 +10,7 @@ import * as path from 'node:path';
 import { Storage } from './storage.js';
 
 describe('Storage – getGlobalSettingsPath', () => {
-  it('returns path to ~/.qwen/settings.json', () => {
+  it('returns path to ~/.xtread/settings.json', () => {
     const expected = path.join(os.homedir(), '.qwen', 'settings.json');
     expect(Storage.getGlobalSettingsPath()).toBe(expected);
   });
@@ -20,48 +20,48 @@ describe('Storage – additional helpers', () => {
   const projectRoot = '/tmp/project';
   const storage = new Storage(projectRoot);
 
-  it('getWorkspaceSettingsPath returns project/.qwen/settings.json', () => {
+  it('getWorkspaceSettingsPath returns project/.xtread/settings.json', () => {
     const expected = path.join(projectRoot, '.qwen', 'settings.json');
     expect(storage.getWorkspaceSettingsPath()).toBe(expected);
   });
 
-  it('getUserCommandsDir returns ~/.qwen/commands', () => {
+  it('getUserCommandsDir returns ~/.xtread/commands', () => {
     const expected = path.join(os.homedir(), '.qwen', 'commands');
     expect(Storage.getUserCommandsDir()).toBe(expected);
   });
 
-  it('getProjectCommandsDir returns project/.qwen/commands', () => {
+  it('getProjectCommandsDir returns project/.xtread/commands', () => {
     const expected = path.join(projectRoot, '.qwen', 'commands');
     expect(storage.getProjectCommandsDir()).toBe(expected);
   });
 
-  it('getMcpOAuthTokensPath returns ~/.qwen/mcp-oauth-tokens.json', () => {
+  it('getMcpOAuthTokensPath returns ~/.xtread/mcp-oauth-tokens.json', () => {
     const expected = path.join(os.homedir(), '.qwen', 'mcp-oauth-tokens.json');
     expect(Storage.getMcpOAuthTokensPath()).toBe(expected);
   });
 });
 
 describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['XTREAD_RUNTIME_DIR'];
 
   beforeEach(() => {
     // Reset state before each test
     Storage.setRuntimeBaseDir(null);
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['XTREAD_RUNTIME_DIR'];
   });
 
   afterEach(() => {
     // Restore original env
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['XTREAD_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['XTREAD_RUNTIME_DIR'];
     }
   });
 
-  it('defaults to getGlobalQwenDir() when nothing is configured', () => {
-    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalQwenDir());
+  it('defaults to getGlobalXtreadDir() when nothing is configured', () => {
+    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalXtreadDir());
   });
 
   it('uses setRuntimeBaseDir value when set with absolute path', () => {
@@ -70,11 +70,11 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(runtimeDir);
   });
 
-  it('env var QWEN_RUNTIME_DIR takes priority over setRuntimeBaseDir', () => {
+  it('env var XTREAD_RUNTIME_DIR takes priority over setRuntimeBaseDir', () => {
     const settingsDir = path.resolve('from-settings');
     const envDir = path.resolve('from-env');
     Storage.setRuntimeBaseDir(settingsDir);
-    process.env['QWEN_RUNTIME_DIR'] = envDir;
+    process.env['XTREAD_RUNTIME_DIR'] = envDir;
     expect(Storage.getRuntimeBaseDir()).toBe(envDir);
   });
 
@@ -90,8 +90,8 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
 
-  it('expands tilde (~) in QWEN_RUNTIME_DIR env var', () => {
-    process.env['QWEN_RUNTIME_DIR'] = '~/env-runtime';
+  it('expands tilde (~) in XTREAD_RUNTIME_DIR env var', () => {
+    process.env['XTREAD_RUNTIME_DIR'] = '~/env-runtime';
     const expected = path.join(os.homedir(), 'env-runtime');
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
@@ -124,8 +124,8 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
 
-  it('resolves relative paths in QWEN_RUNTIME_DIR env var', () => {
-    process.env['QWEN_RUNTIME_DIR'] = 'relative/env-path';
+  it('resolves relative paths in XTREAD_RUNTIME_DIR env var', () => {
+    process.env['XTREAD_RUNTIME_DIR'] = 'relative/env-path';
     const expected = path.resolve('relative/env-path');
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
@@ -136,19 +136,19 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(customDir);
 
     Storage.setRuntimeBaseDir(null);
-    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalQwenDir());
+    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalXtreadDir());
   });
 
   it('resets to default when setRuntimeBaseDir is called with undefined', () => {
     Storage.setRuntimeBaseDir(path.resolve('custom'));
     Storage.setRuntimeBaseDir(undefined);
-    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalQwenDir());
+    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalXtreadDir());
   });
 
   it('resets to default when setRuntimeBaseDir is called with empty string', () => {
     Storage.setRuntimeBaseDir(path.resolve('custom'));
     Storage.setRuntimeBaseDir('');
-    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalQwenDir());
+    expect(Storage.getRuntimeBaseDir()).toBe(Storage.getGlobalXtreadDir());
   });
 
   it('handles bare tilde (~) as home directory', () => {
@@ -158,19 +158,19 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
 });
 
 describe('Storage – runtime path methods use getRuntimeBaseDir', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['XTREAD_RUNTIME_DIR'];
 
   beforeEach(() => {
     Storage.setRuntimeBaseDir(null);
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['XTREAD_RUNTIME_DIR'];
   });
 
   afterEach(() => {
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['XTREAD_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['XTREAD_RUNTIME_DIR'];
     }
   });
 
@@ -241,92 +241,92 @@ describe('Storage – runtime path methods use getRuntimeBaseDir', () => {
 });
 
 describe('Storage – config paths remain at ~/.qwen regardless of runtime dir', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
-  const globalQwenDir = Storage.getGlobalQwenDir();
+  const originalEnv = process.env['XTREAD_RUNTIME_DIR'];
+  const globalXtreadDir = Storage.getGlobalXtreadDir();
 
   beforeEach(() => {
     Storage.setRuntimeBaseDir(path.resolve('custom-runtime'));
-    process.env['QWEN_RUNTIME_DIR'] = path.resolve('env-runtime');
+    process.env['XTREAD_RUNTIME_DIR'] = path.resolve('env-runtime');
   });
 
   afterEach(() => {
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['XTREAD_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['XTREAD_RUNTIME_DIR'];
     }
   });
 
   it('getGlobalSettingsPath still uses ~/.qwen', () => {
     expect(Storage.getGlobalSettingsPath()).toBe(
-      path.join(globalQwenDir, 'settings.json'),
+      path.join(globalXtreadDir, 'settings.json'),
     );
   });
 
   it('getInstallationIdPath still uses ~/.qwen', () => {
     expect(Storage.getInstallationIdPath()).toBe(
-      path.join(globalQwenDir, 'installation_id'),
+      path.join(globalXtreadDir, 'installation_id'),
     );
   });
 
   it('getGoogleAccountsPath still uses ~/.qwen', () => {
     expect(Storage.getGoogleAccountsPath()).toBe(
-      path.join(globalQwenDir, 'google_accounts.json'),
+      path.join(globalXtreadDir, 'google_accounts.json'),
     );
   });
 
   it('getMcpOAuthTokensPath still uses ~/.qwen', () => {
     expect(Storage.getMcpOAuthTokensPath()).toBe(
-      path.join(globalQwenDir, 'mcp-oauth-tokens.json'),
+      path.join(globalXtreadDir, 'mcp-oauth-tokens.json'),
     );
   });
 
   it('getOAuthCredsPath still uses ~/.qwen', () => {
     expect(Storage.getOAuthCredsPath()).toBe(
-      path.join(globalQwenDir, 'oauth_creds.json'),
+      path.join(globalXtreadDir, 'oauth_creds.json'),
     );
   });
 
   it('getUserCommandsDir still uses ~/.qwen', () => {
     expect(Storage.getUserCommandsDir()).toBe(
-      path.join(globalQwenDir, 'commands'),
+      path.join(globalXtreadDir, 'commands'),
     );
   });
 
   it('getGlobalMemoryFilePath still uses ~/.qwen', () => {
     expect(Storage.getGlobalMemoryFilePath()).toBe(
-      path.join(globalQwenDir, 'memory.md'),
+      path.join(globalXtreadDir, 'memory.md'),
     );
   });
 
   it('getGlobalBinDir still uses ~/.qwen', () => {
-    expect(Storage.getGlobalBinDir()).toBe(path.join(globalQwenDir, 'bin'));
+    expect(Storage.getGlobalBinDir()).toBe(path.join(globalXtreadDir, 'bin'));
   });
 
-  it('getUserSkillsDirs still includes ~/.qwen/skills', () => {
+  it('getUserSkillsDirs still includes ~/.xtread/skills', () => {
     const storage = new Storage('/tmp/project');
     const skillsDirs = storage.getUserSkillsDirs();
     expect(
-      skillsDirs.some((dir) => dir === path.join(globalQwenDir, 'skills')),
+      skillsDirs.some((dir) => dir === path.join(globalXtreadDir, 'skills')),
     ).toBe(true);
   });
 });
 
 describe('Storage – runtime base dir async context isolation', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['XTREAD_RUNTIME_DIR'];
 
   beforeEach(() => {
     Storage.setRuntimeBaseDir(null);
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['XTREAD_RUNTIME_DIR'];
   });
 
   afterEach(() => {
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['XTREAD_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['XTREAD_RUNTIME_DIR'];
     }
   });
 

@@ -8,7 +8,7 @@ import { render } from 'ink-testing-library';
 import { describe, it, expect, vi } from 'vitest';
 import { ExtensionListStep } from './ExtensionListStep.js';
 import { KeypressProvider } from '../../../contexts/KeypressContext.js';
-import type { Extension } from '@qwen-code/qwen-code-core';
+import type { Extension } from '@xtread-code/xtread-core';
 import { ExtensionUpdateState } from '../../../state/extensions.js';
 
 const createMockExtension = (
@@ -20,7 +20,7 @@ const createMockExtension = (
     id: name,
     name,
     version,
-    path: `/home/user/.qwen/extensions/${name}`,
+    path: `/home/user/.xtread/extensions/${name}`,
     isActive,
     installMetadata: {
       type: 'git',

@@ -363,7 +363,7 @@ export class GeminiChat {
         const hasUserMaxTokensOverride =
           (cgConfig?.samplingParams?.max_tokens !== undefined &&
             cgConfig?.samplingParams?.max_tokens !== null) ||
-          !!process.env['QWEN_CODE_MAX_OUTPUT_TOKENS'];
+          !!process.env['XTREAD_CODE_MAX_OUTPUT_TOKENS'];
 
         let lastFinishReason: string | undefined;
 

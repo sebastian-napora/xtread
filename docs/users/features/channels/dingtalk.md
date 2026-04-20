@@ -1,6 +1,6 @@
 # DingTalk (Dingtalk)
 
-This guide covers setting up a Qwen Code channel on DingTalk (钉钉).
+This guide covers setting up a Xtread Code channel on DingTalk (钉钉).
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ DingTalk Stream mode uses an outbound WebSocket connection — no public URL or 
 
 ## Configuration
 
-Add the channel to `~/.qwen/settings.json`:
+Add the channel to `~/.xtread/settings.json`:
 
 ```json
 {

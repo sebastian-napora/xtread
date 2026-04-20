@@ -12,11 +12,11 @@ import {
   MCPDiscoveryState,
   getMCPServerStatus,
   getMCPDiscoveryState,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
-vi.mock('@qwen-code/qwen-code-core', async (importOriginal) => {
+vi.mock('@xtread-code/xtread-core', async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import('@qwen-code/qwen-code-core')>();
+    await importOriginal<typeof import('@xtread-code/xtread-core')>();
   const mockAuthenticate = vi.fn();
   return {
     ...actual,

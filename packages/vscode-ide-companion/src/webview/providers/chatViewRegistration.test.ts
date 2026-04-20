@@ -64,8 +64,8 @@ describe('registerChatViewProviders', () => {
     >;
 
     expect(calls.map((call) => call[0])).toEqual([
-      'qwen-code.chatView.sidebar',
-      'qwen-code.chatView.secondary',
+      'xtread-code.chatView.sidebar',
+      'xtread-code.chatView.secondary',
     ]);
     expect(calls[0]?.[1]).not.toBe(calls[1]?.[1]);
     expect(calls[0]?.[2]).toEqual({
@@ -73,7 +73,7 @@ describe('registerChatViewProviders', () => {
     });
     expect(executeCommand).toHaveBeenCalledWith(
       'setContext',
-      'qwen-code:supportsSecondarySidebar',
+      'xtread-code:supportsSecondarySidebar',
       true,
     );
     expect(context.subscriptions).toHaveLength(2);
@@ -88,7 +88,7 @@ describe('registerChatViewProviders', () => {
 
     expect(executeCommand).toHaveBeenCalledWith(
       'setContext',
-      'qwen-code:supportsSecondarySidebar',
+      'xtread-code:supportsSecondarySidebar',
       false,
     );
   });

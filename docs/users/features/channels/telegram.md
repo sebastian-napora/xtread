@@ -1,6 +1,6 @@
 # Telegram
 
-This guide covers setting up a Qwen Code channel on Telegram.
+This guide covers setting up a Xtread Code channel on Telegram.
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ The easiest way to find it:
 
 ## Configuration
 
-Add the channel to `~/.qwen/settings.json`:
+Add the channel to `~/.xtread/settings.json`:
 
 ```json
 {

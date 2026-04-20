@@ -6,7 +6,7 @@
 
 import * as vscode from 'vscode';
 import { BaseMessageHandler } from './BaseMessageHandler.js';
-import type { ChatMessage } from '../../services/qwenAgentManager.js';
+import type { ChatMessage } from '../../services/xtreadAgentManager.js';
 import type { ImageAttachment } from '../../utils/imageSupport.js';
 import type { ApprovalModeValue } from '../../types/approvalModeValueTypes.js';
 import {
@@ -104,7 +104,7 @@ export class SessionMessageHandler extends BaseMessageHandler {
             typeof data?.modelId === 'string' && data.modelId.trim().length > 0
               ? data.modelId.trim()
               : undefined;
-          await vscode.commands.executeCommand('qwenCode.openNewChatTab', {
+          await vscode.commands.executeCommand('xtreadCode.openNewChatTab', {
             initialModelId: modelId,
           });
         } catch (error) {
@@ -232,7 +232,7 @@ export class SessionMessageHandler extends BaseMessageHandler {
       if (this.loginHandler) {
         await this.loginHandler();
       } else {
-        await vscode.commands.executeCommand('qwen-code.login');
+        await vscode.commands.executeCommand('xtread-code.login');
       }
       return true;
     }
@@ -256,7 +256,7 @@ export class SessionMessageHandler extends BaseMessageHandler {
       if (this.loginHandler) {
         await this.loginHandler();
       } else {
-        await vscode.commands.executeCommand('qwen-code.login');
+        await vscode.commands.executeCommand('xtread-code.login');
       }
       return 'login';
     }
@@ -425,7 +425,7 @@ export class SessionMessageHandler extends BaseMessageHandler {
       console.warn('[SessionMessageHandler] Agent not connected');
 
       // Show non-modal notification with Login button
-      await this.promptLogin('You need to login first to use Qwen Code.');
+      await this.promptLogin('You need to login first to use Xtread Code.');
       return;
     }
 
@@ -443,7 +443,7 @@ export class SessionMessageHandler extends BaseMessageHandler {
         const errorMsg = this.getErrorMessage(createErr);
         if (this.shouldPromptLogin(createErr)) {
           await this.promptLogin(
-            'Your login session has expired or is invalid. Please login again to continue using Qwen Code.',
+            'Your login session has expired or is invalid. Please login again to continue using Xtread Code.',
           );
           return;
         }
@@ -526,7 +526,7 @@ export class SessionMessageHandler extends BaseMessageHandler {
       ) {
         // Show a more user-friendly error message for expired sessions
         await this.promptLogin(
-          'Your login session has expired or is invalid. Please login again to continue using Qwen Code.',
+          'Your login session has expired or is invalid. Please login again to continue using Xtread Code.',
         );
 
         // Send a specific error to the webview for better UI handling

@@ -7,14 +7,14 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { PartListUnion } from '@google/genai';
-import type { Config } from '@qwen-code/qwen-code-core';
+import type { Config } from '@xtread-code/xtread-core';
 import {
   getErrorMessage,
   isNodeError,
   Storage,
   unescapePath,
   readManyFiles,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import type {
   HistoryItemToolGroup,
   HistoryItemWithoutId,
@@ -203,13 +203,13 @@ export async function handleAtCommand({
       respectFileIgnore.respectGitIgnore &&
       fileDiscovery.shouldIgnoreFile(pathName, {
         respectGitIgnore: true,
-        respectQwenIgnore: false,
+        respectXtreadIgnore: false,
       });
     const qwenIgnored =
-      respectFileIgnore.respectQwenIgnore &&
+      respectFileIgnore.respectXtreadIgnore &&
       fileDiscovery.shouldIgnoreFile(pathName, {
         respectGitIgnore: false,
-        respectQwenIgnore: true,
+        respectXtreadIgnore: true,
       });
 
     if (gitIgnored || qwenIgnored) {

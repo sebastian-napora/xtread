@@ -5,7 +5,7 @@
  */
 
 import * as vscode from 'vscode';
-import { QwenAgentManager } from '../../services/qwenAgentManager.js';
+import { QwenAgentManager } from '../../services/xtreadAgentManager.js';
 import { ConversationStore } from '../../services/conversationStore.js';
 import type {
   RequestPermissionRequest,
@@ -308,8 +308,8 @@ export class WebViewProvider {
               optionId === 'cancel' ||
               optionId.toLowerCase().includes('reject');
 
-            // Always close open qwen-diff editors after any permission decision
-            void vscode.commands.executeCommand('qwen.diff.closeAll');
+            // Always close open xtread-diff editors after any permission decision
+            void vscode.commands.executeCommand('xtread.diff.closeAll');
 
             if (isCancel) {
               // Fire and forget — cancel generation and update UI
@@ -379,7 +379,7 @@ export class WebViewProvider {
               })();
             } else {
               // Allowed/proceeded — suppress diff re-open briefly
-              void vscode.commands.executeCommand('qwen.diff.suppressBriefly');
+              void vscode.commands.executeCommand('xtread.diff.suppressBriefly');
             }
           };
           // Store handler in message handler
@@ -668,7 +668,7 @@ export class WebViewProvider {
           ).trim();
           const panelRef = this.panelManager.getPanel();
           if (panelRef) {
-            panelRef.title = title ? truncatePanelTitle(title) : 'Qwen Code';
+            panelRef.title = title ? truncatePanelTitle(title) : 'Xtread Code';
           }
           return;
         }
@@ -1470,7 +1470,7 @@ export class WebViewProvider {
 
     // Ensure restored tab title starts from default label
     try {
-      panel.title = 'Qwen Code';
+      panel.title = 'Xtread Code';
     } catch (e) {
       console.warn(
         '[WebViewProvider] Failed to reset restored panel title:',
@@ -1504,7 +1504,7 @@ export class WebViewProvider {
           ).trim();
           const panelRef = this.panelManager.getPanel();
           if (panelRef) {
-            panelRef.title = title ? truncatePanelTitle(title) : 'Qwen Code';
+            panelRef.title = title ? truncatePanelTitle(title) : 'Xtread Code';
           }
           return;
         }

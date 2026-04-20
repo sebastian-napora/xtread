@@ -93,9 +93,9 @@ export class AuthMessageHandler extends BaseMessageHandler {
         console.log('[AuthMessageHandler] Using fallback login method');
         // Fallback: show message and use command
         vscode.window.showInformationMessage(
-          'Please wait while we connect to Qwen Code...',
+          'Please wait while we connect to Xtread Code...',
         );
-        await vscode.commands.executeCommand('qwen-code.login');
+        await vscode.commands.executeCommand('xtread-code.login');
       }
     } catch (error) {
       const errorMsg = getErrorMessage(error);

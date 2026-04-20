@@ -1,6 +1,6 @@
 # Custom Channel Plugins
 
-You can extend the channel system with custom platform adapters packaged as [extensions](../../extension/introduction). This lets you connect Qwen Code to any messaging platform, webhook, or custom transport.
+You can extend the channel system with custom platform adapters packaged as [extensions](../../extension/introduction). This lets you connect Xtread Code to any messaging platform, webhook, or custom transport.
 
 ## How It Works
 
@@ -27,7 +27,7 @@ qwen extensions link /path/to/my-channel-extension
 
 ## Configuring a Custom Channel
 
-Add a channel entry to `~/.qwen/settings.json` using the custom type provided by the extension:
+Add a channel entry to `~/.xtread/settings.json` using the custom type provided by the extension:
 
 ```json
 {

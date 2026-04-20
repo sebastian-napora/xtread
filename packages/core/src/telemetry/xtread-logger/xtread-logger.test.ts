@@ -14,7 +14,7 @@ import {
   afterAll,
 } from 'vitest';
 import * as os from 'node:os';
-import { QwenLogger, TEST_ONLY } from './qwen-logger.js';
+import { QwenLogger, TEST_ONLY } from './xtread-logger.js';
 import type { Config } from '../../config/config.js';
 import { AuthType } from '../../core/contentGenerator.js';
 import {
@@ -70,7 +70,7 @@ const makeFakeConfig = (overrides: Partial<Config> = {}): Config => {
     getCliVersion: () => '1.0.0',
     getProxy: () => undefined,
     getContentGeneratorConfig: () => ({ authType: 'test-auth' }),
-    getAuthType: () => AuthType.QWEN_OAUTH,
+    getAuthType: () => AuthType.USE_GEMINI,
     getMcpServers: () => ({}),
     getModel: () => 'test-model',
     getEmbeddingModel: () => 'test-embedding',
@@ -649,7 +649,7 @@ describe('QwenLogger', () => {
       const event = new HookCallEvent(
         'PreToolUse',
         'command',
-        '/home/user/.qwen/hooks/check-secrets.sh --api-key=secret123',
+        '/home/user/.xtread/hooks/check-secrets.sh --api-key=secret123',
         { tool_name: 'read_file' },
         100,
         true,

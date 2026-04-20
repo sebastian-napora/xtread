@@ -5,7 +5,7 @@
  */
 
 /**
- * Converter for Gemini extensions to Qwen Code format.
+ * Converter for Gemini extensions to Xtread Code format.
  */
 
 import * as fs from 'node:fs';
@@ -28,7 +28,7 @@ export interface GeminiExtensionConfig {
 }
 
 /**
- * Converts a Gemini extension config to Qwen Code format.
+ * Converts a Gemini extension config to Xtread Code format.
  * @param extensionDir Path to the Gemini extension directory
  * @returns Qwen ExtensionConfig
  */
@@ -58,7 +58,7 @@ export function convertGeminiToQwenConfig(
 }
 
 /**
- * Converts a complete Gemini extension package to Qwen Code format.
+ * Converts a complete Gemini extension package to Xtread Code format.
  * Creates a new temporary directory with:
  * 1. Converted qwen-extension.json
  * 2. Commands converted from TOML to MD
@@ -86,7 +86,7 @@ export async function convertGeminiExtensionPackage(
     }
 
     // Step 3: Create qwen-extension.json with converted config
-    const qwenConfigPath = path.join(tmpDir, 'qwen-extension.json');
+    const qwenConfigPath = path.join(tmpDir, 'xtread-extension.json');
     fs.writeFileSync(
       qwenConfigPath,
       JSON.stringify(geminiConfig, null, 2),

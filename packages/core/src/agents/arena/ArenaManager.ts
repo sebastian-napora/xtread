@@ -98,10 +98,10 @@ export class ArenaManager {
     this.callbacks = callbacks;
     this.eventEmitter = new ArenaEventEmitter();
     const arenaSettings = config.getAgentsSettings().arena;
-    // Use the user-configured base dir, or default to ~/.qwen/arena.
+    // Use the user-configured base dir, or default to ~/.xtread/arena.
     this.arenaBaseDir =
       arenaSettings?.worktreeBaseDir ??
-      path.join(Storage.getGlobalQwenDir(), 'arena');
+      path.join(Storage.getGlobalXtreadDir(), 'arena');
     this.worktreeService = new GitWorktreeService(
       config.getWorkingDir(),
       this.arenaBaseDir,
@@ -1030,7 +1030,7 @@ export class ArenaManager {
 
     // If the model has auth overrides, pass them via env
     if (model.apiKey) {
-      env['QWEN_API_KEY'] = model.apiKey;
+      env['XTREAD_API_KEY'] = model.apiKey;
     }
     if (model.baseUrl) {
       env['QWEN_BASE_URL'] = model.baseUrl;
@@ -1225,7 +1225,7 @@ export class ArenaManager {
    * All status and control files are stored here.
    *
    * Returns the absolute path to the session directory, e.g.
-   * `~/.qwen/worktrees/<sessionId>/`.  The directory contains:
+   * `~/.xtread/worktrees/<sessionId>/`.  The directory contains:
    * - `config.json` — consolidated session config + per-agent status
    * - `agents/<safeAgentId>.json` — individual agent status files
    * - `control/` — control signals (shutdown, cancel)

@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BundledSkillLoader } from './BundledSkillLoader.js';
 import { CommandKind } from '../ui/commands/types.js';
-import type { Config, SkillConfig } from '@qwen-code/qwen-code-core';
+import type { Config, SkillConfig } from '@xtread-code/xtread-core';
 
 function makeSkill(overrides: Partial<SkillConfig> = {}): SkillConfig {
   return {
@@ -130,7 +130,7 @@ describe('BundledSkillLoader', () => {
 
   it('should resolve {{model}} template variable in skill body', async () => {
     const skill = makeSkill({
-      body: 'Review by {{model}} via Qwen Code',
+      body: 'Review by {{model}} via Xtread Code',
     });
     mockSkillManager.listSkills.mockResolvedValue([skill]);
     (mockConfig.getModel as ReturnType<typeof vi.fn>).mockReturnValue(
@@ -148,7 +148,7 @@ describe('BundledSkillLoader', () => {
       type: 'submit_prompt',
       content: [
         {
-          text: 'YOUR_MODEL_ID="qwen3-coder"\n\nReview by qwen3-coder via Qwen Code',
+          text: 'YOUR_MODEL_ID="qwen3-coder"\n\nReview by qwen3-coder via Xtread Code',
         },
       ],
     });

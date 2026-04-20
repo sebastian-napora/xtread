@@ -18,7 +18,7 @@ import {
   type SessionHookEntry,
   createDebugLogger,
   HOOKS_CONFIG_FIELDS,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import type {
   HooksManagementDialogProps,
   HookEventDisplayInfo,

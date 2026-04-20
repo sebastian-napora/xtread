@@ -1444,7 +1444,7 @@ hello
         selectedDocs: [
           {
             type: 'user',
-            filePath: '/test/project/root/.qwen/memory/user.md',
+            filePath: '/test/project/root/.xtread/memory/user.md',
             relativePath: 'user.md',
             filename: 'user.md',
             title: 'User Memory',
@@ -1502,7 +1502,7 @@ hello
           selectedDocs: [
             {
               type: 'user',
-              filePath: '/test/project/root/.qwen/memory/user.md',
+              filePath: '/test/project/root/.xtread/memory/user.md',
               relativePath: 'user.md',
               filename: 'user.md',
               title: 'User Memory',
@@ -1555,7 +1555,7 @@ hello
         'Keep it short again',
         expect.objectContaining({
           excludedFilePaths: new Set([
-            '/test/project/root/.qwen/memory/user.md',
+            '/test/project/root/.xtread/memory/user.md',
           ]),
         }),
       );

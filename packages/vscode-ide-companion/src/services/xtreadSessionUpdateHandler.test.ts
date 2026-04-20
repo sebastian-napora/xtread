@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { QwenSessionUpdateHandler } from './qwenSessionUpdateHandler.js';
+import { QwenSessionUpdateHandler } from './xtreadSessionUpdateHandler.js';
 import type { SessionNotification } from '@agentclientprotocol/sdk';
 import type { ApprovalModeValue } from '../types/approvalModeValueTypes.js';
 import type { QwenAgentCallbacks } from '../types/chatTypes.js';

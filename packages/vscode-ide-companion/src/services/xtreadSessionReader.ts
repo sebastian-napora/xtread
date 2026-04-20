@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as readline from 'readline';
-import { getProjectHash } from '@qwen-code/qwen-code-core/src/utils/paths.js';
+import { getProjectHash } from '@xtread-code/xtread-core/src/utils/paths.js';
 import { truncatePanelTitle } from '../webview/utils/panelTitleUtils.js';
 
 export interface QwenMessage {

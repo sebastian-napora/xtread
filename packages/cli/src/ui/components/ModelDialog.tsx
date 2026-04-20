@@ -15,7 +15,7 @@ import {
   type AvailableModel as CoreAvailableModel,
   type ContentGeneratorConfig,
   type InputModalities,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { useKeypress } from '../hooks/useKeypress.js';
 import { theme } from '../semantic-colors.js';
 import { DescriptiveRadioButtonSelect } from './shared/DescriptiveRadioButtonSelect.js';
@@ -162,9 +162,8 @@ export function ModelDialog({
       modelsByAuthTypeMap.get(authType)!.push(model);
     }
 
-    // Fixed order: qwen-oauth first, then others in a stable order
+    // Fixed order: USE_OPENAI first, then others in a stable order
     const authTypeOrder: AuthType[] = [
-      AuthType.QWEN_OAUTH,
       AuthType.USE_OPENAI,
       AuthType.USE_ANTHROPIC,
       AuthType.USE_GEMINI,
@@ -213,18 +212,14 @@ export function ModelDialog({
           const value =
             isRuntime && snapshotId ? snapshotId : `${t2}::${model.id}`;
 
-          const isQwenOAuth = t2 === AuthType.QWEN_OAUTH;
-
           const title = (
             <Text>
               <Text
                 bold
                 color={
-                  isQwenOAuth
+                  isRuntime
                     ? theme.status.warning
-                    : isRuntime
-                      ? theme.status.warning
-                      : theme.text.accent
+                    : theme.text.accent
                 }
               >
                 [{t2}]
@@ -233,21 +228,15 @@ export function ModelDialog({
               {isRuntime && (
                 <Text color={theme.status.warning}> (Runtime)</Text>
               )}
-              {isQwenOAuth && !isRuntime && (
-                <Text color={theme.status.warning}> ({t('Discontinued')})</Text>
-              )}
             </Text>
           );
 
-          // Include runtime / discontinued indicator in description
+          // Include runtime indicator in description
           let description = model.description || '';
           if (isRuntime) {
             description = description
               ? `${description} (Runtime)`
               : 'Runtime model';
-          }
-          if (isQwenOAuth && !isRuntime) {
-            description = t('Discontinued — switch to Coding Plan or API Key');
           }
 
           return {
@@ -339,25 +328,6 @@ export function ModelDialog({
         return;
       }
 
-      // Block selection of discontinued qwen-oauth models
-      // (only block non-runtime OAuth; runtime OAuth models from existing
-      //  cached tokens are still allowed to work until the server rejects them)
-      const isQwenOAuthSelection =
-        selected.startsWith(`${AuthType.QWEN_OAUTH}::`) ||
-        (selected.startsWith('$runtime|') &&
-          selected.split('|')[1] === AuthType.QWEN_OAUTH);
-      const isRuntimeOAuthSelection = selected.startsWith(
-        `$runtime|${AuthType.QWEN_OAUTH}|`,
-      );
-      if (isQwenOAuthSelection && !isRuntimeOAuthSelection) {
-        setErrorMessage(
-          t(
-            'Qwen OAuth free tier was discontinued on 2026-04-15. Please select a model from another provider or run /auth to switch.',
-          ),
-        );
-        return;
-      }
-
       let after: ContentGeneratorConfig | undefined;
       let effectiveAuthType: AuthType | undefined;
       let effectiveModelId = selected;
@@ -398,10 +368,7 @@ export function ModelDialog({
         await config.switchModel(
           selectedAuthType,
           modelId,
-          selectedAuthType !== authType &&
-            selectedAuthType === AuthType.QWEN_OAUTH
-            ? { requireCachedCredentials: true }
-            : undefined,
+          undefined,
         );
 
         if (!isRuntime) {
@@ -496,14 +463,6 @@ export function ModelDialog({
             borderRight={false}
             borderColor={theme.border.default}
           />
-          {highlightedEntry.authType === AuthType.QWEN_OAUTH &&
-            !highlightedEntry.isRuntime && (
-              <Box marginTop={1}>
-                <Text color={theme.status.warning}>
-                  ⚠ {t('Discontinued — switch to Coding Plan or API Key')}
-                </Text>
-              </Box>
-            )}
           <DetailRow
             label={t('Modality')}
             value={formatModalities(highlightedEntry.model.modalities)}
@@ -514,18 +473,14 @@ export function ModelDialog({
               highlightedEntry.model.contextWindowSize,
             )}
           />
-          {highlightedEntry.authType !== AuthType.QWEN_OAUTH && (
-            <>
-              <DetailRow
-                label="Base URL"
-                value={highlightedEntry.model.baseUrl ?? t('(default)')}
-              />
-              <DetailRow
-                label="API Key"
-                value={highlightedEntry.model.envKey ?? t('(not set)')}
-              />
-            </>
-          )}
+          <DetailRow
+            label="Base URL"
+            value={highlightedEntry.model.baseUrl ?? t('(default)')}
+          />
+          <DetailRow
+            label="API Key"
+            value={highlightedEntry.model.envKey ?? t('(not set)')}
+          />
         </Box>
       )}
 

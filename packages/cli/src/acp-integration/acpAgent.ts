@@ -8,20 +8,16 @@ import {
   APPROVAL_MODE_INFO,
   APPROVAL_MODES,
   AuthType,
-  clearCachedCredentialFile,
   createDebugLogger,
-  QwenOAuth2Event,
-  qwenOAuth2Events,
   MCPServerConfig,
   SessionService,
   tokenLimit,
   type Config,
   type ConversationRecord,
-  type DeviceAuthorizationData,
   SessionStartSource,
   SessionEndReason,
   type PermissionMode,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import {
   AgentSideConnection,
   RequestError,
@@ -187,8 +183,8 @@ class QwenAgent implements Agent {
     return {
       protocolVersion: PROTOCOL_VERSION,
       agentInfo: {
-        name: 'qwen-code',
-        title: 'Qwen Code',
+        name: 'xtread',
+        title: 'XtreaD',
         version,
       },
       authMethods,
@@ -210,19 +206,6 @@ class QwenAgent implements Agent {
   async authenticate({ methodId }: AuthenticateRequest): Promise<void> {
     const method = z.nativeEnum(AuthType).parse(methodId);
 
-    let authUri: string | undefined;
-    const authUriHandler = (deviceAuth: DeviceAuthorizationData) => {
-      authUri = deviceAuth.verification_uri_complete;
-      void this.connection.extNotification('authenticate/update', {
-        _meta: { authUri },
-      });
-    };
-
-    if (method === AuthType.QWEN_OAUTH) {
-      qwenOAuth2Events.once(QwenOAuth2Event.AuthUri, authUriHandler);
-    }
-
-    await clearCachedCredentialFile();
     try {
       await this.config.refreshAuth(method);
       this.settings.setValue(
@@ -231,9 +214,7 @@ class QwenAgent implements Agent {
         method,
       );
     } finally {
-      if (method === AuthType.QWEN_OAUTH) {
-        qwenOAuth2Events.off(QwenOAuth2Event.AuthUri, authUriHandler);
-      }
+      // No-op
     }
   }
 
@@ -472,7 +453,7 @@ class QwenAgent implements Agent {
     if (!selectedType) {
       throw RequestError.authRequired(
         { authMethods: this.pickAuthMethodsForAuthRequired() },
-        'Use Qwen Code CLI to authenticate first.',
+        'Use Xtread Code CLI to authenticate first.',
       );
     }
 
@@ -482,7 +463,7 @@ class QwenAgent implements Agent {
       debugLogger.error(`Authentication failed: ${e}`);
       throw RequestError.authRequired(
         {
-          authMethods: this.pickAuthMethodsForAuthRequired(selectedType, e),
+          authMethods: this.pickAuthMethodsForAuthRequired(selectedType),
         },
         'Authentication failed: ' + (e as Error).message,
       );
@@ -491,19 +472,8 @@ class QwenAgent implements Agent {
 
   private pickAuthMethodsForAuthRequired(
     selectedType?: AuthType | string,
-    error?: unknown,
   ): AuthMethod[] {
     const authMethods = buildAuthMethods();
-    const errorMessage = this.extractErrorMessage(error);
-    if (
-      errorMessage?.includes('qwen-oauth') ||
-      errorMessage?.includes('Qwen OAuth')
-    ) {
-      const qwenOAuthMethods = authMethods.filter(
-        (m) => m.id === AuthType.QWEN_OAUTH,
-      );
-      return qwenOAuthMethods.length ? qwenOAuthMethods : authMethods;
-    }
 
     if (selectedType) {
       const matched = authMethods.filter((m) => m.id === selectedType);
@@ -511,20 +481,6 @@ class QwenAgent implements Agent {
     }
 
     return authMethods;
-  }
-
-  private extractErrorMessage(error?: unknown): string | undefined {
-    if (error instanceof Error) return error.message;
-    if (
-      typeof error === 'object' &&
-      error != null &&
-      'message' in error &&
-      typeof error.message === 'string'
-    ) {
-      return error.message;
-    }
-    if (typeof error === 'string') return error;
-    return undefined;
   }
 
   private setupFileSystem(config: Config): void {

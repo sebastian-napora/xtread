@@ -272,7 +272,7 @@ export class QwenLogger {
       },
       view: {
         id: this.sessionId || this.config?.getSessionId(),
-        name: 'qwen-code-cli',
+        name: 'xtread-code-cli',
       },
       os: osMetadata,
 
@@ -288,7 +288,7 @@ export class QwenLogger {
           ? { channel: this.config.getChannel() }
           : {}),
       },
-      _v: `qwen-code@${version}`,
+      _v: `xtread-code@${version}`,
     } as RumPayload;
   }
 

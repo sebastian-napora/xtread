@@ -5,8 +5,6 @@
  */
 
 import type { GenerateContentResponse } from '@google/genai';
-import { AuthType } from '../core/contentGenerator.js';
-import { isQwenQuotaExceededError } from './quotaErrorDetection.js';
 import { createDebugLogger } from './debugLogger.js';
 import { getErrorStatus } from './errors.js';
 
@@ -77,7 +75,6 @@ export async function retryWithBackoff<T>(
     maxAttempts,
     initialDelayMs,
     maxDelayMs,
-    authType,
     shouldRetryOnError,
     shouldRetryOnContent,
   } = {
@@ -108,18 +105,7 @@ export async function retryWithBackoff<T>(
     } catch (error) {
       const errorStatus = getErrorStatus(error);
 
-      // Check for Qwen OAuth quota exceeded error - throw immediately without retry
-      if (authType === AuthType.QWEN_OAUTH && isQwenQuotaExceededError(error)) {
-        throw new Error(
-          `Qwen OAuth free tier has been discontinued as of 2026-04-15.\n\n` +
-            `To continue using Qwen Code, try one of these alternatives:\n` +
-            `  - OpenRouter:    https://openrouter.ai/docs/quickstart\n` +
-            `  - Fireworks AI:  https://docs.fireworks.ai/api-reference/introduction\n` +
-            `  - ModelStudio:   https://help.aliyun.com/zh/model-studio/coding-plan\n\n` +
-            `After setting up your API key, run /auth to configure your provider.`,
-        );
-      }
-
+      
       // Check if we've exhausted retries or shouldn't retry
       if (attempt >= maxAttempts || !shouldRetryOnError(error as Error)) {
         throw error;

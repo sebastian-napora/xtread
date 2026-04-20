@@ -70,7 +70,7 @@ import {
   recordMemoryDreamMetrics,
   recordMemoryRecallMetrics,
 } from './metrics.js';
-import { QwenLogger } from './qwen-logger/qwen-logger.js';
+import { QwenLogger } from './xtread-logger/xtread-logger.js';
 import { isTelemetrySdkInitialized } from './sdk.js';
 import type {
   ApiErrorEvent,

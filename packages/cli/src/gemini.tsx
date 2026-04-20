@@ -5,14 +5,13 @@
  */
 
 import {
-  AuthType,
   InputFormat,
   isDebugLoggingDegraded,
   logUserPrompt,
   Storage,
   type Config,
   createDebugLogger,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 import { render } from 'ink';
 import dns from 'node:dns';
 import os from 'node:os';
@@ -101,7 +100,7 @@ function getNodeMemoryArgs(isDebugMode: boolean): string[] {
     );
   }
 
-  if (process.env['QWEN_CODE_NO_RELAUNCH']) {
+  if (process.env['XTREAD_CODE_NO_RELAUNCH']) {
     return [];
   }
 
@@ -361,7 +360,7 @@ export async function main() {
   }
 
   // We are now past the logic handling potentially launching a child process
-  // to run Qwen Code. It is now safe to perform expensive initialization that
+  // to run Xtread Code. It is now safe to perform expensive initialization that
   // may have side effects.
   profileCheckpoint('after_sandbox_check');
 
@@ -447,12 +446,6 @@ export async function main() {
         })),
         ...getSettingsWarnings(settings),
         ...config.getWarnings(),
-        ...(config.getModelsConfig().getCurrentAuthType() ===
-        AuthType.QWEN_OAUTH
-          ? [
-              'Qwen OAuth free tier was discontinued on 2026-04-15. Run /auth to switch to Coding Plan or another provider.',
-            ]
-          : []),
       ]),
     ];
 

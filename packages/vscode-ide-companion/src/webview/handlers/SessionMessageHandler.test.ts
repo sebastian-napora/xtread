@@ -67,7 +67,7 @@ describe('SessionMessageHandler', () => {
       data: { modelId: 'glm-5' },
     });
 
-    expect(mockExecuteCommand).toHaveBeenCalledWith('qwenCode.openNewChatTab', {
+    expect(mockExecuteCommand).toHaveBeenCalledWith('xtreadCode.openNewChatTab', {
       initialModelId: 'glm-5',
     });
   });

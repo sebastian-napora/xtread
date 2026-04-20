@@ -8,7 +8,7 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   extractSessionListItems,
   QwenAgentManager,
-} from './qwenAgentManager.js';
+} from './xtreadAgentManager.js';
 import type { ModelInfo } from '@agentclientprotocol/sdk';
 
 vi.mock('vscode', () => ({

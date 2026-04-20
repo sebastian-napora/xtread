@@ -8,8 +8,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as crypto from 'crypto';
-import { getProjectHash } from '@qwen-code/qwen-code-core/src/utils/paths.js';
-import type { QwenSession } from './qwenSessionReader.js';
+import { getProjectHash } from '@xtread-code/xtread-core/src/utils/paths.js';
+import type { QwenSession } from './xtreadSessionReader.js';
 
 /**
  * Qwen Session Manager

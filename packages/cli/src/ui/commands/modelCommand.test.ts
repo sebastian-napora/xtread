@@ -12,7 +12,7 @@ import {
   AuthType,
   type ContentGeneratorConfig,
   type Config,
-} from '@qwen-code/qwen-code-core';
+} from '@xtread-code/xtread-core';
 
 // Helper function to create a mock config
 function createMockConfig(
@@ -76,21 +76,6 @@ describe('modelCommand', () => {
       type: 'message',
       messageType: 'error',
       content: 'Authentication type not available.',
-    });
-  });
-
-  it('should return dialog action for QWEN_OAUTH auth type', async () => {
-    const mockConfig = createMockConfig({
-      model: 'test-model',
-      authType: AuthType.QWEN_OAUTH,
-    });
-    mockContext.services.config = mockConfig as Config;
-
-    const result = await modelCommand.action!(mockContext, '');
-
-    expect(result).toEqual({
-      type: 'dialog',
-      dialog: 'model',
     });
   });
 

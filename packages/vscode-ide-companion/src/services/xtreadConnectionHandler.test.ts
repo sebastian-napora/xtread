@@ -12,7 +12,7 @@ vi.mock('vscode', () => ({
   },
 }));
 
-import { QwenConnectionHandler } from './qwenConnectionHandler.js';
+import { QwenConnectionHandler } from './xtreadConnectionHandler.js';
 import type { AcpConnection } from './acpConnection.js';
 
 describe('QwenConnectionHandler', () => {

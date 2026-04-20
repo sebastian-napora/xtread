@@ -5,7 +5,7 @@
  */
 
 import * as osActual from 'node:os';
-import { FatalConfigError, ideContextStore } from '@qwen-code/qwen-code-core';
+import { FatalConfigError, ideContextStore } from '@xtread-code/xtread-core';
 import {
   describe,
   it,

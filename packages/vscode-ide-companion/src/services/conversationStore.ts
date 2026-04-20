@@ -5,7 +5,7 @@
  */
 
 import type * as vscode from 'vscode';
-import type { ChatMessage } from './qwenAgentManager.js';
+import type { ChatMessage } from './xtreadAgentManager.js';
 
 export interface Conversation {
   id: string;

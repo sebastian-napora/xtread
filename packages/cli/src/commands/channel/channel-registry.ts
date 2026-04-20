@@ -1,4 +1,4 @@
-import type { ChannelPlugin } from '@qwen-code/channel-base';
+import type { ChannelPlugin } from '@xtread-code/channel-base';
 
 const registry = new Map<string, ChannelPlugin>();
 let builtinsPromise: Promise<void> | null = null;
@@ -7,9 +7,9 @@ function ensureBuiltins(): Promise<void> {
   if (!builtinsPromise) {
     builtinsPromise = (async () => {
       const [telegram, weixin, dingtalk] = await Promise.all([
-        import('@qwen-code/channel-telegram'),
-        import('@qwen-code/channel-weixin'),
-        import('@qwen-code/channel-dingtalk'),
+        import('@xtread-code/channel-telegram'),
+        import('@xtread-code/channel-weixin'),
+        import('@xtread-code/channel-dingtalk'),
       ]);
 
       for (const mod of [telegram, weixin, dingtalk]) {
