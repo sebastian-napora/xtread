@@ -65,6 +65,45 @@ describe('MessageEmitter', () => {
         content: { type: 'text', text: 'I can help you with that.' },
       });
     });
+
+    it('should remove <think> XML think tags from agent message content', async () => {
+      await emitter.emitAgentMessage(
+        '<think> Let me analyze this. </think>\n\nHere is the answer.',
+      );
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_message_chunk',
+        content: { type: 'text', text: 'Here is the answer.' },
+      });
+    });
+
+    it('should remove <think> tag without closing tag from agent message', async () => {
+      await emitter.emitAgentMessage(
+        '<think>Unclosed tag followed by real content.',
+      );
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_message_chunk',
+        content: {
+          type: 'text',
+          text: 'Unclosed tag followed by real content.',
+        },
+      });
+    });
+
+    it('should remove reasoning/analysis labels from agent message', async () => {
+      await emitter.emitAgentMessage(
+        'Reasoning: Here is my thought process.\nFinal answer here.',
+      );
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_message_chunk',
+        content: {
+          type: 'text',
+          text: 'Here is my thought process. Final answer here.',
+        },
+      });
+    });
   });
 
   describe('emitAgentThought', () => {
@@ -76,6 +115,78 @@ describe('MessageEmitter', () => {
         sessionUpdate: 'agent_thought_chunk',
         content: { type: 'text', text: 'Let me think about this...' },
       });
+    });
+
+    it('should remove <think> XML think tags from content', async () => {
+      await emitter.emitAgentThought(
+        '<think> Let me analyze this problem. Some actual reasoning here.',
+      );
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_thought_chunk',
+        content: {
+          type: 'text',
+          text: 'Let me analyze this problem. Some actual reasoning here.',
+        },
+      });
+    });
+
+    it('should remove multiline <think> XML think tags', async () => {
+      const input = '<think>\nMulti-line\nthinking\nClean content after.';
+      await emitter.emitAgentThought(input);
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_thought_chunk',
+        content: {
+          type: 'text',
+          text: 'Multi-line thinking Clean content after.',
+        },
+      });
+    });
+
+    it('should remove <think> tag even if no closing tag present', async () => {
+      const input = '<think>Some reasoning here';
+      await emitter.emitAgentThought(input);
+
+      // The <think> tag is removed, leaving the content
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_thought_chunk',
+        content: { type: 'text', text: 'Some reasoning here' },
+      });
+    });
+
+    it('should remove <think> and  tags separately when unpaired', async () => {
+      const input = '<think>\n\nReasoning: Actual thought process here.';
+      await emitter.emitAgentThought(input);
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_thought_chunk',
+        content: { type: 'text', text: 'Actual thought process here.' },
+      });
+    });
+
+    it('should remove "Reasoning:" prefix labels', async () => {
+      await emitter.emitAgentThought('Reasoning: Let me work through this...');
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_thought_chunk',
+        content: { type: 'text', text: 'Let me work through this...' },
+      });
+    });
+
+    it('should remove Chinese "思考:" prefix labels', async () => {
+      await emitter.emitAgentThought('思考: 首先分析问题');
+
+      expect(sendUpdateSpy).toHaveBeenCalledWith({
+        sessionUpdate: 'agent_thought_chunk',
+        content: { type: 'text', text: '首先分析问题' },
+      });
+    });
+
+    it('should skip emission if content becomes empty after cleaning', async () => {
+      await emitter.emitAgentThought('<think>');
+
+      expect(sendUpdateSpy).not.toHaveBeenCalled();
     });
   });
 

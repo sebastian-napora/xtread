@@ -10,6 +10,28 @@ import type { Usage } from '@agentclientprotocol/sdk';
 import { BaseEmitter } from './BaseEmitter.js';
 
 /**
+ * Removes XML thought tags and meta-labels from reasoning content.
+ * Strips patterns like `<think> ...</think>` and labels like "Reasoning:".
+ */
+function cleanReasoningContent(text: string): string {
+  return (
+    text
+      // Remove <think> ... paired tags and their contents
+      .replace(/<think>[\s\S]*?<\/think>/gi, '')
+      // Remove <think> tag and following whitespace
+      .replace(/<think>\s*/gi, '')
+      // Remove  tag
+      .replace(/\s*<\/think>/gi, '')
+      // Replace newlines followed by letters with space for better readability
+      .replace(/\n(?=[A-Za-z])/g, ' ')
+      // Remove reasoning/analysis labels that models often prefix (at start of line or after newlines, requires : delimiter)
+      .replace(/(?:^|\n)(?:Reasoning|Analysis|Thought|思考):\s*/gim, '')
+      // Clean up any resulting empty lines or trailing whitespace
+      .trim()
+  );
+}
+
+/**
  * Handles emission of text message chunks (user, agent, thought).
  *
  * This emitter is responsible for sending message content to the ACP client
@@ -71,9 +93,12 @@ export class MessageEmitter extends BaseEmitter {
     timestamp?: string | number,
   ): Promise<void> {
     const epochMs = BaseEmitter.toEpochMs(timestamp);
+    const cleanedText = cleanReasoningContent(text);
+    if (!cleanedText) return;
+
     await this.sendUpdate({
       sessionUpdate: 'agent_thought_chunk',
-      content: { type: 'text', text },
+      content: { type: 'text', text: cleanedText },
       ...(epochMs != null && { _meta: { timestamp: epochMs } }),
     });
   }
@@ -89,9 +114,10 @@ export class MessageEmitter extends BaseEmitter {
     timestamp?: string | number,
   ): Promise<void> {
     const epochMs = BaseEmitter.toEpochMs(timestamp);
+    const cleanedText = cleanReasoningContent(text);
     await this.sendUpdate({
       sessionUpdate: 'agent_message_chunk',
-      content: { type: 'text', text },
+      content: { type: 'text', text: cleanedText },
       ...(epochMs != null && { _meta: { timestamp: epochMs } }),
     });
   }
